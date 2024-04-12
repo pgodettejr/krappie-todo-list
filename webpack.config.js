@@ -1,10 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
   // devtool: 'eval', <-- In case we want to use this as a source map to find errors easier in our code later on
+  devServer: {
+    static: './dist',
+    watchFiles: [path.resolve(__dirname, 'src')],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Krappie To-Do List',
@@ -17,6 +22,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     // clean: true, <-- In case we want to clean up the dist folder later on
   },
+  // watch: true,
+
+  // Use only if we have more than 1 entry point
+  // optimization: { 
+  //   runtimeChunk: 'single',
+  // },
+
   module: {
     rules: [
       {
