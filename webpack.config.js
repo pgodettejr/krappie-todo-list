@@ -2,7 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
+  // devtool: 'eval', <-- In case we want to use this as a source map to find errors easier in our code later on
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Krappie To-Do List',
@@ -13,6 +15,7 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    // clean: true, <-- In case we want to clean up the dist folder later on
   },
   module: {
     rules: [
