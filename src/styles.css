@@ -12,3 +12,16 @@ body {
   font-family: "Futura", Arial, Helvetica, system-ui, sans-serif;
   overflow-x: hidden;
 }
+
+/* Have the header on it's own take up 100% width, THEN start the grid with the other sections */
+
+/* Grid might need to be repeat(4, 1fr) on container + grid-column: 1 on sidebar + grid-column: 2 / 4 or 5 on main instead */
+.container {
+  display: grid;
+  grid-template-columns: 0.5fr 3.5fr;
+}
+
+.sidebar {
+  grid-column: 1;
+}
+
