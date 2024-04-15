@@ -15,6 +15,7 @@ body {
 
 /* Have the header on it's own take up 100% width, THEN start the grid with the other sections */
 
+/* For .app-logo, may need to set a smaller width and height. Image is currently 512 x 512 px */
 
 .container {
   display: grid;
