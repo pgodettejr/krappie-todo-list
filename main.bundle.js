@@ -116,7 +116,27 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n\n\n// Function for playing fart sound when user interacts with app logo. Click is enabled, but how can we also enable other interactions for accessibility like 'keydown' etc?\nfunction poopSound() {\n  const poopLogo = document.querySelector(\"div[data-image=app-logo]\");\n\n  poopLogo.addEventListener('click', function(e) {\n    const audio = document.querySelector(\"audio[data-image=app-logo]\");\n    if(!audio) return; // stops function from running altogether\n    audio.currentTime = 0; // rewinds sound to the start\n    audio.play();\n  });\n};\n\npoopSound();\n\n//# sourceURL=webpack://krappie-todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n/* harmony import */ var _img_Microsoft_Fluentui_Emoji_Flat_Pile_Of_Poo_Flat_512_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./img/Microsoft-Fluentui-Emoji-Flat-Pile-Of-Poo-Flat.512.png */ \"./src/img/Microsoft-Fluentui-Emoji-Flat-Pile-Of-Poo-Flat.512.png\");\n/* harmony import */ var _sounds_quick_fart_with_reverb_mp3__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sounds/quick-fart-with-reverb.mp3 */ \"./src/sounds/quick-fart-with-reverb.mp3\");\n\n\n\n\n// Different method of importing the single files above\n\n// import Poop from './img/Microsoft-Fluentui-Emoji-Flat-Pile-Of-Poo-Flat.512.png';\n// import reverbFart from './sounds/quick-fart-with-reverb.mp3';\n\n// Function for playing fart sound when user interacts with app logo. Click is enabled, but how can we also enable other interactions for accessibility like 'keydown' etc?\n// TODO: Uncaught Runtime error of 'The element has no supported sources'. Check src link of audio element in HTML\n// TODO: Need to find a Loader for audio sounds to add to the Webpack config with CSS and image files\nfunction poopSound() {\n  const poopLogo = document.querySelector(\"div[data-image=app-logo]\");\n\n  poopLogo.addEventListener('click', function(e) {\n    const audio = document.querySelector(\"audio[data-image=app-logo]\");\n    if(!audio) return; // stops function from running altogether\n    audio.currentTime = 0; // rewinds sound to the start\n    audio.play();\n  });\n};\n\npoopSound();\n\n//# sourceURL=webpack://krappie-todo-list/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/img/Microsoft-Fluentui-Emoji-Flat-Pile-Of-Poo-Flat.512.png":
+/*!************************************************************************!*\
+  !*** ./src/img/Microsoft-Fluentui-Emoji-Flat-Pile-Of-Poo-Flat.512.png ***!
+  \************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"0545f0d57dcbb354ce6f.png\";\n\n//# sourceURL=webpack://krappie-todo-list/./src/img/Microsoft-Fluentui-Emoji-Flat-Pile-Of-Poo-Flat.512.png?");
+
+/***/ }),
+
+/***/ "./src/sounds/quick-fart-with-reverb.mp3":
+/*!***********************************************!*\
+  !*** ./src/sounds/quick-fart-with-reverb.mp3 ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"a54bfbefec96d10a38e3.mp3\";\n\n//# sourceURL=webpack://krappie-todo-list/./src/sounds/quick-fart-with-reverb.mp3?");
 
 /***/ })
 
@@ -171,6 +191,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -185,6 +217,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
