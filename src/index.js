@@ -22,6 +22,18 @@ function poopSound() {
 
   poopLogo.addEventListener('click', function(e) {
     const audio = document.querySelector("audio[data-image=app-logo]");
+
+    // Create the audio element via JS as an alternate option?
+
+    // const audio = document.createElement("audio");
+    // audio.setAttribute("data-image", "app-logo");
+
+    // Maybe this to add in the audio itself?
+    
+    // const quickFart = new Audio();
+    // quickFart.src = reverbFart;
+    // audio.setAttribute("src", "quickFart")
+
     if(!audio) return; // stops function from running altogether
     audio.currentTime = 0; // rewinds sound to the start
     audio.play();
