@@ -39,7 +39,7 @@ module.exports = {
       // REMINDER: there was an error regarding absolute file path (the internet link) and relative file path (local file in folder) before. Check TOP Discord previous comments
       // The error was a "Not Found" IIRC. Webpack would find the image in the local project and send it to dist, but image showed up broken on the actual website.
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|mp3|wav)$/i,
         type: 'asset/resource',
       },
     ],
