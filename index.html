@@ -1,1 +1,69 @@
-<script defer src="main.bundle.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krappie To-Do List</title>
+  <link
+  rel="icon"
+  href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💩</text></svg>"
+/>
+</head>
+<body>
+  <div class="content">
+    <div class="heading">
+      <div class="left-heading">
+        <button id="hamburger"></button> <!-- Research the hamburger menu button. Find implementations of it online (tutorials, websites that auto populate one, etc)-->
+        <!-- Make poop emoji clickable and play mini fart sound :). WesBos JS30 audio keyboard tutorial to fix multiclick audio errors -->
+        <div data-image="app-logo">
+          <img src="./img/Microsoft-Fluentui-Emoji-Flat-Pile-Of-Poo-Flat.512.png" alt="poop-emoji">
+        </div>
+        <h2>Krappie To-Do List</h2>
+      </div>
+      
+      <div class="center-heading">
+        <form action="" method="get" class="search-bar">
+          <section>
+            <div class="search">
+              <button type="submit" class="search-button"></button>
+              <input type="text" name="search-text" id="search-text" class="search-text" placeholder=" What do you seek?" />
+            </div>
+          </section>
+        </form>
+
+        <button class="add-task"></button>
+      </div>
+
+      <div class="right-heading">
+        <button id="settings">
+          <!-- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Pixel perfect - Flaticon</a> -->
+        </button>
+      </div>
+    </div>
+
+    <audio data-image="app-logo" src="./img/quick-fart-with-reverb.mp3"></audio>
+    
+    <div class="container">
+      <div class="sidebar"> <!-- Probably need to either change these to buttons or some other type of link as well -->
+        <div class="menu-1">
+          <ul>
+            <li>Add Task</li> <!-- <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by HAJICON - Flaticon</a> -->
+            <li>Inbox</li> <!-- <a href="https://www.flaticon.com/free-icons/email" title="email icons">Email icons created by Freepik - Flaticon</a> -->
+            <li>Today</li> <!-- <a href="https://www.flaticon.com/free-icons/star" title="star icons">Star icons created by Pixel perfect - Flaticon</a> -->
+            <li>Upcoming</li> <!-- <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Freepik - Flaticon</a> -->
+          </ul>
+        </div>
+        <div class="menu-2">
+          <h3>My Projects</h3>
+        </div>
+      </div>
+
+      <!-- May need to replace with div.main here if we can't style <main> correctly. Potentially give <main> an id tag for accessibility purposes. -->
+      <main>
+
+      </main>
+    </div>
+
+  </div>
+<script defer src="main.bundle.js"></script></body>
+</html>
