@@ -1,5 +1,20 @@
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
+import Gear from './img/settings.png';
+import Plus from './img/plus.png';
+
+// Icons for Add Task and Settings buttons in the header
+const headerTask = document.getElementById("add-task");
+const headerSettings = document.getElementById("settings");
+
+const settingsIcon = new Image();
+settingsIcon.src = Gear;
+
+const taskIcon = new Image();
+taskIcon.src = Plus;
+
+headerSettings.appendChild(settingsIcon);
+headerTask.appendChild(taskIcon);
 
 // Function for playing fart sound when user interacts with app logo. Click is enabled, but how can we also enable other interactions for accessibility like 'keydown' etc?
 function poopSound() {
