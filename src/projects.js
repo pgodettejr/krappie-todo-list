@@ -1,5 +1,9 @@
+// TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
+
 // Global DOM elements related to adding projects and tasks to the app
 const projectForm = document.getElementById("project-dialog");
+const confirmBtn = document.getElementById("confirmBtn");
+const cancelBtn = document.getElementById("cancelBtn");
 
 // List of projects and tasks within those projects
 const myProjects = [];
@@ -37,4 +41,7 @@ function projectDisplay() {
   // For in loop goes here
     // Generate all project/task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
     // e.g: bookDisplay() function in the Library project
+    // TODO: Also generate the project as a button in the sidebar?
 }
+
+export { projectForm, confirmBtn, cancelBtn, myProjects, Task, addTaskToProject, projectDisplay }
