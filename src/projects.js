@@ -17,6 +17,8 @@ class Task {
     this.priority = priority; // Research how to add colors next to each option in the Drop down menu and how to make this "required" in the <select> element
     this.description = description;
     this.task = task; // This will be an "Add Task" button so might not even need this. Button will pull up another <dialog> for tasks to save to this
+    // this.checked = false; <-- Checkbox whose default is not checked
+    // this.id = Date.now(); <-- Id number for each project assigned at "random?"
   }
 }
 

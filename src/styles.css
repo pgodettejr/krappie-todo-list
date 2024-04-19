@@ -40,12 +40,6 @@ main {
   grid-column: 2 / 5;
 }
 
-/* Blur effect for the app when the dialog form is opened (in case the below blur transition doesn't work) */
-/* ::backdrop {
-  filter: blur(1px);
-  transition: filter 1s;
-} */
-
 /* Open state of the dialog form */
 dialog[open] {
   opacity: 1;
@@ -71,26 +65,15 @@ dialog {
 dialog::backdrop {
   background-color: rgb(0 0 0 / 0%);
   transition: all 0.7s allow-discrete;
-
-  /* Alternate transition? (activate here and below) */
-  /* filter: blur(0px); */
-  /* transition: filter 1s; */
 }
 
 dialog[open]::backdrop {
-  background-color: rgb(0 0 0 / 25%);
-
-  /* Alternate transition? */
-  /* filter: blur(1px); */
-  /* transition: filter 1s; */
+  background-color: rgb(0 0 0 / 75%);
 }
 
 /* Don't nest this inside the above selector. It can't represent pseudo-elements */
 @starting-style {
   dialog[open]::backdrop {
     background-color: rgb(0 0 0 / 0%);
-
-    /* filter: blur(0px); */
-    /* transition: filter 1s; */
   }
 }

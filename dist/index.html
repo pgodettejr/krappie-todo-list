@@ -30,15 +30,12 @@
           </section>
         </form>
 
-        <button id="add-task">
-          <!-- <img class="task-button" src="img/plus.png" alt="plus-icon"> -->
-        </button>
+        <button id="add-task"></button>
       </div>
 
       <div class="right-heading">
         <button id="settings">
           <!-- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Pixel perfect - Flaticon</a> -->
-          <!-- <img class="settings-button" src="img/settings.png" alt="gear-icon"> -->
         </button>
       </div>
     </div>
@@ -56,11 +53,55 @@
         </div>
       </div>
 
+
       <!-- May need to replace with div.main here if we can't style <main> correctly. Potentially give <main> an id tag for accessibility purposes. -->
       <main>
 
       </main>
     </div>
+
+    <!-- Where do we add 'autofocus' on the dialog? How to get it to move around to different elements? Should it be added to the dialog element itself or the Close button? -->
+    <dialog id="project-dialog">
+      <form action="" method="get" id="project-form">
+        <p>Enter your project info below:</p>
+        <div class="form-col">
+          <label for="project-title">Title</label>
+          <input type="text" name="project-title" id="project-title" required />
+        </div>
+  
+        <div class="form-col">
+          <label for="due-date">Due Date</label>
+          <input type="date" name="due-date" id="due-date" required />
+        </div>
+        
+        <div class="form-col">
+          <label for="project-time">Time</label>
+          <input type="time" name="project-time" id="project-time" />
+        </div>
+  
+        <div class="form-col">
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="red" selected>Urgent</option>
+            <option value="yellow">Important</option>
+            <option value="blue">Low Priority</option>
+            <!-- <option value="green">Done</option> -->
+          </select>
+        </div>
+
+        <div class="form-col">
+          <label for="description">Description</label>
+          <textarea name="description" id="description" cols="30" rows="10">Type your project description here</textarea>
+        </div>
+
+        <!-- Add Task button section goes here that should pull up another dialog modal within this dialog modal to add the tasks related to this project -->
+
+        <div class="form-buttons">
+          <button type="button" id="confirmBtn">Confirm</button>
+          <button id="cancelBtn" formmethod="dialog">Cancel</button>
+        </div>
+      </form>
+    </dialog>
 
   </div>
 <script defer src="main.bundle.js"></script></body>
