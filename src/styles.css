@@ -68,8 +68,17 @@ body {
     margin-bottom: 20px;
   }
 
+/* TODO: Temporary styling for main. Revisit this at some point if it doesn't look right */
 main {
-  grid-column: 2 / 5;
+  /* grid-column: 2 / 5; */
+
+  background-color: #EEE;
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  gap: 15px;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
 
 #task-dialog {
