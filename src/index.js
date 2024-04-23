@@ -1,10 +1,10 @@
-import { projectForm, confirmBtn, cancelBtn, myProjects, Task, addTaskToProject, projectDisplay } from './projects.js'
+import { projectForm, confirmBtn, cancelBtn, myProjects, Task, addTask, taskDisplay } from './tasks.js'
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Gear from './img/settings.png';
 import Plus from './img/plus.png';
 
-const dialog = document.getElementById("project-dialog");
+const dialog = document.getElementById("task-dialog");
 
 // Icons for Add Task and Settings buttons in the header
 const headerTask = document.getElementById("add-task");
@@ -47,24 +47,24 @@ function poopSound() {
 
 poopSound();
 
-// Header "Add Task" button functionality that brings up a form to enter Project details
+// Header "Add Task" button functionality that brings up a form to enter Task details
 headerTask.addEventListener('click', () => {
   dialog.showModal();
 });
 
-// "Confirm" button functionality that checks that all required project sections were completed by the user, then submits it to the main area
+// "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area
 confirmBtn.addEventListener('click', (e) => {
-  let complete = document.getElementById("project-form").checkValidity();
+  let complete = document.getElementById("task-form").checkValidity();
   if(complete) {
     e.preventDefault();
-    // addTaskToProject();
-    document.getElementById("project-form").reset();
+    // addTask();
+    document.getElementById("task-form").reset();
     dialog.close();
   }
 });
 
 // "Cancel" button functionality that deletes all info that was entered, then closes the form
 cancelBtn.addEventListener('click', () => {
-  document.getElementById("project-form").reset();
+  document.getElementById("task-form").reset();
   dialog.close();
 });
