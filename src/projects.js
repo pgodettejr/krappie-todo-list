@@ -9,6 +9,7 @@ const cancelBtn = document.getElementById("cancelBtn");
 const myProjects = [];
 
 // Class for making "Task" objects & reporting the "Task" project
+// TODO: IF we're going the nested object/array route, we need to figure out how to implement it either in this Class or the addTaskToProject function below
 class Task {
   constructor(title, dueDate, time, priority, description, task) {
     this.title = title;
@@ -17,10 +18,13 @@ class Task {
     this.priority = priority; // Research how to add colors next to each option in the Drop down menu and how to make this "required" in the <select> element
     this.description = description;
     this.task = task; // This will be an "Add Task" button so might not even need this. Button will pull up another <dialog> for tasks to save to this
-    // this.checked = false; <-- Checkbox whose default is not checked
+    // this.checked = false; <-- Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details)
     // this.id = Date.now(); <-- Id number for each project assigned at "random?"
   }
 }
+// this.task = function addTask() {
+//   todo: '';
+// }
 
 // Stores new Tasks objects into the myProjects array via user input. 
 // NOTE: DOM elements may need to be changed to querySelector if they don't work
