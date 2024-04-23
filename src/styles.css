@@ -39,7 +39,7 @@ body {
   grid-template-columns: 3fr 1fr;
 }
 
-/* Keep in mind original image is  512 x 512 px */
+/* Keep in mind original image is 512 x 512 px */
 .image-button {
   height: 100px;
   width: 100px;
@@ -70,6 +70,60 @@ body {
 
 main {
   grid-column: 2 / 5;
+}
+
+#task-dialog {
+  border: none;
+  background-color: #323232;
+  padding: 40px 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 3px #c7c9cc;
+
+  width: 20%;
+  margin: 0 auto;
+  position: absolute;
+  top: 25%;
+}
+
+#task-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2rem;
+
+  & p {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  & #confirmBtn,
+    #cancelBtn {
+    background-color: #596D48;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  & #confirmBtn:hover,
+    #cancelBtn:hover {
+    background: hsl(92 20% 56%);
+  }
+}
+
+label, input {
+  display: block;
+  padding: 0;
+  margin: 10px 0;
+  width: 80%;
+  height: auto;
+}
+
+.form-buttons > button {
+  margin: 2rem;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 8px;
+  display: inline-block;
 }
 
 /* Open state of the dialog form */
