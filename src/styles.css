@@ -13,14 +13,46 @@ body {
   overflow-x: hidden;
 }
 
-/* Have the header on it's own take up 100% width, THEN start the grid with the other sections */
-
-/* For div[data-image=app-logo] > img, may need to set a smaller width and height. Image is currently 512 x 512 px */
-
-.container {
+.content {
   display: grid;
   grid-template-columns: 0.5fr 3.5fr; /* repeat(4, 1fr) instead? */
 }
+
+.content > * {
+  padding: 15px;
+  font-size: 32px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+}
+
+.heading {
+  min-width: 100vw;
+
+  grid-column: 2 / span 2;
+  grid-row: 1;
+  padding: 40px 30px 40px;
+  margin-bottom: 4px;
+  box-shadow: -3px 10px 5px #c7c9cc;
+
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+/* Keep in mind original image is  512 x 512 px */
+.image-button {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.search #search-text {
+  background-color: #EEE;
+  width: 60%;
+  border-radius: 28px;
+}
+
+/* Styling for "Add Task" and "Settings" buttons in the heading goes in this spot */
 
 .sidebar {
   grid-column: 1;

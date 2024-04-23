@@ -60,13 +60,13 @@
       </main>
     </div>
 
-    <!-- TODO: Add type="checkbox" somehow to the dialog form either here directly in HTML or dynamically in project.js -->
-    <dialog id="project-dialog">
-      <form action="" method="get" id="project-form">
-        <p>Enter your project info below:</p>
+    <!-- TODO: Add type="checkbox" somehow to the dialog form either here directly in HTML or dynamically in task.js -->
+    <dialog id="task-dialog">
+      <form action="" method="get" id="task-form">
+        <p>Enter your task info below:</p>
         <div class="form-col">
-          <label for="project-title">Title</label>
-          <input type="text" name="project-title" id="project-title" required />
+          <label for="task-title">Title</label>
+          <input type="text" name="task-title" id="task-title" required />
         </div>
   
         <div class="form-col">
@@ -75,8 +75,8 @@
         </div>
         
         <div class="form-col">
-          <label for="project-time">Time</label>
-          <input type="time" name="project-time" id="project-time" />
+          <label for="task-time">Time</label>
+          <input type="time" name="task-time" id="task-time" />
         </div>
   
         <div class="form-col">
@@ -91,10 +91,10 @@
 
         <div class="form-col">
           <label for="description">Description</label>
-          <textarea name="description" id="description" cols="30" rows="10">Type your project description here</textarea>
+          <textarea name="description" id="description" cols="30" rows="10">Type your task description here</textarea>
         </div>
 
-        <!-- Add Task button section goes here that should pull up another dialog modal within this dialog modal to add the tasks related to this project -->
+        <!-- "Add Project" section goes here that should be a drop-down menu to add the task to an already created project (menu is grayed out/uninteractable if no project) -->
 
         <div class="form-buttons">
           <button type="button" id="confirmBtn">Confirm</button>
