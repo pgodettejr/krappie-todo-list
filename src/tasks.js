@@ -47,7 +47,6 @@ function taskDisplay() {
   // For in loop goes here
     // Generate all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
     // e.g: bookDisplay() function in the Library project
-    // TODO: Also generate the project as a button in the sidebar?
 }
 
 export { taskForm, confirmTask, cancelTask, myProjects, Task, addTask, taskDisplay }

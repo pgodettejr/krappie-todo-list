@@ -22,7 +22,35 @@ function addProject() {
   if (projectTitle) {
     const newProject = new Project(projectTitle);
     arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
+    // projectDisplay(); <-- Function for dynamically adding the project to the Sidebar and main areas that needs to be written below
   }
 }
 
-export { projectForm, confirmProject, cancelProject, Project, addProject }
+function projectDisplay() {
+  for (const project in arr) {
+    // DOM for "My Projects" section of the sidebar as well as the main area
+    const projectSidebar = document.querySelector("menu-2");
+    const main = document.querySelector("main");
+
+    // Generate the sidebar button
+    const projectBtn = document.createElement("button");
+    let projectBtnText = document.createTextNode(`${arr[project].projectTitle}`);
+    projectBtn.classList.add(`${arr[project].projectTitle}`);
+
+    projectBtn.appendChild(projectBtnText);
+    projectSidebar.appendChild(projectBtn);
+
+    // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
+    // e.g: bookDisplay() function in the Library project
+
+    // "Project Name" header to be added to the main area
+    const projectName = document.createElement("h2");
+    let projectNameText = document.createTextNode(`${arr[project].projectTitle}`);
+    projectName.classList.add(`${arr[project].projectTitle}`);
+
+    projectName.appendChild(projectNameText);
+    main.appendChild(projectName);
+  }
+}
+
+export { projectForm, confirmProject, cancelProject, Project, addProject, projectDisplay }
