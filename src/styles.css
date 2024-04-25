@@ -81,7 +81,7 @@ main {
   grid-template-columns: 2fr 1fr;
 }
 
-#task-dialog {
+dialog[id$="-dialog"] {
   border: none;
   background-color: #323232;
   padding: 40px 30px 40px;

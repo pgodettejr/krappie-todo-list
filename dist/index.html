@@ -34,22 +34,22 @@
       </div>
 
       <div class="right-heading">
-        <button id="settings">
-          <!-- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Pixel perfect - Flaticon</a> -->
-        </button>
+        <button id="settings"></button>
       </div>
     </div>
     
     <div class="container">
       <div class="sidebar">
         <div class="menu-1"> 
-          <button>Add Task</button> <!-- <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by HAJICON - Flaticon</a> -->
-          <button>Inbox</button> <!-- <a href="https://www.flaticon.com/free-icons/email" title="email icons">Email icons created by Freepik - Flaticon</a> -->
-          <button>Today</button> <!-- <a href="https://www.flaticon.com/free-icons/star" title="star icons">Star icons created by Pixel perfect - Flaticon</a> -->
-          <button>Upcoming</button> <!-- <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Freepik - Flaticon</a> -->
+          <!-- TODO: Add images in the comments below as icons to the left of each button -->
+          <button id="add-task-2">Add Task</button> <!-- <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by HAJICON - Flaticon</a> -->
+          <button id="inbox-button">Inbox</button> <!-- <a href="https://www.flaticon.com/free-icons/email" title="email icons">Email icons created by Freepik - Flaticon</a> -->
+          <button id="today-button">Today</button> <!-- <a href="https://www.flaticon.com/free-icons/star" title="star icons">Star icons created by Pixel perfect - Flaticon</a> -->
+          <button id="upcoming-button">Upcoming</button> <!-- <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Freepik - Flaticon</a> -->
         </div>
         <div class="menu-2">
           <h3>My Projects</h3>
+          <button id="add-project">Add Project</button> <!-- <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by HAJICON - Flaticon</a> -->
         </div>
       </div>
 
@@ -60,7 +60,7 @@
       </main>
     </div>
 
-    <!-- TODO: Add type="checkbox" somehow to the dialog form either here directly in HTML or dynamically in task.js -->
+    <!-- TODO: Add type="checkbox" somehow to the dialog form either here directly in HTML or dynamically in tasks.js -->
     <dialog id="task-dialog">
       <form action="" method="get" id="task-form">
         <p>Enter your task info below:</p>
@@ -74,11 +74,13 @@
           <input type="date" name="due-date" id="due-date" required />
         </div>
         
+        <!-- TODO: Change this from Time to an "Add to Project" drop-down menu to select an existing Project to add the task to (menu is empty/can't interact if no project) -->
         <div class="form-col">
           <label for="task-time">Time</label>
           <input type="time" name="task-time" id="task-time" />
         </div>
   
+        <!-- TODO: Figure out how to add color labels to each option either directly here or dynamically added in the JS -->
         <div class="form-col">
           <label for="priority">Priority</label>
           <select name="priority" id="priority">
@@ -94,14 +96,39 @@
           <textarea name="description" id="description" cols="30" rows="10">Type your task description here</textarea>
         </div>
 
-        <!-- "Add Project" section goes here that should be a drop-down menu to add the task to an already created project (menu is grayed out/uninteractable if no project) -->
-
         <div class="form-buttons">
-          <button type="button" id="confirmBtn">Confirm</button>
-          <button id="cancelBtn" formmethod="dialog" autofocus >Cancel</button>
+          <button type="button" id="confirmTask">Confirm</button>
+          <button id="cancelTask" formmethod="dialog" autofocus >Cancel</button>
         </div>
       </form>
     </dialog>
+
+    <!-- TODO: Add type="checkbox" somehow to the dialog form either here directly in HTML or dynamically in projects.js -->
+    <dialog id="project-dialog">
+      <form action="" method="get" id="project-form">
+        <p>Enter the name of your project below:</p>
+        <div class="form-col">
+          <label for="project-title">Title</label>
+          <input type="text" name="project-title" id="project-title" required />
+        </div>
+
+        <div class="form-buttons">
+          <button type="button" id="confirmProject">Confirm</button>
+          <button id="cancelProject" formmethod="dialog" autofocus >Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <footer>
+      <div class="credits">
+        <p>Website powered by pgodettejr</p>
+        <!-- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Pixel perfect - Flaticon</a> -->
+        <!-- <a href="https://www.flaticon.com/free-icons/star" title="star icons">Star icons created by Pixel perfect - Flaticon</a> -->
+        <!-- <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by HAJICON - Flaticon</a> -->
+        <!-- <a href="https://www.flaticon.com/free-icons/email" title="email icons">Email icons created by Freepik - Flaticon</a> -->
+        <!-- <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Freepik - Flaticon</a> -->
+      </div>
+    </footer>
 
   </div>
 <script defer src="main.bundle.js"></script></body>
