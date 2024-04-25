@@ -94,7 +94,7 @@ main {
   top: 25%;
 }
 
-#task-form {
+form[id$="-form"] {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -105,16 +105,16 @@ main {
     font-weight: 700;
   }
 
-  & #confirmTask,
-    #cancelTask {
+  & button[id$="Task"],
+    button[id$="Project"] {
     background-color: #596D48;
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
   }
 
-  & #confirmTask:hover,
-    #cancelTask:hover {
+  & button[id$="Task"]:hover,
+    button[id$="Project"]:hover {
     background: hsl(92 20% 56%);
   }
 }

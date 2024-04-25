@@ -21,7 +21,6 @@ function addProject() {
 
   if (projectTitle) {
     const newProject = new Project(projectTitle);
-    // TODO: Logic for creating a new array/object based on user input goes here
     arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
   }
 }
