@@ -44,6 +44,7 @@ function projectDisplay() {
     // e.g: bookDisplay() function in the Library project
 
     // "Project Name" header to be added to the main area
+    // TODO: Add "Checkbox" feature to the h2 element here? Or directly in HTML?
     const projectName = document.createElement("h2");
     let projectNameText = document.createTextNode(`${arr[project].projectTitle}`);
     projectName.classList.add(`${arr[project].projectTitle}`);
