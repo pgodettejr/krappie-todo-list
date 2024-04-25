@@ -1,7 +1,7 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 
 // Global DOM elements related to adding projects and tasks to the app
-const projectForm = document.getElementById("task-dialog");
+const taskForm = document.getElementById("task-dialog");
 const confirmBtn = document.getElementById("confirmBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 
@@ -49,4 +49,4 @@ function taskDisplay() {
     // TODO: Also generate the project as a button in the sidebar?
 }
 
-export { projectForm, confirmBtn, cancelBtn, myProjects, Task, addTask, taskDisplay }
+export { taskForm, confirmBtn, cancelBtn, myProjects, Task, addTask, taskDisplay }

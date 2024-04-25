@@ -1,4 +1,4 @@
-import { projectForm, confirmBtn, cancelBtn, myProjects, Task, addTask, taskDisplay } from './tasks.js'
+import { taskForm, confirmBtn, cancelBtn, myProjects, Task, addTask, taskDisplay } from './tasks.js'
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Gear from './img/settings.png';
