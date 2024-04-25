@@ -2,8 +2,8 @@
 
 // Global DOM elements related to adding projects and tasks to the app
 const projectForm = document.getElementById("project-dialog");
-const confirmBtn = document.getElementById("confirmBtn");
-const cancelBtn = document.getElementById("cancelBtn");
+const confirmProject = document.getElementById("confirmProject");
+const cancelProject = document.getElementById("cancelProject");
 
 // TODO: Have the form create an array (ideally the name of the array is = user input). Not sure if the logic will go here or in index.js (either a function, button logic or both)
 
@@ -22,8 +22,8 @@ function addProject() {
   if (projectTitle) {
     const newProject = new Project(projectTitle);
     // TODO: Logic for creating a new array/object based on user input goes here
-    newProject.push()
+    arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
   }
 }
 
-export { projectForm, confirmBtn, cancelBtn, Project, addProject }
+export { projectForm, confirmProject, cancelProject, Project, addProject }

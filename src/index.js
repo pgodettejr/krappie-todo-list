@@ -1,5 +1,5 @@
-import { taskForm, confirmBtn, cancelBtn, myProjects, Task, addTask, taskDisplay } from './tasks.js';
-import { projectForm, confirmBtn, cancelBtn, Project, addProject } from './projects.js';
+import { taskForm, confirmTask, cancelTask, myProjects, Task, addTask, taskDisplay } from './tasks.js';
+import { projectForm, confirmProject, cancelProject, Project, addProject } from './projects.js';
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Gear from './img/settings.png';
@@ -54,7 +54,7 @@ headerTask.addEventListener('click', () => {
 });
 
 // "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area
-confirmBtn.addEventListener('click', (e) => {
+confirmTask.addEventListener('click', (e) => {
   let complete = document.getElementById("task-form").checkValidity();
   if(complete) {
     e.preventDefault();
@@ -64,8 +64,8 @@ confirmBtn.addEventListener('click', (e) => {
   }
 });
 
-// "Cancel" button functionality that deletes all info that was entered, then closes the form
-cancelBtn.addEventListener('click', () => {
+// "Cancel" button functionality that deletes all info that was entered, then closes the Task form
+cancelTask.addEventListener('click', () => {
   document.getElementById("task-form").reset();
   dialog.close();
 });

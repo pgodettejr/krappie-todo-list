@@ -2,8 +2,8 @@
 
 // Global DOM elements related to adding projects and tasks to the app
 const taskForm = document.getElementById("task-dialog");
-const confirmBtn = document.getElementById("confirmBtn");
-const cancelBtn = document.getElementById("cancelBtn");
+const confirmTask = document.getElementById("confirmTask");
+const cancelTask = document.getElementById("cancelTask");
 
 // List of projects and tasks within those projects
 const myProjects = [];
@@ -50,4 +50,4 @@ function taskDisplay() {
     // TODO: Also generate the project as a button in the sidebar?
 }
 
-export { taskForm, confirmBtn, cancelBtn, myProjects, Task, addTask, taskDisplay }
+export { taskForm, confirmTask, cancelTask, myProjects, Task, addTask, taskDisplay }

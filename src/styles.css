@@ -105,16 +105,16 @@ main {
     font-weight: 700;
   }
 
-  & #confirmBtn,
-    #cancelBtn {
+  & #confirmTask,
+    #cancelTask {
     background-color: #596D48;
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
   }
 
-  & #confirmBtn:hover,
-    #cancelBtn:hover {
+  & #confirmTask:hover,
+    #cancelTask:hover {
     background: hsl(92 20% 56%);
   }
 }
