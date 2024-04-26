@@ -14,7 +14,7 @@ class Task {
     this.taskTitle = taskTitle;
     this.dueDate = dueDate;
     this.time = time; // Changing this to "Add to Project" drop-down menu
-    this.priority = priority; // Research how to add colors next to each option in the Drop down menu and how to make this "required" in the <select> element
+    this.priority = priority; // TODO: Research how to add colors next to each option in the Drop down menu and how to make this "required" in the <select> element
     this.description = description; 
     // this.checked = false; <-- Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details)
     // this.id = Date.now(); <-- Id number for each project assigned at "random?"
@@ -45,7 +45,7 @@ function addTask() {
 
 function taskDisplay() {
   // For in loop goes here
-    // Generate all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
+    // Render all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
     // e.g: bookDisplay() function in the Library project
 }
 

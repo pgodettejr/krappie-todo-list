@@ -15,17 +15,19 @@ class Project {
 }
 
 // Stores new Tasks objects into a new array via user input
-// OPTION: Add "Priority Level" drop-down menu and "Description" text box. Would also need to add them to the Class above.
+// OPTION: Add "Priority Level" drop-down menu and "Description" text box. Would also need to add them to the Class above. Need to be rendered as well.
 function addProject() {
   let projectTitle = document.getElementById("project-title").value;
 
   if (projectTitle) {
     const newProject = new Project(projectTitle);
     arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
-    // projectDisplay(); <-- Function for dynamically adding the project to the Sidebar and main areas that needs to be written below
+    projectDisplay(); // Function for dynamically adding the project to the Sidebar and main areas
   }
 }
 
+// Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
+// e.g: bookDisplay() function in the Library project
 function projectDisplay() {
   for (const project in arr) {
     // DOM for "My Projects" section of the sidebar as well as the main area
@@ -40,17 +42,24 @@ function projectDisplay() {
     projectBtn.appendChild(projectBtnText);
     projectSidebar.appendChild(projectBtn);
 
-    // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
-    // e.g: bookDisplay() function in the Library project
-
     // "Project Name" header to be added to the main area
-    // TODO: Add "Checkbox" feature to the h2 element here? Or directly in HTML?
     const projectName = document.createElement("h2");
     let projectNameText = document.createTextNode(`${arr[project].projectTitle}`);
     projectName.classList.add(`${arr[project].projectTitle}`);
 
     projectName.appendChild(projectNameText);
     main.appendChild(projectName);
+
+    // Project button functionality
+    const projectButtons = querySelectorAll("button[class=`${arr[project].projectTitle}`]"); // We might not need the 'class=' part
+
+    projectButtons.forEach(projectBtn => {
+      projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
+        // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See "Restaurant" project as an example
+        main.replaceChildren();
+        main.appendChild(`${arr[project].projectTitle}`);
+      });
+    });
   }
 }
 
