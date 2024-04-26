@@ -17,7 +17,7 @@ class Project {
 // Stores new Tasks objects into a new array via user input
 // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Would also need to add them to the Class above. Need to be rendered as well.
 function addProject() {
-  let projectTitle = document.getElementById("project-title").value;
+  let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
 
   if (projectTitle) {
     const newProject = new Project(projectTitle);

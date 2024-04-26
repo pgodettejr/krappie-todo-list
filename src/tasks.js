@@ -14,10 +14,10 @@ class Task {
     this.taskTitle = taskTitle;
     this.dueDate = dueDate;
     this.time = time; // Changing this to "Add to Project" drop-down menu
-    this.priority = priority; // TODO: Research how to add colors next to each option in the Drop down menu and how to make this "required" in the <select> element
+    this.priority = priority; // TODO: Research how to add colors next to each option in the Drop down menu (img files that are color dots & add them as children in the HTML?)
     this.description = description; 
     // this.checked = false; <-- Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details)
-    // this.id = Date.now(); <-- Id number for each project assigned at "random?"
+    // this.id = Date.now(); <-- Id number for each project assigned at "random?". Would be used to find the task that the user clicked on to delete
   }
 }
 
@@ -29,7 +29,7 @@ class Task {
 // Stores new Tasks objects into the myProjects array via user input. 
 // NOTE: DOM elements may need to be changed to querySelector if they don't work
 function addTask() {
-  let taskTitle = document.getElementById("task-title").value;
+  let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
   let dueDate = document.getElementById("due-date").value;
   let time = document.getElementById("task-time").value;
   let priority = document.getElementById("priority").value;

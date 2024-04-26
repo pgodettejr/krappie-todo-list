@@ -94,7 +94,7 @@ confirmProject.addEventListener('click', (e) => {
   let projectComplete = document.getElementById("project-form").checkValidity();
   if (projectComplete) {
     e.preventDefault();
-    // addProject();
+    addProject();
     document.getElementById("project-form").reset();
     projectDialog.close();
   }

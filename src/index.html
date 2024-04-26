@@ -83,7 +83,7 @@
         <!-- TODO: Figure out how to add color labels to each option either directly here or dynamically added in the JS -->
         <div class="form-col">
           <label for="priority">Priority</label>
-          <select name="priority" id="priority">
+          <select name="priority" id="priority" required>
             <option value="red" selected>Urgent</option>
             <option value="yellow">Important</option>
             <option value="blue">Low Priority</option>
@@ -103,7 +103,6 @@
       </form>
     </dialog>
 
-    <!-- TODO: Add type="checkbox" somehow to the dialog form either here directly in HTML or dynamically in projects.js -->
     <dialog id="project-dialog">
       <form action="" method="get" id="project-form">
         <p>Enter the name of your project below:</p>
