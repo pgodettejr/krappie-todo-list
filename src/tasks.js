@@ -10,13 +10,13 @@ const myProjects = [];
 
 // Class for making "Task" objects & reporting the "Task" project
 class Task {
-  constructor(taskTitle, dueDate, time, priority, description) {
+  constructor(taskTitle, dueDate, time, priority, description, checked) {
     this.taskTitle = taskTitle;
     this.dueDate = dueDate;
     this.time = time; // Changing this to "Add to Project" drop-down menu
     this.priority = priority; // TODO: Research how to add colors next to each option in the Drop down menu (img files that are color dots & add them as children in the HTML?)
     this.description = description; 
-    // this.checked = false; <-- Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details)
+    this.checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details)
     // this.id = Date.now(); <-- Id number for each project assigned at "random?". Would be used to find the task that the user clicked on to delete
   }
 }
@@ -36,15 +36,25 @@ function addTask() {
   let description = document.getElementById("description").value;
   // let task = document.getElementById("").value;
 
-  if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
-    const newTask = new Task(taskTitle, dueDate, time, priority, description);
-    myProjects.push(newTask);
+  if (taskTitle && dueDate && priority && checked) { // Do we need !isNaN(dueDate) instead?
+    const newTask = new Task(taskTitle, dueDate, time, priority, description, checked);
+    myProjects.push(newTask); // Possibly change this to 'arr.push(newTask)' to reflect the task being added to the project array that was set up via user input
     // taskDisplay(); <-- Function for dynamically adding the task to the <main> area that needs to be written below
   }
 }
 
 function taskDisplay() {
-  // For in loop goes here
+  for (const task in myProjects) {
+    const taskList = document.createElement("ul");
+    taskList.classList.add("task-info");
+
+    const isChecked = task.checked ? 'done' : '';
+
+    const taskName = document.createElement("li");
+    taskName.setAttribute('data-key', task.id);
+    // taskName.classList.add(``)
+
+  }
     // Render all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
     // e.g: bookDisplay() function in the Library project
 }
