@@ -50,7 +50,8 @@ function projectDisplay() {
     projectName.appendChild(projectNameText);
     main.appendChild(projectName);
 
-    // Project button functionality
+    // Project button functionality. Could this be placed outside of this function? What about removing it from this JS entirely and placing it in index.js?
+    // TODO: Will need to render an empty <ul> either using the button logic here or somewhere else in the function (see taskDisplay function for how to implement)
     const projectButtons = querySelectorAll("button[class=`${arr[project].projectTitle}`]"); // We might not need the 'class=' part
 
     projectButtons.forEach(projectBtn => {
