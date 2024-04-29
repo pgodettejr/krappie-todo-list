@@ -21,7 +21,11 @@ function addProject() {
 
   if (projectTitle) {
     const newProject = new Project(projectTitle);
+
+    // As this line of code is currently, we get "Uncaught ReferenceError: arr is not defined"
+    // if 'let' is added before 'arr' we get "Uncaught ReferenceError: Cannot access 'arr' before initialization"
     arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
+
     projectDisplay(); // Function for dynamically adding the project to the Sidebar and main areas
   }
 }
