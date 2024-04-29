@@ -1,4 +1,5 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
+import { projectDisplay } from "./projects";
 
 // Global DOM elements related to adding projects and tasks to the app
 const taskForm = document.getElementById("task-dialog");
@@ -43,12 +44,13 @@ function addTask() {
   }
 }
 
+// Render all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
+// e.g: bookDisplay() function in the Library project
 function taskDisplay() {
   for (const task in myProjects) {
-    // TODO: Change these over to the projects area as the project will be the <ul> (that's initially empty). 
-    // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then also add it to the project <ul> in index.js)
-    const taskList = document.createElement("ul");
-    taskList.classList.add("task-info");
+    // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
+    // const taskList = document.createElement("ul");
+    // taskList.classList.add("task-info");
 
     // Checkbox rendering goes here or under taskName
     const isChecked = task.checked ? 'done' : '';
@@ -83,9 +85,18 @@ function taskDisplay() {
     taskPriority.appendChild(taskPriorityInfo);
     taskDescription.appendChild(taskDescriptionInfo);
 
+    // Places the Date, Time, Priority level and Description as children under the Task Name <li>
+    // TODO: Test to see if this looks ok in the UI. Think of a different implementation if it doesn't
+    taskName.appendChild(taskDate);
+    taskName.appendChild(taskTime);
+    taskName.appendChild(taskPriority);
+    taskName.appendChild(taskDescription);
+
+    // TODO: Figure out how to append taskName to the <ul> that was made in projects.js
+    projectName.appendChild(taskName); // Don't think it's this simple since projectName is in a separate file
+
+    // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
   }
-    // Render all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
-    // e.g: bookDisplay() function in the Library project
 }
 
 export { taskForm, confirmTask, cancelTask, myProjects, Task, addTask, taskDisplay }
