@@ -8,27 +8,27 @@ const cancelProject = document.getElementById("cancelProject");
 // TODO: Have the form create an array (ideally the name of the array is = user input). Not sure if the logic will go here or in index.js (either a function, button logic or both)
 
 // Class for making "Project" objects(?) to be created as an array or a project inside of an array
-class Project {
-  constructor(projectTitle) {
-    this.projectTitle = projectTitle;
-  }
-}
+// class Project {
+//   constructor(projectTitle) {
+//     this.projectTitle = projectTitle;
+//   }
+// }
 
 // Stores new Tasks objects into a new array via user input
 // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Would also need to add them to the Class above. Need to be rendered as well.
-function addProject() {
-  let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
+// function addProject() {
+//   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
 
-  if (projectTitle) {
-    const newProject = new Project(projectTitle);
+//   if (projectTitle) {
+//     const newProject = new Project(projectTitle);
 
-    // As this line of code is currently, we get "Uncaught ReferenceError: arr is not defined"
-    // if 'let' is added before 'arr' we get "Uncaught ReferenceError: Cannot access 'arr' before initialization"
-    arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
+//     // As this line of code is currently, we get "Uncaught ReferenceError: arr is not defined"
+//     // if 'let' is added before 'arr' we get "Uncaught ReferenceError: Cannot access 'arr' before initialization"
+//     arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
 
-    projectDisplay(); // Function for dynamically adding the project to the Sidebar and main areas
-  }
-}
+//     projectDisplay(); // Function for dynamically adding the project to the Sidebar and main areas
+//   }
+// }
 
 // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // e.g: bookDisplay() function in the Library project

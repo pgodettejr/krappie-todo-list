@@ -1,5 +1,5 @@
 import { taskForm, confirmTask, cancelTask, myProjects, Task, addTask, taskDisplay } from './tasks.js';
-import { projectForm, confirmProject, cancelProject, Project, addProject } from './projects.js';
+import { projectForm, confirmProject, cancelProject, Project, addProject, projectDisplay } from './projects.js';
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Gear from './img/settings.png';
@@ -28,6 +28,58 @@ const sidebarInboxBtn = document.getElementById("inbox-button");
 const sidebarTodayBtn = document.getElementById("today-button");
 const sidebarUpcomingBtn = document.getElementById("upcoming-button");
 const sidebarProjectBtn = document.getElementById("add-project");
+
+// Function for making "Task" objects & reporting the "Task" added to the project
+function Task (taskTitle, dueDate, priority, description) {
+  this.taskTitle = taskTitle;
+  this.dueDate = dueDate;
+  this.priority = priority;
+  this.description = description;
+
+  this.checked = false // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
+  this.id = function() { // ID number for each project assigned at "random?". Would be used to find the task that the user clicked on to delete
+    let id = Date.now();
+    return id;
+  }
+}
+
+// Function for making "Project" objects to be created as a project inside of an array
+function Project (projectTitle) {
+  this.projectTitle = projectTitle;
+  this.tasks = []; // Initializes tasks as an empty array
+
+  this.addTask = function(taskTitle, dueDate, priority, description) {
+    const newTask = new Task(taskTitle, dueDate, priority, description);
+    this.tasks.push(newTask);
+  }
+}
+
+// List of projects and tasks within those projects
+const myProjects = [];
+
+// Stores new "Project" objects into a new array via user input
+// OPTION: Add "Priority Level" drop-down menu and "Description" text box. Would also need to add them to the Class above. Need to be rendered as well.
+function addProject() {
+  let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
+
+  if (projectTitle) {
+    const newProject = new Project(projectTitle);
+    myProjects.push(newProject);
+    projectDisplay();
+  }
+}
+
+function addTaskToProject(projectIndex) {
+  let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
+  let dueDate = document.getElementById("due-date").value;
+  let priority = document.getElementById("priority").value;
+  let description = document.getElementById("description").value;
+
+  if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
+    myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description);
+    taskDisplay();
+  }
+}
 
 // Function for playing fart sound when user interacts with app logo. Click is enabled, but how can we also enable other interactions for accessibility like 'keydown' etc?
 function poopSound() {
@@ -72,7 +124,7 @@ confirmTask.addEventListener('click', (e) => {
   let taskComplete = document.getElementById("task-form").checkValidity();
   if (taskComplete) {
     e.preventDefault();
-    // addTask();
+    addTaskToProject();
     document.getElementById("task-form").reset();
     taskDialog.close();
   }
