@@ -32,12 +32,14 @@ const cancelProject = document.getElementById("cancelProject");
 //   }
 // }
 
+// TODO: When another project is added, this function adds another copy of the previous project along with the new project. Has to do with array not being cleared? Splice (see Library project)?
+
 // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // e.g: bookDisplay() function in the Library project
 function projectDisplay() {
   for (const project in myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
-    const projectSidebar = document.querySelector("menu-2");
+    const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
 
     // Generate the sidebar button
@@ -45,25 +47,24 @@ function projectDisplay() {
     let projectBtnText = document.createTextNode(`${myProjects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
 
-    projectBtn.appendChild(projectBtnText);
-    projectSidebar.appendChild(projectBtn); // TODO: Uncaught TypeError: Cannot read properties of null (reading 'appendChild')
-
-    // "Project Name" header to be added to the main area
+    // Generate "Project Name" header to be added to the main area
     const projectName = document.createElement("ul");
     let projectNameText = document.createTextNode(`${myProjects[project].projectTitle}`);
     projectName.classList.add("project-name");
 
+    projectBtn.appendChild(projectBtnText);
+    projectSidebar.appendChild(projectBtn);
     projectName.appendChild(projectNameText);
     main.appendChild(projectName);
 
     // Project button functionality. Could this be placed outside of this function? What about removing it from this JS entirely and placing it in index.js?
-    const projectButtons = querySelectorAll(".project-btn");
+    const projectButtons = document.querySelectorAll(".project-btn");
 
     projectButtons.forEach(projectBtn => {
       projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
         // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See "Restaurant" project as an example
         main.replaceChildren();
-        main.appendChild(`${myProjects[project].projectTitle}`);
+        main.appendChild(`${myProjects[project].projectTitle}`); // TODO: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
       });
     });
   }
