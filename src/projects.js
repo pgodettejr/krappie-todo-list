@@ -1,5 +1,7 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 
+import { myProjects } from './index.js';
+
 // Global DOM elements related to adding projects and tasks to the app
 const projectForm = document.getElementById("project-dialog");
 const confirmProject = document.getElementById("confirmProject");
@@ -33,38 +35,38 @@ const cancelProject = document.getElementById("cancelProject");
 // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // e.g: bookDisplay() function in the Library project
 function projectDisplay() {
-  for (const project in arr) {
+  for (const project in myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector("menu-2");
     const main = document.querySelector("main");
 
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
-    let projectBtnText = document.createTextNode(`${arr[project].projectTitle}`);
-    projectBtn.classList.add(`${arr[project].projectTitle}`);
+    let projectBtnText = document.createTextNode(`${myProjects[project].projectTitle}`);
+    projectBtn.classList.add("project-btn");
 
     projectBtn.appendChild(projectBtnText);
-    projectSidebar.appendChild(projectBtn);
+    projectSidebar.appendChild(projectBtn); // TODO: Uncaught TypeError: Cannot read properties of null (reading 'appendChild')
 
     // "Project Name" header to be added to the main area
     const projectName = document.createElement("ul");
-    let projectNameText = document.createTextNode(`${arr[project].projectTitle}`);
-    projectName.classList.add(`${arr[project].projectTitle}`);
+    let projectNameText = document.createTextNode(`${myProjects[project].projectTitle}`);
+    projectName.classList.add("project-name");
 
     projectName.appendChild(projectNameText);
     main.appendChild(projectName);
 
     // Project button functionality. Could this be placed outside of this function? What about removing it from this JS entirely and placing it in index.js?
-    const projectButtons = querySelectorAll("button[class=`${arr[project].projectTitle}`]"); // We might not need the 'class=' part
+    const projectButtons = querySelectorAll(".project-btn");
 
     projectButtons.forEach(projectBtn => {
       projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
         // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See "Restaurant" project as an example
         main.replaceChildren();
-        main.appendChild(`${arr[project].projectTitle}`);
+        main.appendChild(`${myProjects[project].projectTitle}`);
       });
     });
   }
 }
 
-export { projectForm, confirmProject, cancelProject, Project, addProject, projectDisplay }
+export { projectForm, confirmProject, cancelProject, projectDisplay }

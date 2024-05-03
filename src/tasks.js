@@ -1,6 +1,6 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 
-// import { projectDisplay } from "./projects";
+import { myProjects } from './index.js';
 
 // Global DOM elements related to adding projects and tasks to the app
 const taskForm = document.getElementById("task-dialog");
@@ -101,4 +101,4 @@ function taskDisplay() {
   }
 }
 
-export { taskForm, confirmTask, cancelTask, myProjects, Task, addTask, taskDisplay }
+export { taskForm, confirmTask, cancelTask, taskDisplay }

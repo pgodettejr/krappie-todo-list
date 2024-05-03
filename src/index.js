@@ -1,5 +1,5 @@
-import { taskForm, confirmTask, cancelTask, myProjects, Task, addTask, taskDisplay } from './tasks.js';
-import { projectForm, confirmProject, cancelProject, Project, addProject, projectDisplay } from './projects.js';
+import { taskForm, confirmTask, cancelTask, taskDisplay } from './tasks.js';
+import { projectForm, confirmProject, cancelProject, projectDisplay } from './projects.js';
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Gear from './img/settings.png';
@@ -55,7 +55,7 @@ function Project (projectTitle) {
 }
 
 // List of projects and tasks within those projects
-const myProjects = [];
+export const myProjects = [];
 
 // Stores new "Project" objects into a new array via user input
 // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Would also need to add them to the Class above. Need to be rendered as well.
