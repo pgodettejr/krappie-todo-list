@@ -1,3 +1,5 @@
+// TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
+
 import { taskForm, confirmTask, cancelTask, taskDisplay } from './tasks.js';
 import { projectForm, confirmProject, cancelProject, projectDisplay } from './projects.js';
 import './styles.css';
