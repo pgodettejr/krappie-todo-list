@@ -56,7 +56,7 @@ function projectDisplay() {
     // Currently this will only replace the current project showing in main area once. Will not show another project afterwards if you click it's related sidebar button
     projectButtons.forEach(projectBtn => {
       projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
-        // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See "Restaurant" project as an example
+        // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
         main.replaceChildren();
         main.appendChild(projectName);
       });
@@ -65,5 +65,38 @@ function projectDisplay() {
 
   myProjects.splice(-1, 1)
 }
+
+// Example of navigation bar button functionality in the Restaurant project that switches pages via tabbed browsing
+
+// const navButtons = document.querySelectorAll('.nav-button');
+
+// navButtons.forEach(button => {
+//   button.addEventListener('click', () => {
+//     let currentButton = document.querySelector('button[aria-current]');
+
+//     switch (button.textContent) {
+//       case 'Menu':
+//         currentButton.removeAttribute('aria-current');
+//         button.setAttribute('aria-current', 'page');
+//         content.replaceChildren();
+//         content.appendChild(menupage());
+//         break;
+
+//       case 'Home':
+//         currentButton.removeAttribute('aria-current');
+//         button.setAttribute('aria-current', 'page');
+//         content.replaceChildren();
+//         content.appendChild(homepage());
+//         break;
+
+//       case 'Contact':
+//         currentButton.removeAttribute('aria-current');
+//         button.setAttribute('aria-current', 'page');
+//         content.replaceChildren();
+//         content.appendChild(contactPage());
+//         break;
+//     }
+//   })
+// })
 
 export { projectForm, confirmProject, cancelProject, projectDisplay }

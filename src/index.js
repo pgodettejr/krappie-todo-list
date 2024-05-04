@@ -159,3 +159,5 @@ cancelProject.addEventListener('click', () => {
   document.getElementById("project-form").reset();
   projectDialog.close();
 });
+
+// main.appendChild(whatever the 'default' project showing all tasks will be); 
