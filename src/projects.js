@@ -57,8 +57,11 @@ function projectDisplay() {
     projectButtons.forEach(projectBtn => {
       projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
         // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
+        // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
+        const currentProject = document.querySelector("project-name");
+
         main.replaceChildren();
-        main.appendChild(projectName);
+        main.appendChild(currentProject); // Current argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
       });
     });
   }
@@ -98,5 +101,24 @@ function projectDisplay() {
 //     }
 //   })
 // })
+
+// Example from Tic Tac Toe game that places player marker in a given cell once clicked, then switches player turn. Use this to figure out what project button was clicked.
+// cells.forEach((cell, index) => {
+//   cell.addEventListener('click', () => {
+//     const row = Math.floor(index / 3);
+//     const col = index % 3;
+//     Gameboard.makeMove(row, col, gameFlow.getCurrentPlayer().marker);
+//     cell.textContent = gameFlow.getCurrentPlayer().marker; 
+//     cell.setAttribute("disabled", "");
+
+//     // Switches the player's turn on the condition that there is no game winner yet, then displays the current turn on the UI
+//     if (!Gameboard.checkWin()) {
+//       gameFlow.switchTurn();
+//       console.log(`${gameFlow.getCurrentPlayer().name()}'s turn.`); 
+//       info.replaceChildren();
+//       info.textContent = `${gameFlow.getCurrentPlayer().name()}'s turn`;
+//     } 
+//   });
+// });
 
 export { projectForm, confirmProject, cancelProject, projectDisplay }
