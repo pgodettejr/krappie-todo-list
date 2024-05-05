@@ -54,14 +54,23 @@ function projectDisplay() {
     const projectButtons = document.querySelectorAll(".project-btn");
 
     // Currently this will only replace the current project showing in main area once. Will not show another project afterwards if you click it's related sidebar button
+    // No matter what button is clicked, all previous <ul> are removed and only the last <ul> shows, even if it's not related to the button clicked.
+    // Keep in mind the <ul> remains when projectDisplay is run, but the project related to it inside the array is deleted due to splice
     projectButtons.forEach(projectBtn => {
       projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
         // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
         // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
         const currentProject = document.querySelector("project-name");
 
-        main.replaceChildren();
-        main.appendChild(currentProject); // Current argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
+        // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
+        // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
+        if (projectBtn.value === currentProject.value) { // Uncaught TypeError: Cannot read properties of null (reading 'value')
+          main.replaceChildren();
+          main.appendChild(currentProject);
+        }
+
+        // main.replaceChildren();
+        // main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
       });
     });
   }
