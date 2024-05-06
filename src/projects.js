@@ -30,15 +30,21 @@ const cancelProject = document.getElementById("cancelProject");
 // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // e.g: bookDisplay() function in the Library project
 function projectDisplay() {
-  for (const project in myProjects) {
-    // DOM for "My Projects" section of the sidebar as well as the main area
-    const projectSidebar = document.querySelector(".menu-2");
-    const main = document.querySelector("main");
+  // DOM for "My Projects" section of the sidebar as well as the main area
+  const projectSidebar = document.querySelector(".menu-2");
+  const main = document.querySelector("main");
 
+  for (const project in myProjects) {
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
     let projectBtnText = document.createTextNode(`${myProjects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
+
+    // Function to remove all currently showing content in main when a Project button is clicked. 
+    // Just goes back to adding all projects in the array like before (duplicates) if splice is removed
+    // projectBtn.addEventListener('click', () => {
+    //   main.replaceChildren(projectName);
+    // });
 
     // Generate "Project Name" header to be added to the main area
     const projectName = document.createElement("ul");
@@ -49,6 +55,37 @@ function projectDisplay() {
     projectSidebar.appendChild(projectBtn);
     projectName.appendChild(projectNameText);
     main.appendChild(projectName);
+
+    // When here under projectDisplay():
+
+    // This function will only replace the current project showing in main area once. Will not show another project afterwards if you click it's related sidebar button
+    // No matter what button is clicked, all previous <ul> are removed and only the last <ul> shows, even if it's not related to the button clicked.
+    // Keep in mind the <ul> remains when projectDisplay is run, but the project related to it inside the array is deleted due to splice
+
+    // When placed in index.js by itself, the buttons do nothing on click
+
+    // We need to figure out how to separate this code somehow. projectDisplay() is doing too much as it is
+    const projectButtons = document.querySelectorAll(".project-btn");
+
+    projectButtons.forEach(button => {
+      button.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
+        // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
+        // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
+        const currentProject = document.querySelector(".project-name");
+
+        // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
+        // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
+        if (button.textContent === currentProject.textContent) { // Uncaught TypeError: Cannot read properties of null (reading 'value')
+          main.replaceChildren(); 
+          main.appendChild(currentProject);
+        }
+
+        // Previous version of the code (no conditional if/else statement)
+
+        // main.replaceChildren();
+        // main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
+      });
+    });
   }
 
   myProjects.splice(-1, 1)

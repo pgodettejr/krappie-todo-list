@@ -17,7 +17,6 @@ const sidebarInboxBtn = document.getElementById("inbox-button");
 const sidebarTodayBtn = document.getElementById("today-button");
 const sidebarUpcomingBtn = document.getElementById("upcoming-button");
 const sidebarProjectBtn = document.getElementById("add-project");
-const projectButtons = document.querySelectorAll(".project-btn");
 
 // Icons for Add Task and Settings buttons in the header
 const headerTask = document.getElementById("add-task");
@@ -59,6 +58,24 @@ function Project (projectTitle) {
     this.tasks.push(newTask);
   }
 }
+
+// Factory version example of the "Task" constructor above
+// function task (taskTitle, dueDate, priority, description) {
+//   let checked = false;
+//   let id = Date.now();
+
+//   return { taskTitle, dueDate, priority, description, checked, id };
+// }
+
+// Factory version example of the "Project" constructor above
+// function project (projectTitle) {
+//   const tasks = [];
+//   function addTask() {
+//     tasks.push(task(taskTitle, dueDate, priority, description));
+//   }
+
+//   return { projectTitle, tasks, addTask }
+// }
 
 // Stores new "Project" objects into a new array via user input
 // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Would also need to add them to the Class above. Need to be rendered as well.
@@ -159,33 +176,6 @@ confirmProject.addEventListener('click', (e) => {
 cancelProject.addEventListener('click', () => {
   document.getElementById("project-form").reset();
   projectDialog.close();
-});
-
-// When under the projectDisplay() function in projects.js:
-
-// This function will only replace the current project showing in main area once. Will not show another project afterwards if you click it's related sidebar button
-// No matter what button is clicked, all previous <ul> are removed and only the last <ul> shows, even if it's not related to the button clicked.
-// Keep in mind the <ul> remains when projectDisplay is run, but the project related to it inside the array is deleted due to splice
-
-// When placed here in index.js by itself, the buttons do nothing on click
-projectButtons.forEach(button => {
-  button.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
-    // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
-    // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
-    const currentProject = document.querySelector("project-name");
-
-    // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
-    // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
-    if (button.value === currentProject.value) { // Uncaught TypeError: Cannot read properties of null (reading 'value')
-      main.replaceChildren();
-      main.appendChild(currentProject);
-    }
-
-    // Previous version of the code (no conditional if/else statement)
-
-    // main.replaceChildren();
-    // main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
-  });
 });
 
 // main.appendChild(whatever the 'default' project showing all tasks will be); 
