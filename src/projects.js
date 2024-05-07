@@ -30,11 +30,11 @@ const cancelProject = document.getElementById("cancelProject");
 // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // e.g: bookDisplay() function in the Library project
 function projectDisplay() {
-  // DOM for "My Projects" section of the sidebar as well as the main area
-  const projectSidebar = document.querySelector(".menu-2");
-  const main = document.querySelector("main");
-
   for (const project in myProjects) {
+    // DOM for "My Projects" section of the sidebar as well as the main area
+    const projectSidebar = document.querySelector(".menu-2");
+    const main = document.querySelector("main");
+
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
     let projectBtnText = document.createTextNode(`${myProjects[project].projectTitle}`);
@@ -64,26 +64,27 @@ function projectDisplay() {
 
     // When placed in index.js by itself, the buttons do nothing on click
 
-    // We need to figure out how to separate this code somehow. projectDisplay() is doing too much as it is
+    // TODO: We need to figure out how to separate this code somehow. projectDisplay() is doing too much as it is
     const projectButtons = document.querySelectorAll(".project-btn");
 
-    projectButtons.forEach(button => {
-      button.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
+    projectButtons.forEach(projectBtn => {
+      projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
         // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
         // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
-        const currentProject = document.querySelector(".project-name");
 
         // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
         // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
-        if (button.textContent === currentProject.textContent) { // Uncaught TypeError: Cannot read properties of null (reading 'value')
-          main.replaceChildren(); 
-          main.appendChild(currentProject);
-        }
+        main.replaceChildren();
+        main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
 
-        // Previous version of the code (no conditional if/else statement)
+        // Previous version that tried to run the code only if the text from the button and the ul matched up
 
-        // main.replaceChildren();
-        // main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
+        // const currentProject = document.querySelector(".project-name");
+
+        // if (button.textContent === currentProject.textContent) {
+        //   main.replaceChildren(); 
+        //   main.appendChild(currentProject);
+        // }
       });
     });
   }
