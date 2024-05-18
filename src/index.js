@@ -60,7 +60,7 @@ function Project (projectTitle) {
 }
 
 // Factory version example of the "Task" constructor above
-// function task (taskTitle, dueDate, priority, description) {
+// function createTask (taskTitle, dueDate, priority, description) {
 //   let checked = false;
 //   let id = Date.now();
 
@@ -68,10 +68,12 @@ function Project (projectTitle) {
 // }
 
 // Factory version example of the "Project" constructor above
-// function project (projectTitle) {
+// function createProject (projectTitle) {
 //   const tasks = [];
-//   function addTask() {
-//     tasks.push(task(taskTitle, dueDate, priority, description));
+
+//   function addTask(taskTitle, dueDate, priority, description) {
+//     const newTask = createTask(taskTitle, dueDate, priority, description);
+//     tasks.push(newTask);
 //   }
 
 //   return { projectTitle, tasks, addTask }
