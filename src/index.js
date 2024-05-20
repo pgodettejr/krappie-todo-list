@@ -12,6 +12,7 @@ const taskDialog = document.getElementById("task-dialog");
 const projectDialog = document.getElementById("project-dialog");
 
 // Sidebar buttons DOM
+// TODO: Remove Inbox and Upcoming variables
 const sidebarTaskBtn = document.getElementById("add-task-2");
 const sidebarInboxBtn = document.getElementById("inbox-button");
 const sidebarTodayBtn = document.getElementById("today-button");
@@ -19,6 +20,7 @@ const sidebarUpcomingBtn = document.getElementById("upcoming-button");
 const sidebarProjectBtn = document.getElementById("add-project");
 
 // Icons for Add Task and Settings buttons in the header
+// TODO: Remove the Settings image code
 const headerTask = document.getElementById("add-task");
 const headerSettings = document.getElementById("settings");
 
