@@ -46,13 +46,7 @@ body {
   border-radius: 50%;
 }
 
-.search #search-text {
-  background-color: #EEE;
-  width: 60%;
-  border-radius: 28px;
-}
-
-/* Styling for "Add Task" and "Settings" buttons in the heading goes in this spot */
+/* Styling for "Add Task" button in the heading goes in this spot */
 
 .sidebar {
   grid-column: 1;
