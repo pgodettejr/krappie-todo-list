@@ -1,147 +1,57 @@
-// TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
+import { renderProject } from "./krappieUI";
 
-import { myProjects } from './index.js';
 
-// Global DOM elements related to adding projects and tasks to the app
-const projectForm = document.getElementById("project-dialog");
-const confirmProject = document.getElementById("confirmProject");
-const cancelProject = document.getElementById("cancelProject");
+// List of projects and tasks within those projects
+const myProjects = [];
 
-// class Project {
-//   constructor(projectTitle) {
-//     this.projectTitle = projectTitle;
-//   }
-// }
+// Factory version example of the "Project" constructor above
+function createProject (projectTitle) {
+  const tasks = []; // Initializes tasks as an empty array
+  // const taskId = createTask.id; // Change this to appState.
+  // const taskCheck = createTask.checked;
 
-// function addProject() {
+  function addTask(taskTitle, dueDate, priority, description) {
+    const newTask = createTask(taskTitle, dueDate, priority, description);
+    tasks.push(newTask);
+  }
+
+  return { projectTitle, tasks, addTask }
+}
+
+// Old code for storing new "Project" objects into a new array via user input
+// function storeProject() {
 //   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
 
 //   if (projectTitle) {
 //     const newProject = new Project(projectTitle);
-
-//     // As this line of code is currently, we get "Uncaught ReferenceError: arr is not defined"
-//     // if 'let' is added before 'arr' we get "Uncaught ReferenceError: Cannot access 'arr' before initialization"
-//     arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
-
-//     projectDisplay(); // Function for dynamically adding the project to the Sidebar and main areas
+//     myProjects.push(newProject);
+//     renderProject();
 //   }
 // }
 
-// Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
-// e.g: bookDisplay() function in the Library project
-function projectDisplay() {
-  for (const project in myProjects) {
-    // DOM for "My Projects" section of the sidebar as well as the main area
-    const projectSidebar = document.querySelector(".menu-2");
-    const main = document.querySelector("main");
-
-    // Generate the sidebar button
-    const projectBtn = document.createElement("button");
-    let projectBtnText = document.createTextNode(`${myProjects[project].projectTitle}`);
-    projectBtn.classList.add("project-btn");
-
-    // Function to remove all currently showing content in main when a Project button is clicked. 
-    // Just goes back to adding all projects in the array like before (duplicates) if splice is removed
-    // projectBtn.addEventListener('click', () => {
-    //   main.replaceChildren(projectName);
-    // });
-
-    // Generate "Project Name" header to be added to the main area
-    const projectName = document.createElement("ul");
-    let projectNameText = document.createTextNode(`${myProjects[project].projectTitle}`);
-    projectName.classList.add("project-name");
-
-    projectBtn.appendChild(projectBtnText);
-    projectSidebar.appendChild(projectBtn);
-    projectName.appendChild(projectNameText);
-    main.appendChild(projectName);
-
-    // When here under projectDisplay():
-
-    // This function will only replace the current project showing in main area once. Will not show another project afterwards if you click it's related sidebar button
-    // No matter what button is clicked, all previous <ul> are removed and only the last <ul> shows, even if it's not related to the button clicked.
-    // Keep in mind the <ul> remains when projectDisplay is run, but the project related to it inside the array is deleted due to splice
-
-    // When placed in index.js by itself, the buttons do nothing on click
-
-    // TODO: We need to figure out how to separate this code somehow. projectDisplay() is doing too much as it is
-    const projectButtons = document.querySelectorAll(".project-btn");
-
-    projectButtons.forEach(projectBtn => {
-      projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
-        // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
-        // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
-
-        // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
-        // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
-        main.replaceChildren();
-        main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
-
-        // Previous version that tried to run the code only if the text from the button and the ul matched up
-
-        // const currentProject = document.querySelector(".project-name");
-
-        // if (button.textContent === currentProject.textContent) {
-        //   main.replaceChildren(); 
-        //   main.appendChild(currentProject);
-        // }
-      });
-    });
+// TODO: Try to refactor this into a factory function in the future? Rename it to appStatus?
+const appState = {
+  myProjects: [],
+  defaultProject: createProject("Default"),
+  // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
+  addProject: function (myProject) { // May have to change "myProject" back to "projectTitle"
+    
+    // TODO: "newProject" may have to be renamed to "myProject"?
+    // TODO: Should "projectTitle" be "myProject" as well or have no parameter at all?
+    const newProject = createProject(projectTitle); 
+    
+    this.myProjects.push(newProject); // Does "myProjects" need to be "myProject" as well?
+  },
+  findProject: function (projectTitle) {
+    return this.myProjects.find(myProject => myProject.projectTitle === projectTitle);
   }
+};
 
-  myProjects.splice(-1, 1)
-}
+// Code to test functions
 
-// Example of navigation bar button functionality in the Restaurant project that switches pages via tabbed browsing
+// TODO: Make sure we call this on page load in index.js (put it at the top after imports). Add UI render elements as needed.
+// appState.myProjects.push(appState.defaultProject);
 
-// const navButtons = document.querySelectorAll('.nav-button');
+// let project1 = appState.findProject("Default");
 
-// navButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     let currentButton = document.querySelector('button[aria-current]');
-
-//     switch (button.textContent) {
-//       case 'Menu':
-//         currentButton.removeAttribute('aria-current');
-//         button.setAttribute('aria-current', 'page');
-//         content.replaceChildren();
-//         content.appendChild(menupage());
-//         break;
-
-//       case 'Home':
-//         currentButton.removeAttribute('aria-current');
-//         button.setAttribute('aria-current', 'page');
-//         content.replaceChildren();
-//         content.appendChild(homepage());
-//         break;
-
-//       case 'Contact':
-//         currentButton.removeAttribute('aria-current');
-//         button.setAttribute('aria-current', 'page');
-//         content.replaceChildren();
-//         content.appendChild(contactPage());
-//         break;
-//     }
-//   })
-// })
-
-// Example from Tic Tac Toe game that places player marker in a given cell once clicked, then switches player turn. Use this to figure out what project button was clicked.
-// cells.forEach((cell, index) => {
-//   cell.addEventListener('click', () => {
-//     const row = Math.floor(index / 3);
-//     const col = index % 3;
-//     Gameboard.makeMove(row, col, gameFlow.getCurrentPlayer().marker);
-//     cell.textContent = gameFlow.getCurrentPlayer().marker; 
-//     cell.setAttribute("disabled", "");
-
-//     // Switches the player's turn on the condition that there is no game winner yet, then displays the current turn on the UI
-//     if (!Gameboard.checkWin()) {
-//       gameFlow.switchTurn();
-//       console.log(`${gameFlow.getCurrentPlayer().name()}'s turn.`); 
-//       info.replaceChildren();
-//       info.textContent = `${gameFlow.getCurrentPlayer().name()}'s turn`;
-//     } 
-//   });
-// });
-
-export { projectForm, confirmProject, cancelProject, projectDisplay }
+export { myProjects, createProject, storeProject, appState }

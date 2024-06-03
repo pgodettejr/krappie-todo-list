@@ -1,104 +1,132 @@
-// TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
+import { myProjects, createProject, storeProject, appState } from '/projects.js';
 
-import { myProjects } from './index.js';
+// Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)
+// OPTION: Rename this function due to misleading name? (task doesn't actually get created, simply has contents of a given task)
+function createTask (taskTitle, dueDate, priority, description) {
+  let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
 
-// Global DOM elements related to adding projects and tasks to the app
-const taskForm = document.getElementById("task-dialog");
-const confirmTask = document.getElementById("confirmTask");
-const cancelTask = document.getElementById("cancelTask");
+  // TODO: Call the .toString() method immediately next to Date.now()
+  let id = Date.now(); // / ID number for each project assigned at "random?". Would be used to find the task that the user clicked on to delete. Symbol("UID") could work as well?
 
-// List of projects and tasks within those projects
-// const myProjects = [];
+  // Alternate way of generating a random id number
+  // let id = 0;
+  // function getUniqueId(): string {
+  //   return id++ + '';
+  // }
 
-// Class for making "Task" objects & reporting the "Task" project
-// class Task {
-//   constructor(taskTitle, dueDate, time, priority, description, checked, id) {
-//     this.taskTitle = taskTitle;
-//     this.dueDate = dueDate;
-//     this.time = time; // Changing this to "Add to Project" drop-down menu
-//     this.priority = priority; // TODO: Research how to add colors next to each option in the Drop down menu (img files that are color dots & add them as children in the HTML?)
-//     this.description = description; 
-//     this.checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details)
-//     this.id = Date.now(); // Id number for each project assigned at "random?". Would be used to find the task that the user clicked on to delete
-//   }
-// }
+  return { taskTitle, dueDate, priority, description, checked, id };
+}
 
-// Code example if we had gone with the nested object option (add tasks within the Add Project dialog)
-// this.task = function addTaskToClass() {
-//   todo: '';
-// }
+// Deletes a task
+function removeTask(taskId) {
+  const taskFilter = taskss.findIndex(task => task.id === taskId);
+  const taskItem = 
+    taskFilter != -1
+      ? tasks.splice(todoFilter, 1)
+      : "ERROR: Todo not found";
+  
+  // TODO: Might not need this. Delete if so. Might be able to just return ternary operator with no addt'l variable.
+  return taskItem; 
+}
 
-// Stores new Tasks objects into the myProjects array via user input. 
-// NOTE: DOM elements may need to be changed to querySelector if they don't work
-// function addTask() {
-//   let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-//   let dueDate = document.getElementById("due-date").value;
-//   let time = document.getElementById("task-time").value;
-//   let priority = document.getElementById("priority").value;
-//   let description = document.getElementById("description").value;
-//   // let task = document.getElementById("").value;
-
-//   if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
-//     const newTask = new Task(taskTitle, dueDate, time, priority, description, checked, id);
-//     myProjects.push(newTask); // Possibly change this to 'arr.push(newTask)' to reflect the task being added to the project array that was set up via user input
-//     // taskDisplay(); <-- Function for dynamically adding the task to the <main> area that needs to be written below
-//   }
-// }
-
-// Render all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
-// Function for dynamically adding the task to the <main> area
-// e.g: bookDisplay() function in the Library project
-function taskDisplay() {
-  for (const task in myProjects) {
-    // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
-    // const taskList = document.createElement("ul");
-    // taskList.classList.add("task-info");
-
-    // Checkbox rendering goes here or under taskName
-    const isChecked = task.checked ? 'done' : '';
-
-    // Sets up the name of the task entered as a list element so the user can have a list of tasks
-    const taskName = document.createElement("li");
-    taskName.setAttribute('data-key', task.id);
-    taskName.classList.add(`todo-item ${isChecked}`);
-
-    // Renders <p> tags for the Date, Time, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
-    const taskDate = document.createElement("p");
-    const taskTime = document.createElement("p");
-    const taskPriority = document.createElement("p");
-    const taskDescription = document.createElement("p");
-
-    taskDate.classList.add("task-date");
-    taskTime.classList.add("task-time");
-    taskPriority.classList.add("task-priority");
-    taskDescription.classList.add("task-description");
-
-    // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
-    const taskNameInfo = document.createTextNode(`${myProjects[task].taskTitle}`);
-    const taskDateInfo = document.createTextNode(`${myProjects[task].dueDate}`);
-    const taskTimeInfo = document.createTextNode(`${myProjects[task].time}`);
-    const taskPriorityInfo = document.createTextNode(`${myProjects[task].priority}`);
-    const taskDescriptionInfo = document.createTextNode(`${myProjects[task].description}`);
-
-    // Attaches text info via user input to the <p> tags that were created
-    taskName.appendChild(taskNameInfo);
-    taskDate.appendChild(taskDateInfo);
-    taskTime.appendChild(taskTimeInfo);
-    taskPriority.appendChild(taskPriorityInfo);
-    taskDescription.appendChild(taskDescriptionInfo);
-
-    // Places the Date, Time, Priority level and Description as children under the Task Name <li>
-    // TODO: Test to see if this looks ok in the UI. Think of a different implementation if it doesn't
-    taskName.appendChild(taskDate);
-    taskName.appendChild(taskTime);
-    taskName.appendChild(taskPriority);
-    taskName.appendChild(taskDescription);
-
-    // TODO: Figure out how to append taskName to the <ul> that was made in projects.js
-    projectName.appendChild(taskName); // Don't think it's this simple since projectName is in a separate file
-
-    // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
+// Updates information on an existing task
+function updateTask(taskId, updates) {
+  const taskFind = tasks.find(task => task.id === taskId); // Addt'l parentheses around task?
+  if (taskFind) {
+    Object.assign(taskFind, updates); // Change target of "tasks" back to "task"?
   }
 }
 
-export { taskForm, confirmTask, cancelTask, taskDisplay }
+// Toggles "complete" status of a given task
+function toggleTaskChecked(taskId) {
+  const toggleStatus = tasks.find(task => task.id === taskId); // Addt'l parentheses around task?
+  if (toggleStatus) {
+    toggleStatus.checked = !toggleStatus.checked;
+  }
+}
+
+// Stores the "task" object to the projects array, then runs the task rendering function to display it on the UI
+function storeTask(projectIndex) {
+  let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
+  let dueDate = document.getElementById("due-date").value;
+  let priority = document.getElementById("priority").value;
+  let description = document.getElementById("description").value;
+
+  if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
+    myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description);
+    renderTask();
+  }
+}
+
+// Code to test functions
+
+// let task1 = createTodo (
+//   "Buy Groceries", 
+//   "2024-05-26", 
+//   "Important", 
+//   "Buy milk, eggs, bananas and kiwi for breakfast and smoothies"
+// );
+
+// let task2 = createTodo (
+//   "Finish To-Do List project", 
+//   "2024-06-01", 
+//   "Urgent", 
+//   "Finish the To-Do List project assignment in TOP"
+// );
+
+// appState.defaultProject.addTask(
+//   task1.todoTitle,
+//   task1.dueDate,
+//   task1.priority,
+//   task1.description
+// );
+
+// appState.defaultProject.addTask(
+//   task2.todoTitle,
+//   task2.dueDate,
+//   task2.priority,
+//   task2.description
+// );
+
+// let taskIdNumber = appState.defaultProject.tasks[0].id;
+// let taskIdNumber2 = appState.defaultProject.tasks[1].id;
+// console.log(project1);
+
+// Just having the properties by themselves threw a Ref Error of "property not defined" for each one
+// May still need the values to be empty strings or just have no values at all in the future when UI is implemented despite Ref error
+
+// const updates = {
+//   taskTitle: "Buy More Groceries",
+//   dueDate: "2024-06-01",
+//   priority: "Urgent",
+//   description: "Costco run"
+// };
+
+// appState.defaultProject.updateTask(taskIdNumber, updates);
+
+// console.log(project1);
+// console.log(appState.defaultProject.tasks);
+
+// appState.defaultProject.toggleTaskChecked(todoIdNumber2);
+// console.log(appState.defaultProject.tasks);
+
+// appState.defaultProject.removeTask(todoIdNumber);
+// console.log(appState.defaultProject.tasks);
+
+// As the second index, currently this adds the entire object to "projectTitle", then leaves the other properties as undefined
+
+// project2.addTodo(task2);
+// console.log(project2);
+
+return { createTask, removeTask, updateTask, toggleTaskChecked }
+
+// Old code for another solution I came up with on my own that updated list of todos using map (Object.assign is cleaner). Keep it (in case of emergency, break glass)
+//   function updateTodo(todoId, updates) {
+//     const revisedTodos = todos.map(todo => {
+//       if (todo.id === todoId) {
+//         return { ...todo, ...updates }
+//       }
+//     });
+    
+//     return revisedTodos;
+//   }
