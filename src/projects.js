@@ -18,10 +18,10 @@ function createProject (projectTitle) {
   return { projectTitle, tasks, addTask }
 }
 
-// TODO: Try to refactor this into a factory function in the future? Rename it to appStatus?
+// OPTION: Try to refactor this into a factory function in the future? Rename it to appStatus?
 const appState = {
   myProjects: [],
-  defaultProject: createProject("Today"), // TODO: This project should automatically render on page open (likely have to do that in krappieUI and export to index)
+  defaultProject: createProject("Today"),
   // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
   addProject: function (projectTitle) {
     
@@ -35,13 +35,6 @@ const appState = {
     return this.myProjects.find(myProject => myProject.projectTitle === projectTitle); // TODO: This still might not work. Shows "(parameter) myProject: never"
   }
 };
-
-// Code to test functions
-
-// TODO: Make sure we call this on page load in index.js (put it at the top after imports). Add UI render elements as needed.
-// appState.myProjects.push(appState.defaultProject);
-
-// let project1 = appState.findProject("Default");
 
 export { myProjects, createProject, appState }
 

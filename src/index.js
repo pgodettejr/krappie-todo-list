@@ -7,6 +7,9 @@ import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
+// TODO: Make sure we call this on page load. Add UI render elements as needed.
+// appState.myProjects.push(appState.defaultProject);
+
 // Dialog forms DOM
 const taskDialog = document.getElementById("task-dialog");
 const projectDialog = document.getElementById("project-dialog");
