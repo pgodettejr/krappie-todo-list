@@ -23,16 +23,21 @@ const appState = {
   myProjects: [],
   defaultProject: createProject("Today"),
   // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
-  addProject: function (projectTitle) {
+  // TODO: Confirmed that nothing is being added to the array when the UI confirm button is pressed after adding title text for the project.
+  addProject: function (project) { // TODO: Neither "projectTitle" nor "project" work as a parameter here (in test IDE, "project" worked)
     
     // TODO: Should "createProject" have no parameter at all?
-    const newProject = createProject(projectTitle); 
+    const newProject = createProject(project); 
     
     this.myProjects.push(newProject);
-    renderProject();
+    // TODO: This function might be the issue as to why project isn't being added to the array or rendered to the UI?
+    // This might not have to be here. Could maybe just run this under the button logic itself.
+    renderProject(); 
+    // console.table(myProjects);
   },
-  findProject: function (projectTitle) {
-    return this.myProjects.find(myProject => myProject.projectTitle === projectTitle); // TODO: This still might not work. Shows "(parameter) myProject: never"
+  // TODO: May need to rename "myProject" to "project" and even change the parameter here to the same (see TODO above under "addProject" method)
+  findProject: function (projectTitle) { 
+    return this.myProjects.find(project => project.projectTitle === projectTitle); // TODO: This still might not work. Shows "(parameter) myProject: never"
   }
 };
 
