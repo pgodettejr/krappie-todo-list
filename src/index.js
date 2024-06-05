@@ -64,7 +64,7 @@ sidebarTaskBtn.addEventListener('click', () => {
   taskDialog.showModal();
 });
 
-// "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area
+// "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area and closes the Task form
 confirmTask.addEventListener('click', (e) => {
   let taskComplete = document.getElementById("task-form").checkValidity();
   if (taskComplete) {
@@ -86,12 +86,12 @@ sidebarProjectBtn.addEventListener('click', () => {
   projectDialog.showModal();
 });
 
-// "Confirm" button functionality that checks that all required project sections were completed by the user, then submits it to the main area
+// "Confirm" button functionality that checks that all required project sections were completed by the user, then submits it to the main area and closes the Project form
 confirmProject.addEventListener('click', (e) => {
   let projectComplete = document.getElementById("project-form").checkValidity();
   if (projectComplete) {
     e.preventDefault();
-    appState.addProject(); // TODO: Test this out to see if it works (should add the project to the UI). May need to be bracket notation instead (shouldn't be the case, but...)
+    appState.addProject(); // TODO: This line is responsible for not adding the project to the UI (the rest of the button logic seems to work)
     document.getElementById("project-form").reset();
     projectDialog.close();
   }

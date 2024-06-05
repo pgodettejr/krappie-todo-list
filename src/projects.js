@@ -4,7 +4,7 @@ import { renderProject } from "./krappieUI.js";
 // List of projects and tasks within those projects
 const myProjects = [];
 
-// Factory version example of the "Project" constructor above
+// Creates "project" objects to be added to the "myProjects" array
 function createProject (projectTitle) {
   const tasks = []; // Initializes tasks as an empty array
   // const taskId = createTask.id; // Change this to appState.
@@ -21,19 +21,18 @@ function createProject (projectTitle) {
 // TODO: Try to refactor this into a factory function in the future? Rename it to appStatus?
 const appState = {
   myProjects: [],
-  defaultProject: createProject("Default"),
+  defaultProject: createProject("Today"), // TODO: This project should automatically render on page open (likely have to do that in krappieUI and export to index)
   // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
-  addProject: function (myProject) { // May have to change "myProject" back to "projectTitle"
+  addProject: function (projectTitle) {
     
-    // TODO: "newProject" may have to be renamed to "myProject"?
-    // TODO: Should "projectTitle" be "myProject" as well or have no parameter at all?
+    // TODO: Should "createProject" have no parameter at all?
     const newProject = createProject(projectTitle); 
     
-    this.myProjects.push(newProject); // Does "myProjects" need to be "myProject" as well?
+    this.myProjects.push(newProject);
     renderProject();
   },
   findProject: function (projectTitle) {
-    return this.myProjects.find(myProject => myProject.projectTitle === projectTitle);
+    return this.myProjects.find(myProject => myProject.projectTitle === projectTitle); // TODO: This still might not work. Shows "(parameter) myProject: never"
   }
 };
 
