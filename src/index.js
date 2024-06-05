@@ -1,7 +1,7 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 
 import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderProject } from './krappieUI.js';
-import { myProjects, createProject, storeProject, appState } from './projects.js';
+import { myProjects, createProject, appState } from './projects.js';
 import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';

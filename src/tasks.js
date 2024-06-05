@@ -1,4 +1,4 @@
-import { myProjects, createProject, storeProject, appState } from './projects.js';
+import { myProjects, createProject, appState } from './projects.js';
 import { projectForm, confirmProject, cancelProject, renderProject, taskForm, confirmTask, cancelTask, renderTask } from './krappieUI.js'
 
 // Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)

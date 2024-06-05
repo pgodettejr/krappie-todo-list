@@ -44,7 +44,7 @@ const appState = {
 
 // let project1 = appState.findProject("Default");
 
-export { myProjects, createProject, storeProject, appState }
+export { myProjects, createProject, appState }
 
 // Old code for storing new "Project" objects into a new array via user input
 // function storeProject() {
