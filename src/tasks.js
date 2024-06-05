@@ -1,4 +1,5 @@
-import { myProjects, createProject, storeProject, appState } from '/projects.js';
+import { myProjects, createProject, storeProject, appState } from './projects.js';
+import { projectForm, confirmProject, cancelProject, renderProject, taskForm, confirmTask, cancelTask, renderTask } from './krappieUI.js'
 
 // Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)
 // OPTION: Rename this function due to misleading name? (task doesn't actually get created, simply has contents of a given task)
@@ -53,7 +54,7 @@ function storeTask(projectIndex) {
   let description = document.getElementById("description").value;
 
   if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
-    myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description);
+    myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); // TODO: Check to make sure "addTask" works. May need to refactor to get it to work.
     renderTask();
   }
 }
@@ -118,7 +119,7 @@ function storeTask(projectIndex) {
 // project2.addTodo(task2);
 // console.log(project2);
 
-return { createTask, removeTask, updateTask, toggleTaskChecked }
+export { createTask, removeTask, updateTask, toggleTaskChecked, storeTask }
 
 // Old code for another solution I came up with on my own that updated list of todos using map (Object.assign is cleaner). Keep it (in case of emergency, break glass)
 //   function updateTodo(todoId, updates) {

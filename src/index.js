@@ -1,6 +1,8 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 
 import { taskForm, confirmTask, cancelTask, taskDisplay, projectForm, confirmProject, cancelProject, projectDisplay } from './krappieUI.js';
+import { myProjects, createProject, storeProject, appState } from './projects.js';
+import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
@@ -50,6 +52,8 @@ function poopSound() {
 
 poopSound();
 
+// TODO: Test all the buttons again to make sure they still work since we've made significant changes to the app
+
 // Header "Add Task" button functionality that brings up the form to enter Task details
 headerTask.addEventListener('click', () => {
   taskDialog.showModal();
@@ -65,7 +69,7 @@ confirmTask.addEventListener('click', (e) => {
   let taskComplete = document.getElementById("task-form").checkValidity();
   if (taskComplete) {
     e.preventDefault();
-    addTaskToProject();
+    storeTask();
     document.getElementById("task-form").reset();
     taskDialog.close();
   }
@@ -87,7 +91,7 @@ confirmProject.addEventListener('click', (e) => {
   let projectComplete = document.getElementById("project-form").checkValidity();
   if (projectComplete) {
     e.preventDefault();
-    addProject();
+    appState.addProject(); // TODO: Test this out to see if it works (should add the project to the UI)
     document.getElementById("project-form").reset();
     projectDialog.close();
   }

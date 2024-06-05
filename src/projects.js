@@ -1,4 +1,4 @@
-import { renderProject } from "./krappieUI";
+import { renderProject } from "./krappieUI.js";
 
 
 // List of projects and tasks within those projects
@@ -18,17 +18,6 @@ function createProject (projectTitle) {
   return { projectTitle, tasks, addTask }
 }
 
-// Old code for storing new "Project" objects into a new array via user input
-// function storeProject() {
-//   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-
-//   if (projectTitle) {
-//     const newProject = new Project(projectTitle);
-//     myProjects.push(newProject);
-//     renderProject();
-//   }
-// }
-
 // TODO: Try to refactor this into a factory function in the future? Rename it to appStatus?
 const appState = {
   myProjects: [],
@@ -41,6 +30,7 @@ const appState = {
     const newProject = createProject(projectTitle); 
     
     this.myProjects.push(newProject); // Does "myProjects" need to be "myProject" as well?
+    renderProject();
   },
   findProject: function (projectTitle) {
     return this.myProjects.find(myProject => myProject.projectTitle === projectTitle);
@@ -55,3 +45,14 @@ const appState = {
 // let project1 = appState.findProject("Default");
 
 export { myProjects, createProject, storeProject, appState }
+
+// Old code for storing new "Project" objects into a new array via user input
+// function storeProject() {
+//   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
+
+//   if (projectTitle) {
+//     const newProject = new Project(projectTitle);
+//     myProjects.push(newProject);
+//     renderProject();
+//   }
+// }
