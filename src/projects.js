@@ -1,4 +1,5 @@
 import * as krappieUI from "./krappieUI.js"; // Change this back to importing each export separately?
+import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 
 // Creates "project" objects to be added to the "myProjects" array
 function createProject (projectTitle) {
@@ -6,6 +7,7 @@ function createProject (projectTitle) {
   // const taskId = createTask.id; // Change this to appState.
   // const taskCheck = createTask.checked;
 
+  // TODO: This likely needs to find the right project to add the tasks array to? Link this up with the findProject method in the appState below
   function addTask(taskTitle, dueDate, priority, description) {
     const newTask = createTask(taskTitle, dueDate, priority, description);
     tasks.push(newTask);

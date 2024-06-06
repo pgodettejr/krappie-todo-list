@@ -7,7 +7,7 @@ function createTask (taskTitle, dueDate, priority, description) {
   let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
 
   // TODO: Call the .toString() method immediately next to Date.now()
-  let id = Date.now(); // / ID number for each project assigned at "random?". Would be used to find the task that the user clicked on to delete. Symbol("UID") could work as well?
+  let id = Date.now(); // ID number for each project assigned at "random?". Used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
 
   // Alternate way of generating a random id number
   // let id = 0;
@@ -54,7 +54,9 @@ function storeTask(projectIndex) {
   let description = document.getElementById("description").value;
 
   if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
-    appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); // TODO: Check to make sure "addTask" works. May need to refactor to get it to work.
+    // TODO: Check to make sure "addTask" works. May need to refactor to get it to work.
+    // appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); // Uncaught TypeError: Cannot read properties of undefined (reading 'addTask')
+    // createProject.addTask(taskTitle, dueDate, priority, description); // Uncaught TypeError: createProject.addTask is not a function
     krappieUI.renderTask();
   }
 }
