@@ -1,5 +1,5 @@
-import { myProjects, createProject, appState } from './projects.js';
-import { projectForm, confirmProject, cancelProject, renderProject, taskForm, confirmTask, cancelTask, renderTask } from './krappieUI.js'
+import { createProject, appState } from './projects.js';
+import * as krappieUI from './krappieUI.js'
 
 // Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)
 // OPTION: Rename this function due to misleading name? (task doesn't actually get created, simply has contents of a given task)
@@ -20,7 +20,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 
 // Deletes a task
 function removeTask(taskId) {
-  const taskFilter = taskss.findIndex(task => task.id === taskId);
+  const taskFilter = tasks.findIndex(task => task.id === taskId);
   const taskItem = 
     taskFilter != -1
       ? tasks.splice(todoFilter, 1)
@@ -54,8 +54,8 @@ function storeTask(projectIndex) {
   let description = document.getElementById("description").value;
 
   if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
-    myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); // TODO: Check to make sure "addTask" works. May need to refactor to get it to work.
-    renderTask();
+    appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); // TODO: Check to make sure "addTask" works. May need to refactor to get it to work.
+    krappieUI.renderTask();
   }
 }
 

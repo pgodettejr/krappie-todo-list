@@ -9,6 +9,7 @@ import Plus from './img/plus.png';
 
 // TODO: Make sure we call this on page load. Add UI render elements as needed.
 // appState.myProjects.push(appState.defaultProject);
+// main.appendChild(whatever the 'default' project showing all tasks will be); 
 
 // Dialog forms DOM
 const taskDialog = document.getElementById("task-dialog");
@@ -106,4 +107,3 @@ cancelProject.addEventListener('click', () => {
   projectDialog.close();
 });
 
-// main.appendChild(whatever the 'default' project showing all tasks will be); 

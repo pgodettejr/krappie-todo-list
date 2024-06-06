@@ -1,6 +1,6 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 
-import { myProjects } from './projects.js';
+import { appState } from './projects.js';
 
 // Global DOM elements related to adding projects and tasks to the app
 const projectForm = document.getElementById("project-dialog");
@@ -34,14 +34,14 @@ const cancelTask = document.getElementById("cancelTask");
 // e.g: bookDisplay() function in the Library project
 // TODO: Change the name of this function
 function renderProject() {
-  for (const project in myProjects) {
+  for (const project in appState.myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
 
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
-    let projectBtnText = document.createTextNode(`${myProjects[project].projectTitle}`);
+    let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
 
     // Function to remove all currently showing content in main when a Project button is clicked. 
@@ -52,7 +52,7 @@ function renderProject() {
 
     // Generate "Project Name" header to be added to the main area
     const projectName = document.createElement("ul");
-    let projectNameText = document.createTextNode(`${myProjects[project].projectTitle}`);
+    let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectName.classList.add("project-name");
 
     projectBtn.appendChild(projectBtnText);
@@ -93,7 +93,8 @@ function renderProject() {
     });
   }
 
-  myProjects.splice(-1, 1)
+  appState.myProjects.splice(-1, 1) // TODO: Try to take this out if possible. Don't want to splice out projects if we don't have to.
+  // console.log(appState.myProjects);
 }
 
 // List of projects and tasks within those projects
@@ -138,7 +139,7 @@ function renderProject() {
 // Function for dynamically adding the task to the <main> area
 // e.g: bookDisplay() function in the Library project
 function renderTask() {
-  for (const task in myProjects) {
+  for (const task in appState.myProjects) {
     // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
     // const taskList = document.createElement("ul");
     // taskList.classList.add("task-info");
@@ -163,11 +164,11 @@ function renderTask() {
     taskDescription.classList.add("task-description");
 
     // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
-    const taskNameInfo = document.createTextNode(`${myProjects[task].taskTitle}`);
-    const taskDateInfo = document.createTextNode(`${myProjects[task].dueDate}`);
-    const taskTimeInfo = document.createTextNode(`${myProjects[task].time}`);
-    const taskPriorityInfo = document.createTextNode(`${myProjects[task].priority}`);
-    const taskDescriptionInfo = document.createTextNode(`${myProjects[task].description}`);
+    const taskNameInfo = document.createTextNode(`${appState.myProjects[task].taskTitle}`);
+    const taskDateInfo = document.createTextNode(`${appState.myProjects[task].dueDate}`);
+    const taskTimeInfo = document.createTextNode(`${appState.myProjects[task].time}`);
+    const taskPriorityInfo = document.createTextNode(`${appState.myProjects[task].priority}`);
+    const taskDescriptionInfo = document.createTextNode(`${appState.myProjects[task].description}`);
 
     // Attaches text info via user input to the <p> tags that were created
     taskName.appendChild(taskNameInfo);
