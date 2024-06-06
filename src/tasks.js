@@ -54,23 +54,27 @@ function storeTask(projectIndex) {
   let description = document.getElementById("description").value;
 
   if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
-    // TODO: Check to make sure "addTask" works. May need to refactor to get it to work.
-    // appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); // Uncaught TypeError: Cannot read properties of undefined (reading 'addTask')
-    // createProject.addTask(taskTitle, dueDate, priority, description); // Uncaught TypeError: createProject.addTask is not a function
+    // TODO: Refactor "addTask" to get it to work.
+
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'addTask'). Likely due to addTask function not being part of myProjects property (it's just an array).
+    // appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); 
+
+    // Uncaught TypeError: createProject.addTask is not a function
+    // createProject.addTask(taskTitle, dueDate, priority, description); 
     krappieUI.renderTask();
   }
 }
 
 // Code to test functions
 
-// let task1 = createTodo (
+// let task1 = createTask (
 //   "Buy Groceries", 
 //   "2024-05-26", 
 //   "Important", 
 //   "Buy milk, eggs, bananas and kiwi for breakfast and smoothies"
 // );
 
-// let task2 = createTodo (
+// let task2 = createTask (
 //   "Finish To-Do List project", 
 //   "2024-06-01", 
 //   "Urgent", 
@@ -104,6 +108,8 @@ function storeTask(projectIndex) {
 //   priority: "Urgent",
 //   description: "Costco run"
 // };
+
+// Keep in mind these next tests don't work anymore due to separating the task functions from createProject for module purposes.
 
 // appState.defaultProject.updateTask(taskIdNumber, updates);
 
