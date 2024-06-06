@@ -10,29 +10,8 @@ const taskForm = document.getElementById("task-dialog");
 const confirmTask = document.getElementById("confirmTask");
 const cancelTask = document.getElementById("cancelTask");
 
-// class Project {
-//   constructor(projectTitle) {
-//     this.projectTitle = projectTitle;
-//   }
-// }
-
-// function addProject() {
-//   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-
-//   if (projectTitle) {
-//     const newProject = new Project(projectTitle);
-
-//     // As this line of code is currently, we get "Uncaught ReferenceError: arr is not defined"
-//     // if 'let' is added before 'arr' we get "Uncaught ReferenceError: Cannot access 'arr' before initialization"
-//     arr = (arr || [] ).concat(newProject) // Does "newProject" need to be enclosed in [] to prevent the values which are arrays from being flattened?
-
-//     projectDisplay(); // Function for dynamically adding the project to the Sidebar and main areas
-//   }
-// }
-
 // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // e.g: bookDisplay() function in the Library project
-// TODO: Change the name of this function
 function renderProject() {
   for (const project in appState.myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
@@ -94,11 +73,7 @@ function renderProject() {
   }
 
   appState.myProjects.splice(-1, 1) // TODO: Try to take this out if possible. Don't want to splice out projects if we don't have to.
-  // console.log(appState.myProjects);
 }
-
-// List of projects and tasks within those projects
-// const myProjects = [];
 
 // Class for making "Task" objects & reporting the "Task" project
 // class Task {
