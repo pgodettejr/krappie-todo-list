@@ -7,8 +7,10 @@ import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
-// TODO: Make sure we call this on page load. Add UI render elements as needed.
-// appState.myProjects.push(appState.defaultProject);
+appState.myProjects.push(appState.defaultProject);
+ 
+// OPTION: separate function that only renders elements for the default project
+renderProject();
 // main.appendChild(whatever the 'default' project showing all tasks will be); 
 
 // Dialog forms DOM
@@ -56,8 +58,6 @@ function poopSound() {
 
 poopSound();
 
-// TODO: Test all the buttons again to make sure they still work since we've made significant changes to the app
-
 // Header "Add Task" button functionality that brings up the form to enter Task details
 headerTask.addEventListener('click', () => {
   taskDialog.showModal();
@@ -69,6 +69,7 @@ sidebarTaskBtn.addEventListener('click', () => {
 });
 
 // "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area and closes the Task form
+// TODO: This is the only button that doesn't work for several reasons
 confirmTask.addEventListener('click', (e) => {
   let taskComplete = document.getElementById("task-form").checkValidity();
   if (taskComplete) {
@@ -95,7 +96,7 @@ confirmProject.addEventListener('click', (e) => {
   let projectComplete = document.getElementById("project-form").checkValidity();
   if (projectComplete) {
     e.preventDefault();
-    appState.addProject(); // TODO: This line is responsible for not adding the project to the UI (the rest of the button logic seems to work)
+    appState.addProject();
     document.getElementById("project-form").reset();
     projectDialog.close();
   }

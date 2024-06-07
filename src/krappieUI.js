@@ -73,9 +73,8 @@ function renderProject() {
   }
 }
 
-// Render all task info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // Function for dynamically adding the task to the <main> area
-// e.g: bookDisplay() function in the Library project
+// May need to completely redo this function. The "Library project" DOM level 1 technique might not work for this one (task is an array within an object within another array)
 function renderTask() {
   for (const task in appState.myProjects) {
     // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
@@ -88,7 +87,7 @@ function renderTask() {
     // Sets up the name of the task entered as a list element so the user can have a list of tasks
     const taskName = document.createElement("li");
     taskName.setAttribute('data-key', task.id);
-    taskName.classList.add(`todo-item ${isChecked}`);
+    taskName.classList.add(`todo-item-${isChecked}`);
 
     // Renders <p> tags for the Date, Time, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
     const taskDate = document.createElement("p");
@@ -123,6 +122,7 @@ function renderTask() {
     taskName.appendChild(taskDescription);
 
     // Places the task itself (via it's name) as a child under the Project <ul>
+    // Uncaught ReferenceError: projectName is not defined
     projectName.appendChild(taskName);
 
     // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
