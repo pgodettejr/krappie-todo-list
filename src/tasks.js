@@ -6,8 +6,8 @@ import * as krappieUI from './krappieUI.js'
 function createTask (taskTitle, dueDate, priority, description) {
   let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
 
-  // TODO: Call the .toString() method immediately next to Date.now()
-  let id = Date.now(); // ID number for each project assigned at "random?". Used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
+  // ID number for each project assigned at "random?" used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
+  let id = Date.now().toString(); 
 
   // Alternate way of generating a random id number
   // let id = 0;
@@ -32,7 +32,7 @@ function removeTask(taskId) {
 
 // Updates information on an existing task
 function updateTask(taskId, updates) {
-  const taskFind = tasks.find(task => task.id === taskId); // Addt'l parentheses around task?
+  const taskFind = tasks.find(task => task.id === taskId);
   if (taskFind) {
     Object.assign(taskFind, updates); // Change target of "tasks" back to "task"?
   }
@@ -40,7 +40,7 @@ function updateTask(taskId, updates) {
 
 // Toggles "complete" status of a given task
 function toggleTaskChecked(taskId) {
-  const toggleStatus = tasks.find(task => task.id === taskId); // Addt'l parentheses around task?
+  const toggleStatus = tasks.find(task => task.id === taskId);
   if (toggleStatus) {
     toggleStatus.checked = !toggleStatus.checked;
   }

@@ -89,35 +89,30 @@ function renderTask() {
     taskName.setAttribute('data-key', task.id);
     taskName.classList.add(`todo-item-${isChecked}`);
 
-    // Renders <p> tags for the Date, Time, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
+    // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
     const taskDate = document.createElement("p");
-    const taskTime = document.createElement("p");
     const taskPriority = document.createElement("p");
     const taskDescription = document.createElement("p");
 
     taskDate.classList.add("task-date");
-    taskTime.classList.add("task-time");
     taskPriority.classList.add("task-priority");
     taskDescription.classList.add("task-description");
 
     // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
     const taskNameInfo = document.createTextNode(`${appState.myProjects[task].taskTitle}`);
     const taskDateInfo = document.createTextNode(`${appState.myProjects[task].dueDate}`);
-    const taskTimeInfo = document.createTextNode(`${appState.myProjects[task].time}`);
     const taskPriorityInfo = document.createTextNode(`${appState.myProjects[task].priority}`);
     const taskDescriptionInfo = document.createTextNode(`${appState.myProjects[task].description}`);
 
     // Attaches text info via user input to the <p> tags that were created
     taskName.appendChild(taskNameInfo);
     taskDate.appendChild(taskDateInfo);
-    taskTime.appendChild(taskTimeInfo);
     taskPriority.appendChild(taskPriorityInfo);
     taskDescription.appendChild(taskDescriptionInfo);
 
     // Places the Date, Time, Priority level and Description as children under the Task Name <li>
     // TODO: Test to see if this looks ok in the UI. Think of a different implementation if it doesn't
     taskName.appendChild(taskDate);
-    taskName.appendChild(taskTime);
     taskName.appendChild(taskPriority);
     taskName.appendChild(taskDescription);
 
