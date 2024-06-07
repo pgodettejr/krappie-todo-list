@@ -47,7 +47,8 @@ function toggleTaskChecked(taskId) {
 }
 
 // Stores the "task" object to the projects array, then runs the task rendering function to display it on the UI
-function storeTask(projectIndex) {
+// Add "projectIndex" back in as a function parameter if needed
+function storeTask() {
   let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
   let dueDate = document.getElementById("due-date").value;
   let priority = document.getElementById("priority").value;
@@ -61,6 +62,11 @@ function storeTask(projectIndex) {
 
     // Uncaught TypeError: createProject.addTask is not a function
     // createProject.addTask(taskTitle, dueDate, priority, description); 
+
+    // My attempt at combining the previous two functions to get the task to be added to the tasks array within a project
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'createProject')
+    // appState.myProjects[0].createProject.addTask(taskTitle, dueDate, priority, description);
+    
     krappieUI.renderTask();
   }
 }
@@ -109,7 +115,7 @@ function storeTask(projectIndex) {
 //   description: "Costco run"
 // };
 
-// Keep in mind these next tests don't work anymore due to separating the task functions from createProject for module purposes.
+// Keep in mind these next tests might not work anymore due to separating the task functions from createProject for module purposes.
 
 // appState.defaultProject.updateTask(taskIdNumber, updates);
 
