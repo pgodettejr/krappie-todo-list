@@ -17,9 +17,8 @@ renderProject();
 const taskDialog = document.getElementById("task-dialog");
 const projectDialog = document.getElementById("project-dialog");
 
-// Sidebar buttons DOM. May get rid of sidebarTodayBtn (see comment in HTML regarding this element)
+// Sidebar buttons DOM
 const sidebarTaskBtn = document.getElementById("add-task-2");
-const sidebarTodayBtn = document.getElementById("today-button");
 const sidebarProjectBtn = document.getElementById("add-project");
 
 // Icon for Add Task button in the header

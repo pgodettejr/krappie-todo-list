@@ -86,7 +86,6 @@ function populateProjects() {
     const projectOption = document.createElement("option");
     let projectOptionText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
 
-    // TODO: Add some type of conditional that adds setAttribute('selected') for the option that is the default "Today" project (if else statement)
     if (appState.myProjects[project].projectTitle === "Today") {
       projectOption.setAttribute('selected', true);
     }
@@ -140,7 +139,7 @@ function renderTask() {
     taskName.appendChild(taskDescription);
 
     // Places the task itself (via it's name) as a child under the Project <ul>
-    // Uncaught ReferenceError: projectName is not defined
+    // TODO: Uncaught ReferenceError: projectName is not defined - currently preventing this function from finishing
     projectName.appendChild(taskName);
 
     // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
