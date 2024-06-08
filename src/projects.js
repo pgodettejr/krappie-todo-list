@@ -7,6 +7,13 @@ function createProject (projectTitle) {
   // const taskId = createTask.id; // Change this to appState.
   // const taskCheck = createTask.checked;
 
+  // Logic to allow projects with duplicate names to be added, but with a 1 next to the name. May need to go under addProject in appState instead, since project isn't read here.
+  // if (appState.myProjects.find((project) => project.projectTitle === projectTitle)) {
+  //   const project = appState.myProjects(projectTitle + "1");
+  // } else {
+  //   const project = appState.myProjects(projectTitle);
+  // }
+
   // TODO: This likely needs to find the right project to add the tasks array to? Link this up with the findProject method in the appState below
   function addTask(taskTitle, dueDate, priority, description) {
     const newTask = createTask(taskTitle, dueDate, priority, description);

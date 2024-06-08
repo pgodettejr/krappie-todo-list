@@ -72,6 +72,10 @@ function renderProject() {
       });
     });
   }
+
+  // Reinstate this if we can't figure out how to stop duplicates
+  // We could use the splice method in our function that deletes projects (which isn't written yet) - appState.myProjects.splice(projectIndex, 1);
+  // appState.myProjects.splice(-1, 1);
 }
 
 // Function for rendering all Project options to the "Add to Project" drop-down menu in the Task form
