@@ -61,13 +61,13 @@ poopSound();
 // Header "Add Task" button functionality that brings up the form to enter Task details
 headerTask.addEventListener('click', () => {
   taskDialog.showModal();
-  populateProjects(); // appState.myProjects may need to be a parameter here
+  populateProjects();
 });
 
 // Sidebar "Add Task" button functionality that brings up the form to enter Task details
 sidebarTaskBtn.addEventListener('click', () => {
   taskDialog.showModal();
-  populateProjects(); // appState.myProjects may need to be a parameter here
+  populateProjects();
 });
 
 // "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area and closes the Task form

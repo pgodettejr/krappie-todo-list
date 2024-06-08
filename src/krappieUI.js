@@ -12,6 +12,7 @@ const cancelTask = document.getElementById("cancelTask");
 
 // Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
 // e.g: bookDisplay() function in the Library project
+// TODO: Currently adds all projects in the array like before (duplicates) now that splice is removed
 function renderProject() {
   for (const project in appState.myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
@@ -75,26 +76,20 @@ function renderProject() {
 
 // Function for rendering all Project options to the "Add to Project" drop-down menu in the Task form
 function populateProjects() {
-  const projectSelect = document.getElementById("add-to-project");
+  for (const project in appState.myProjects) {
+    const projectSelect = document.getElementById("add-to-project");
 
-  // TODO: Change this to a "for...in" loop approach similar to the render function setups and see if it works
-  appState.myProjects.forEach(project => {
     const projectOption = document.createElement("option");
-
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'projectTitle')
-    // projectOption.textContent = `${appState.myProjects[project].projectTitle}`;
-
-    // This "works" but reads it like it does in console (shows as [Object object] in the drop-down)
-    projectOption.textContent = project;
-
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'projectTitle')
-    // let projectOptionText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    let projectOptionText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
 
     // TODO: Add some type of conditional that adds setAttribute('selected') for the option that is the default "Today" project (if else statement)
+    if (appState.myProjects[project].projectTitle === "Today") {
+      projectOption.setAttribute('selected', true);
+    }
 
-    // projectOption.appendChild(projectOptionText);
+    projectOption.appendChild(projectOptionText);
     projectSelect.appendChild(projectOption);
-  });
+  }
 }
 
 // Function for dynamically adding the task to the <main> area
