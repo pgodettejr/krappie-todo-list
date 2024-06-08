@@ -73,6 +73,30 @@ function renderProject() {
   }
 }
 
+// Function for rendering all Project options to the "Add to Project" drop-down menu in the Task form
+function populateProjects() {
+  const projectSelect = document.getElementById("add-to-project");
+
+  // TODO: Change this to a "for...in" loop approach similar to the render function setups and see if it works
+  appState.myProjects.forEach(project => {
+    const projectOption = document.createElement("option");
+
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'projectTitle')
+    // projectOption.textContent = `${appState.myProjects[project].projectTitle}`;
+
+    // This "works" but reads it like it does in console (shows as [Object object] in the drop-down)
+    projectOption.textContent = project;
+
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'projectTitle')
+    // let projectOptionText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+
+    // TODO: Add some type of conditional that adds setAttribute('selected') for the option that is the default "Today" project (if else statement)
+
+    // projectOption.appendChild(projectOptionText);
+    projectSelect.appendChild(projectOption);
+  });
+}
+
 // Function for dynamically adding the task to the <main> area
 // May need to completely redo this function. The "Library project" DOM level 1 technique might not work for this one (task is an array within an object within another array)
 function renderTask() {
@@ -176,4 +200,4 @@ function renderTask() {
 //   });
 // });
 
-export { projectForm, confirmProject, cancelProject, renderProject, taskForm, confirmTask, cancelTask, renderTask }
+export { projectForm, confirmProject, cancelProject, renderProject, populateProjects, taskForm, confirmTask, cancelTask, renderTask }

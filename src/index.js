@@ -1,6 +1,6 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 
-import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderProject } from './krappieUI.js';
+import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderProject, populateProjects } from './krappieUI.js';
 import { myProjects, createProject, appState } from './projects.js';
 import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
@@ -17,7 +17,7 @@ renderProject();
 const taskDialog = document.getElementById("task-dialog");
 const projectDialog = document.getElementById("project-dialog");
 
-// Sidebar buttons DOM
+// Sidebar buttons DOM. May get rid of sidebarTodayBtn (see comment in HTML regarding this element)
 const sidebarTaskBtn = document.getElementById("add-task-2");
 const sidebarTodayBtn = document.getElementById("today-button");
 const sidebarProjectBtn = document.getElementById("add-project");
@@ -61,11 +61,13 @@ poopSound();
 // Header "Add Task" button functionality that brings up the form to enter Task details
 headerTask.addEventListener('click', () => {
   taskDialog.showModal();
+  populateProjects(); // appState.myProjects may need to be a parameter here
 });
 
 // Sidebar "Add Task" button functionality that brings up the form to enter Task details
 sidebarTaskBtn.addEventListener('click', () => {
   taskDialog.showModal();
+  populateProjects(); // appState.myProjects may need to be a parameter here
 });
 
 // "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area and closes the Task form

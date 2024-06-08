@@ -27,7 +27,7 @@
     <div class="container">
       <div class="sidebar">
         <div class="menu-1"> 
-          <!-- TODO: Add images in the comments below as icons to the left of each button -->
+          <!-- TODO: Add images in the comments below as icons to the left of each button. Possibly delete this Today button as Today project currently renders on its own -->
           <button id="add-task-2">Add Task</button> <!-- <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by HAJICON - Flaticon</a> -->
           <button id="today-button">Today</button> <!-- <a href="https://www.flaticon.com/free-icons/star" title="star icons">Star icons created by Pixel perfect - Flaticon</a> -->
         </div>
@@ -58,10 +58,9 @@
           <input type="date" name="due-date" id="due-date" required />
         </div>
         
-        <!-- TODO: Change this from Time to an "Add to Project" drop-down menu to select an existing Project to add the task to (menu is empty/can't interact if no project) -->
         <div class="form-col">
-          <label for="task-time">Time</label>
-          <input type="time" name="task-time" id="task-time" />
+          <label for="add-to-project">Add To Project</label>
+          <select name="add-to-project" id="add-to-project" required></select>
         </div>
   
         <!-- TODO: Figure out how to add color labels to each option either directly here or dynamically added in the JS -->
