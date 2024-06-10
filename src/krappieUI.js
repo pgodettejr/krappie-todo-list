@@ -15,65 +15,67 @@ const cancelTask = document.getElementById("cancelTask");
 // TODO: Currently adds all projects in the array like before (duplicates) now that splice is removed
 function renderProject() {
   for (const project in appState.myProjects) {
-    // This conditional doesn't change anything (still duplicates previous projects). If it's '===' then no project generates at all.
-    if (project !== appState.myProjects[project].projectTitle) {
-      // DOM for "My Projects" section of the sidebar as well as the main area
-      const projectSidebar = document.querySelector(".menu-2");
-      const main = document.querySelector("main");
+    // This conditional doesn't change anything (still duplicates previous projects) & doesn't add default project on page load at all
+    // if (project !== appState.myProjects[project].projectTitle) {
+    //   continue;
+    // }
 
-      // Generate the sidebar button
-      const projectBtn = document.createElement("button");
-      let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
-      projectBtn.classList.add("project-btn");
+    // DOM for "My Projects" section of the sidebar as well as the main area
+    const projectSidebar = document.querySelector(".menu-2");
+    const main = document.querySelector("main");
 
-      // Function to remove all currently showing content in main when a Project button is clicked. 
-      // Just goes back to adding all projects in the array like before (duplicates) if splice is removed
-      // projectBtn.addEventListener('click', () => {
-      //   main.replaceChildren(projectName);
-      // });
+    // Generate the sidebar button
+    const projectBtn = document.createElement("button");
+    let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    projectBtn.classList.add("project-btn");
 
-      // Generate "Project Name" header to be added to the main area
-      const projectName = document.createElement("ul");
-      let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
-      projectName.classList.add("project-name");
+    // Function to remove all currently showing content in main when a Project button is clicked. 
+    // Just goes back to adding all projects in the array like before (duplicates) if splice is removed
+    // projectBtn.addEventListener('click', () => {
+    //   main.replaceChildren(projectName);
+    // });
 
-      projectBtn.appendChild(projectBtnText);
-      projectSidebar.appendChild(projectBtn);
-      projectName.appendChild(projectNameText);
-      main.appendChild(projectName);
+    // Generate "Project Name" header to be added to the main area
+    const projectName = document.createElement("ul");
+    let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    projectName.classList.add("project-name");
 
-      // When here under renderProject():
+    projectBtn.appendChild(projectBtnText);
+    projectSidebar.appendChild(projectBtn);
+    projectName.appendChild(projectNameText);
+    main.appendChild(projectName);
 
-      // This function will only replace the current project showing in main area once. Will not show another project afterwards if you click it's related sidebar button
-      // No matter what button is clicked, all previous <ul> are removed and only the last <ul> shows, even if it's not related to the button clicked.
-      // Keep in mind the <ul> remains when renderProject is run, but the project related to it inside the array is deleted due to splice
+    // When here under renderProject():
 
-      // When placed in index.js by itself, the buttons do nothing on click
+    // This function will only replace the current project showing in main area once. Will not show another project afterwards if you click it's related sidebar button
+    // No matter what button is clicked, all previous <ul> are removed and only the last <ul> shows, even if it's not related to the button clicked.
+    // Keep in mind the <ul> remains when renderProject is run, but the project related to it inside the array is deleted due to splice
 
-      // TODO: We need to figure out how to separate this code somehow. renderProject() is doing too much as it is
-      const projectButtons = document.querySelectorAll(".project-btn");
+    // When placed in index.js by itself, the buttons do nothing on click
 
-      projectButtons.forEach(projectBtn => {
-        projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
-          // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
-          // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
+    // TODO: We need to figure out how to separate this code somehow. renderProject() is doing too much as it is
+    const projectButtons = document.querySelectorAll(".project-btn");
 
-          // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
-          // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
-          main.replaceChildren();
-          main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
+    projectButtons.forEach(projectBtn => {
+      projectBtn.addEventListener('click', () => { // Took the "e" out of the parentheses. Will put it back in if needed later on.
+        // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
+        // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
 
-          // Previous version that tried to run the code only if the text from the button and the ul matched up
+        // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
+        // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
+        main.replaceChildren();
+        main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
 
-          // const currentProject = document.querySelector(".project-name");
+        // Previous version that tried to run the code only if the text from the button and the ul matched up
 
-          // if (button.textContent === currentProject.textContent) {
-          //   main.replaceChildren(); 
-          //   main.appendChild(currentProject);
-          // }
-        });
+        // const currentProject = document.querySelector(".project-name");
+
+        // if (button.textContent === currentProject.textContent) {
+        //   main.replaceChildren(); 
+        //   main.appendChild(currentProject);
+        // }
       });
-    }
+    });
   }
 
   // Reinstate this if we can't figure out how to stop duplicates
