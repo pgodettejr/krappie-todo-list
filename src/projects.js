@@ -42,6 +42,16 @@ const appState = {
   // TODO: This still might not work. Shows "(parameter) project: never". May need to rename "project" to something else in the find method.
   findProject: function (projectTitle) { 
     return this.myProjects.find(project => project.projectTitle === projectTitle); 
+  },
+  // Function to find and update the name of the Project in the myProjects array. Placeholder for now.
+  updateProject: function (projectTitle, updates) {
+    this.findProject();
+    Object.assign(projectTitle, updates);
+  },
+  // TODO: This may or may not work. If it works, it should delete the project from the array then re-render the main area. This is more of a placeholder than anything.
+  deleteProject: function (projectIndex) { // May not need a parameter at all
+    this.myProjects.splice(projectIndex, 1);
+    krappieUI.renderProject();
   }
 };
 
