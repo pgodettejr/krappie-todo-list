@@ -1,5 +1,11 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 
+// TODO: We either need a function to switch from one project to another (similar to Restaurant page) or let user see all projects but only <main> scrolls down in the CSS
+// Look at Alex Younger's ScreenController function from his Connect 4 article as a template for how to switch from one project to another (using function that 'get' them)
+// updateScreen() in particular
+
+// TODO: Setting up localStorage functions may make the whole rendering process easier as far as what projects/tasks to get when a user clicks on one
+
 import { appState } from './projects.js';
 
 // Global DOM elements related to adding projects and tasks to the app
@@ -19,6 +25,21 @@ function renderProject() {
     // if (project !== appState.myProjects[project].projectTitle) {
     //   continue;
     // }
+
+
+    // Possible solution to keep the 'for...in' loop but stop duplicate projects from being rendered (Alex Younger Connect 4 solution)
+    // const availableProjects = appState.myProjects.filter(project => project.projectTitle === projectTitle).map(project => project.projectTitle)
+
+    // if (!availableProjects.length) return;
+
+
+    // Another possible solution to keep the 'for...in' loop (copy paste what I had in addProject method for appState)
+    // let projectTitle = document.getElementById("project-title").value;
+    // if (projectTitle) { code below goes inside these brackets }
+
+
+    // Only other solution to keep this loop would be to implement some way to 'find' the project that was entered from 'appState.addProject' and only render that one
+
 
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
