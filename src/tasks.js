@@ -48,7 +48,10 @@ function toggleTaskChecked(taskId) {
 
 // Stores the "task" object to the projects array, then runs the task rendering function to display it on the UI
 // Add "projectIndex" back in as a function parameter if needed
+// TODO: This likely needs to find the right project to add the tasks array to? Link this up with the getProject method in the appStatus function in projects.js?
 function storeTask() {
+  const tasks = createProject.tasks;
+
   let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
   let dueDate = document.getElementById("due-date").value;
   let priority = document.getElementById("priority").value;
@@ -66,7 +69,9 @@ function storeTask() {
     // My attempt at combining the previous two functions to get the task to be added to the tasks array within a project
     // Uncaught TypeError: Cannot read properties of undefined (reading 'createProject')
     // appState.myProjects[0].createProject.addTask(taskTitle, dueDate, priority, description);
-    
+
+    const newTask = createTask(taskTitle, dueDate, priority, description);
+    tasks.push(newTask);
     krappieUI.renderTask();
   }
 }
