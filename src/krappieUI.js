@@ -27,13 +27,14 @@ function renderProject() {
     // }
 
 
-    // Possible solution to keep the 'for...in' loop but stop duplicate projects from being rendered (Alex Younger Connect 4 solution)
+    // This solution doesn't work. Default project no longer shows up on page load.
+    // let projectTitle = document.getElementById("project-title").value;
     // const availableProjects = appState.myProjects.filter(project => project.projectTitle === projectTitle).map(project => project.projectTitle)
 
     // if (!availableProjects.length) return;
 
 
-    // Another possible solution to keep the 'for...in' loop (copy paste what I had in addProject method for appState)
+    // This solution doesn't work either. Default project also stops rendering on page load.
     // let projectTitle = document.getElementById("project-title").value;
     // if (projectTitle) { code below goes inside these brackets }
 

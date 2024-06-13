@@ -9,7 +9,8 @@ import Plus from './img/plus.png';
 
 appState.myProjects.push(appState.defaultProject);
  
-// OPTION: separate function that only renders elements for the default project
+// OPTION: separate function that only renders elements for the default project 
+// May have to go with this option - default never renders when trying other solutions to stop duplicating projects when new ones are made
 renderProject();
 // main.appendChild(whatever the 'default' project showing all tasks will be); 
 
