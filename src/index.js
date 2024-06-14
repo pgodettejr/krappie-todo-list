@@ -2,7 +2,7 @@
 
 import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderProject, populateProjects } from './krappieUI.js';
 import { appState, storeProject, updateProject, deleteProject, toggleProjectChecked } from './projects.js';
-import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
+import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';

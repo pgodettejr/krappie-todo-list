@@ -7,6 +7,7 @@
 // TODO: Setting up localStorage functions may make the whole rendering process easier as far as what projects/tasks to get when a user clicks on one
 
 import { appState } from './projects.js';
+import { tasks } from './tasks.js';
 
 // Global DOM elements related to adding projects and tasks to the app
 const projectForm = document.getElementById("project-dialog");
@@ -20,7 +21,7 @@ const cancelTask = document.getElementById("cancelTask");
 // e.g: bookDisplay() function in the Library project
 // TODO: Currently adds all projects in the array like before (duplicates) now that splice is removed
 function renderProject() {
-  for (const project in appState.myProjects) {
+  for (const project in appState.myProjects) { // May need to go back to "for (const project in appState.myProjects)"
     // This conditional doesn't change anything (still duplicates previous projects) & doesn't add default project on page load at all
     // if (project !== appState.myProjects[project].projectTitle) {
     //   continue;
@@ -124,8 +125,9 @@ function populateProjects() {
 
 // Function for dynamically adding the task to the <main> area
 // May need to completely redo this function. The "Library project" DOM level 1 technique might not work for this one (task is an array within an object within another array)
+// TODO: Add rendering from the "Add to Project" drop-down section regardless (the task should go under the project selected in the UI)
 function renderTask() {
-  for (const task in appState.myProjects) {
+  for (const task in tasks) {
     // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
     // const taskList = document.createElement("ul");
     // taskList.classList.add("task-info");
@@ -135,7 +137,7 @@ function renderTask() {
     const isChecked = task.checked ? 'done' : '';
 
     // DOM for existing "Project Name" header (that was previously rendered)
-    const projectName = document.querySelector("ul");
+    const projectNameHeader = document.querySelector("ul");
 
     // Sets up the name of the task entered as a list element so the user can have a list of tasks
     // TODO: "data-key" is showing as undefined, likely due to 'task.id' being incorrect in showing the ID number for the task created
@@ -173,7 +175,7 @@ function renderTask() {
 
     // Places the task itself (via it's name) as a child under the Project <ul>
     // TODO: It works currently. It's just showing undefined on everything is all (not due to this code itself)
-    projectName.appendChild(taskName);
+    projectNameHeader.appendChild(taskName);
 
     // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
   }
