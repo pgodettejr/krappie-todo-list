@@ -1,6 +1,21 @@
 import * as krappieUI from "./krappieUI.js"; // Change this back to importing each export separately?
 import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 
+function appState () {
+  // List of projects and tasks within those projects
+  let myProjects = [];
+
+  const defaultProject = () => createProject("Today");
+
+  // Gets the entire array of projects
+  const getProjectList = () => myProjects;
+
+  // TODO: This still might not work. Shows "(parameter) project: never". May need to rename "project" to something else in the find method.
+  const getProject = (projectTitle) => myProjects.find(project => project.projectTitle === projectTitle);
+
+  return { myProjects, defaultProject, getProjectList, getProject };
+}
+
 // Creates "project" objects to be added to the "myProjects" array
 function createProject (projectTitle) {
   const tasks = []; // Initializes tasks as an empty array
@@ -31,7 +46,7 @@ function createProject (projectTitle) {
 // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
 function storeProject () {
   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-  let projects = appState.myProjects;
+  let projects = appState.getProjectList();
 
   if (projectTitle) {
     const newProject = createProject(projectTitle); 
@@ -51,7 +66,7 @@ function updateProject (projectTitle, updates) {
 
 // TODO: This may or may not work. If it works, it should delete the project from the array then re-render the main area. This is more of a placeholder than anything.
 function deleteProject (projectIndex) { // May not need a function parameter at all
-  let projects = appState.myProjects;
+  let projects = appState.getProjectList(); // May need to be "const findProject = appState.getProject();" instead
 
   if (projects) {
     projects.splice(projectIndex, 1);
@@ -62,7 +77,7 @@ function deleteProject (projectIndex) { // May not need a function parameter at 
 
 // Toggles "complete" status of a given project
 function toggleProjectChecked (projectTitle) {
-  const projects = appState.myProjects;
+  let projects = appState.getProjectsList();
   const projectStatus = projects.find(project => project.projectTitle === projectTitle)
 
   if (projectStatus) {
@@ -70,7 +85,6 @@ function toggleProjectChecked (projectTitle) {
   }
 }
 
-// OPTION: Try to refactor this into a factory function in the future? Rename it to appStatus?
 // const appState = {
 //   myProjects: [], // List of projects and tasks within those projects
 //   defaultProject: createProject("Today"),
@@ -102,21 +116,9 @@ function toggleProjectChecked (projectTitle) {
 //   }
 // };
 
-function appState () {
-  // List of projects and tasks within those projects
-  let myProjects = [];
-
-  const defaultProject = () => createProject("Today");
-
-  // TODO: This still might not work. Shows "(parameter) project: never". May need to rename "project" to something else in the find method.
-  const getProject = (projectTitle) => myProjects.find(project => project.projectTitle === projectTitle);
-
-  return { myProjects, defaultProject, getProject };
-}
-
 // export { createProject, appState }
 
-export { createProject, storeProject, updateProject, deleteProject, toggleProjectChecked, appState }
+export { appState, createProject, storeProject, updateProject, deleteProject, toggleProjectChecked }
 
 // Old code for storing new "Project" objects into a new array via user input. In case of emergency, use this.
 // function storeProject() {

@@ -1,6 +1,8 @@
 import { createProject, appState } from './projects.js';
 import * as krappieUI from './krappieUI.js'
 
+let tasks = createProject.tasks;
+
 // Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)
 // OPTION: Rename this function due to misleading name? (task doesn't actually get created, simply has contents of a given task)
 function createTask (taskTitle, dueDate, priority, description) {
@@ -50,7 +52,7 @@ function toggleTaskChecked(taskId) {
 // Add "projectIndex" back in as a function parameter if needed
 // TODO: This likely needs to find the right project to add the tasks array to? Link this up with the getProject method in the appStatus function in projects.js?
 function storeTask() {
-  const tasks = createProject.tasks;
+  // const tasks = createProject.tasks;
 
   let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
   let dueDate = document.getElementById("due-date").value;
