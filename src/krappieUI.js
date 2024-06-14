@@ -21,7 +21,8 @@ const cancelTask = document.getElementById("cancelTask");
 // e.g: bookDisplay() function in the Library project
 // TODO: Currently adds all projects in the array like before (duplicates) now that splice is removed
 function renderProject() {
-  for (const project in appState.myProjects) { // May need to go back to "for (const project in appState.myProjects)"
+  let latestProject = appState.myProjects.length - 1;
+  while (latestProject) { // May need to go back to "for (const project in appState.myProjects)"
     // This conditional doesn't change anything (still duplicates previous projects) & doesn't add default project on page load at all
     // if (project !== appState.myProjects[project].projectTitle) {
     //   continue;

@@ -7,7 +7,8 @@ import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
-appState.myProjects.push(appState.defaultProject);
+// Uncaught TypeError: Cannot read properties of undefined (reading 'push') - for every solution I implement other than 'for..in' loop inside of renderProject() with old appState
+appState.myProjects.push(appState.defaultProject());
  
 // OPTION: separate function that only renders elements for the default project 
 // May have to go with this option - default never renders when trying other solutions to stop duplicating projects when new ones are made
