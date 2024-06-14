@@ -21,25 +21,26 @@ const cancelTask = document.getElementById("cancelTask");
 // e.g: bookDisplay() function in the Library project
 // TODO: Currently adds all projects in the array like before (duplicates) now that splice is removed
 function renderProject() {
-  for (let i = appState.myProjects.length - 1; i < appState.myProjects.length - 1; i--) { // May need to go back to "for (const project in appState.myProjects)"
+  for (const project in appState.myProjects) {
     // This conditional doesn't change anything (still duplicates previous projects) & doesn't add default project on page load at all
     // if (project !== appState.myProjects[project].projectTitle) {
     //   continue;
     // }
 
-    // This solution doesn't work. Default project no longer shows up on page load.
+    // These solutions also don't work. Default project no longer shows up on page load. Header "Add Task" button doesn't show. Other sidebar buttons don't work.
+
     // let projectTitle = document.getElementById("project-title").value;
     // const availableProjects = appState.myProjects.filter(project => project.projectTitle === projectTitle).map(project => project.projectTitle)
-
     // if (!availableProjects.length) return;
 
-    // This solution doesn't work either. Default project also stops rendering on page load.
     // let projectTitle = document.getElementById("project-title").value;
     // if (projectTitle) { code below goes inside these brackets }
 
-    // Nope...Uncaught TypeError: Cannot read properties of undefined (reading 'push')
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'push')
     // let latestProject = appState.myProjects.length - 1;
     // while (latestProject)
+
+    // for (let i = appState.myProjects.length - 1; i < appState.myProjects.length - 1; i--)
 
 
     // Only other solution to keep this loop would be to implement some way to 'find' the project that was entered from 'appState.addProject' and only render that one
@@ -51,7 +52,7 @@ function renderProject() {
 
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
-    let projectBtnText = document.createTextNode(`${appState.myProjects[i].projectTitle}`); // Switch [i] back to [project] if reverting back to 'for...in' loop
+    let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
 
     // Function to remove all currently showing content in main when a Project button is clicked. 
@@ -62,7 +63,7 @@ function renderProject() {
 
     // Generate "Project Name" header to be added to the main area
     const projectName = document.createElement("ul");
-    let projectNameText = document.createTextNode(`${appState.myProjects[i].projectTitle}`); // Switch [i] back to [project] if reverting back to 'for...in' loop
+    let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectName.classList.add("project-name");
 
     projectBtn.appendChild(projectBtnText);

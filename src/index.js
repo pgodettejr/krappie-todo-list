@@ -8,11 +8,11 @@ import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
 // Uncaught TypeError: Cannot read properties of undefined (reading 'push') - for every solution I implement other than 'for..in' loop inside of renderProject() with old appState
-// appState.myProjects.push(appState.defaultProject());
+appState.myProjects.push(appState.defaultProject);
  
 // OPTION: separate function that only renders elements for the default project 
 // May have to go with this option - default never renders when trying other solutions to stop duplicating projects when new ones are made
-// renderProject();
+renderProject();
 // main.appendChild(whatever the 'default' project showing all tasks will be); 
 
 // Dialog forms DOM
@@ -99,7 +99,7 @@ confirmProject.addEventListener('click', (e) => {
   let projectComplete = document.getElementById("project-form").checkValidity();
   if (projectComplete) {
     e.preventDefault();
-    appState.addProject();
+    storeProject(); // appState.addProject();
     document.getElementById("project-form").reset();
     projectDialog.close();
   }

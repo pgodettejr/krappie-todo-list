@@ -1,6 +1,7 @@
 import * as krappieUI from "./krappieUI.js"; // Change this back to importing each export separately?
 import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 
+// TODO: This might be causing all the issues with the rendering of things not showing up for anything (default project, new projects, etc)
 function appState () {
   // List of projects and tasks within those projects
   let myProjects = [];
@@ -46,7 +47,7 @@ function createProject (projectTitle) {
 // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
 function storeProject () {
   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-  let projects = appState.getProjectList();
+  let projects = appState.getProjectList;
 
   if (projectTitle) {
     const newProject = createProject(projectTitle); 
