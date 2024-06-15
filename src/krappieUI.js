@@ -87,7 +87,7 @@ function renderProject() {
         // TODO: Code to generate the project related to the button clicked via "tabbed browsing" goes here. See example code in comments below.
         // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
 
-        // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked
+        // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked (none of the buttons disappear)
         // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
         main.replaceChildren();
         main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
