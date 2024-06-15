@@ -1,3 +1,5 @@
+// TODO: Try to switch everything that fetches a project via its title to fetching it via its ID
+
 import * as krappieUI from "./krappieUI.js"; // Change this back to importing each export separately?
 import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 

@@ -27,7 +27,7 @@ function renderProject() {
     //   continue;
     // }
 
-    // These solutions also don't work. Default project no longer shows up on page load. Header "Add Task" button doesn't show. Other sidebar buttons don't work.
+    // These solutions also don't work. Default project no longer shows up on page load.
 
     // let projectTitle = document.getElementById("project-title").value;
     // const availableProjects = appState.myProjects.filter(project => project.projectTitle === projectTitle).map(project => project.projectTitle)
@@ -36,10 +36,11 @@ function renderProject() {
     // let projectTitle = document.getElementById("project-title").value;
     // if (projectTitle) { code below goes inside these brackets }
 
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'push')
+    // [project] below is not defined. When I removed it, the entire app freezes after hitting "Confirm" when creating a project
     // let latestProject = appState.myProjects.length - 1;
     // while (latestProject)
 
+    // When confirming the project to be created, the form closes as if the project was successfully created but it never renders. Only gets added to the myProjects array.
     // for (let i = appState.myProjects.length - 1; i < appState.myProjects.length - 1; i--)
 
 
