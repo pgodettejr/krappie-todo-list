@@ -1,7 +1,7 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 
 import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderProject, populateProjects } from './krappieUI.js';
-import { appState, storeProject, updateProject, deleteProject, toggleProjectChecked } from './projects.js';
+import { createProject, appState } from './projects.js';
 import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
@@ -99,7 +99,7 @@ confirmProject.addEventListener('click', (e) => {
   let projectComplete = document.getElementById("project-form").checkValidity();
   if (projectComplete) {
     e.preventDefault();
-    storeProject(); // appState.addProject();
+    appState.storeProject();
     document.getElementById("project-form").reset();
     projectDialog.close();
   }
