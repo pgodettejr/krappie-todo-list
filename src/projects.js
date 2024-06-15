@@ -1,22 +1,6 @@
 import * as krappieUI from "./krappieUI.js"; // Change this back to importing each export separately?
 import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 
-// TODO: This might be causing all the issues with the rendering of things not showing up for anything (default project, new projects, etc)
-function appState () {
-  // List of projects and tasks within those projects
-  let myProjects = [];
-
-  const defaultProject = () => createProject("Today");
-
-  // Gets the entire array of projects
-  const getProjectList = () => myProjects;
-
-  // TODO: This still might not work. Shows "(parameter) project: never". May need to rename "project" to something else in the find method.
-  const getProject = (projectTitle) => myProjects.find(project => project.projectTitle === projectTitle);
-
-  return { myProjects, defaultProject, getProjectList, getProject };
-}
-
 // Creates "project" objects to be added to the "myProjects" array
 function createProject (projectTitle) {
   const tasks = []; // Initializes tasks as an empty array
@@ -43,83 +27,51 @@ function createProject (projectTitle) {
   return { projectTitle, tasks, checked, id }
 }
 
-// Stores the "project" object to the myProjects array, then runs the task rendering function to display it on the UI
-// OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
-function storeProject () {
-  let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-  let projects = appState.getProjectList;
+const appState = {
+  myProjects: [], // List of projects and tasks within those projects
+  defaultProject: createProject("Today"),
 
-  if (projectTitle) {
-    const newProject = createProject(projectTitle); 
-    projects.push(newProject);
-    krappieUI.renderProject();
-  }
-}
+  // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI
+  // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
+  storeProject: function () {
+    let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
 
-// Function to find and update the name of the Project in the myProjects array. Placeholder for now.
-function updateProject (projectTitle, updates) {
-  const findProject = appState.getProject();
-
-  if (findProject) {
-    Object.assign(projectTitle, updates);
-  }
-}
-
-// TODO: This may or may not work. If it works, it should delete the project from the array then re-render the main area. This is more of a placeholder than anything.
-function deleteProject (projectIndex) { // May not need a function parameter at all
-  let projects = appState.getProjectList(); // May need to be "const findProject = appState.getProject();" instead
-
-  if (projects) {
-    projects.splice(projectIndex, 1);
-  }
-
-  krappieUI.renderProject();
-}
-
-// Toggles "complete" status of a given project
-function toggleProjectChecked (projectTitle) {
-  let projects = appState.getProjectsList();
-  const projectStatus = projects.find(project => project.projectTitle === projectTitle)
-
-  if (projectStatus) {
-    projectStatus.checked = !projectStatus.checked;
-  }
-}
-
-// const appState = {
-//   myProjects: [], // List of projects and tasks within those projects
-//   defaultProject: createProject("Today"),
-//   // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
-//   addProject: function () {
-//     let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-
-//     if (projectTitle) {
-//       const newProject = createProject(projectTitle); 
+    if (projectTitle) {
+      const newProject = createProject(projectTitle); 
       
-//       this.myProjects.push(newProject);
-//       // This might not have to be here. Could maybe just run this under the button logic itself.
-//       krappieUI.renderProject(); // Remove the dot notation if changes on line 1 are made
-//     }
-//   },
-//   // TODO: This still might not work. Shows "(parameter) project: never". May need to rename "project" to something else in the find method.
-//   findProject: function (projectTitle) { 
-//     return this.myProjects.find(project => project.projectTitle === projectTitle); 
-//   },
-//   // Function to find and update the name of the Project in the myProjects array. Placeholder for now.
-//   updateProject: function (projectTitle, updates) {
-//     this.findProject();
-//     Object.assign(projectTitle, updates);
-//   },
-//   // TODO: This may or may not work. If it works, it should delete the project from the array then re-render the main area. This is more of a placeholder than anything.
-//   deleteProject: function (projectIndex) { // May not need a parameter at all
-//     this.myProjects.splice(projectIndex, 1);
-//     krappieUI.renderProject();
-//   }
-// };
+      this.myProjects.push(newProject);
+      // This might not have to be here. Could maybe just run this under the button logic itself.
+      krappieUI.renderProject(); // Remove the dot notation if changes on line 1 are made
+    }
+  },
 
-// export { createProject, appState }
+  // Finds (reads?) a project
+  // TODO: This still might not work. Shows "(parameter) project: never". May need to rename "project" to something else in the find method.
+  readProject: function (projectTitle) { 
+    return this.myProjects.find(project => project.projectTitle === projectTitle); 
+  },
 
-export { appState, createProject, storeProject, updateProject, deleteProject, toggleProjectChecked }
+  // Finds and updates the name of an existing Project in the myProjects array. Placeholder for now.
+  updateProject: function (projectTitle, updates) {
+    this.readProject();
+    Object.assign(projectTitle, updates);
+  },
+
+  // Deletes a project
+  // TODO: This may or may not work. If it works, it should delete the project from the array then re-render the main area. This is more of a placeholder than anything.
+  deleteProject: function (projectIndex) { // May not need a parameter at all
+    this.myProjects.splice(projectIndex, 1);
+    krappieUI.renderProject();
+  },
+
+  // Toggles "complete" status of a project
+  toggleProjectChecked: function () {
+    this.readProject();
+    project.checked = !project.checked
+  }
+};
+
+export { createProject, appState }
 
 // Old code for storing new "Project" objects into a new array via user input. In case of emergency, use this.
 // function storeProject() {
@@ -129,5 +81,15 @@ export { appState, createProject, storeProject, updateProject, deleteProject, to
 //     const newProject = new Project(projectTitle);
 //     myProjects.push(newProject);
 //     renderProject();
+//   }
+// }
+
+// Old code for toggling "complete" status of a given project. Use this if the method inside of appStatus object doesn't work.
+// function toggleProjectChecked (projectTitle) {
+//   let projects = appState.getProjectsList();
+//   const projectStatus = projects.find(project => project.projectTitle === projectTitle)
+
+//   if (projectStatus) {
+//     projectStatus.checked = !projectStatus.checked;
 //   }
 // }
