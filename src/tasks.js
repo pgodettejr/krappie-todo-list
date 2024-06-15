@@ -1,6 +1,7 @@
 import { createProject, appState } from './projects.js';
 import * as krappieUI from './krappieUI.js'
 
+// Access to the tasks array inside of the createProject function
 let tasks = createProject.tasks;
 
 // Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)
@@ -26,7 +27,7 @@ function removeTask(taskId) {
   const taskItem = 
     taskFilter != -1
       ? tasks.splice(todoFilter, 1)
-      : "ERROR: Todo not found";
+      : "ERROR: Task not found";
   
   // TODO: Might not need this. Delete if so. Might be able to just return ternary operator with no addt'l variable.
   return taskItem; 
@@ -142,13 +143,13 @@ function storeTask() {
 
 export { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask }
 
-// Old code for another solution I came up with on my own that updated list of todos using map (Object.assign is cleaner). Keep it (in case of emergency, break glass)
-//   function updateTodo(todoId, updates) {
-//     const revisedTodos = todos.map(todo => {
-//       if (todo.id === todoId) {
-//         return { ...todo, ...updates }
+// Old code for another solution I came up with on my own that updated list of tasks using map (Object.assign is cleaner). Keep it (in case of emergency, break glass)
+//   function updateTask(todoId, updates) {
+//     const revisedTasks = tasks.map(todo => {
+//       if (task.id === taskId) {
+//         return { ...task, ...updates }
 //       }
 //     });
     
-//     return revisedTodos;
+//     return revisedTasks;
 //   }

@@ -86,7 +86,7 @@ export { createProject, appState }
 
 // Old code for toggling "complete" status of a given project. Use this if the method inside of appStatus object doesn't work.
 // function toggleProjectChecked (projectTitle) {
-//   let projects = appState.getProjectsList();
+//   let projects = appState.myProjects;
 //   const projectStatus = projects.find(project => project.projectTitle === projectTitle)
 
 //   if (projectStatus) {
