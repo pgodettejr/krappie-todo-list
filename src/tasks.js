@@ -51,7 +51,9 @@ function toggleTaskChecked(taskId) {
 
 // Stores the "task" object to the projects array, then runs the task rendering function to display it on the UI
 // Add "projectIndex" back in as a function parameter if needed
-// TODO: This likely needs to find the right project to add the tasks array to? Link this up with the getProject method in the appStatus function in projects.js?
+
+// TODO: This needs to find the right project to add the tasks array to. Link this with the readProject method in the appStatus function in projects module
+
 function storeTask() {
   // const tasks = createProject.tasks;
 
