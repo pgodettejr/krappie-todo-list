@@ -78,7 +78,7 @@ function storeTask() {
     const newTask = createTask(taskTitle, dueDate, priority, description);
     // TODO: Uncaught TypeError - Cannot read properties of undefined (reading 'push')
     // Tried adding 'tasks' as a parameter for storeTask but get this same error
-    tasks.push(newTask);
+    appState.myProjects.tasks.push(newTask); // tasks.push(newTask) was the previous code, which also gave the same TypeError 
     krappieUI.renderTask();
   }
 }

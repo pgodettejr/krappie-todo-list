@@ -17,36 +17,15 @@ const taskForm = document.getElementById("task-dialog");
 const confirmTask = document.getElementById("confirmTask");
 const cancelTask = document.getElementById("cancelTask");
 
-// Generate all project info here using the "DOM level 1" technique (see "Traversing an HTML table with JS & DOM interfaces" documentation if needed)
-// e.g: bookDisplay() function in the Library project
-// TODO: Currently adds all projects in the array like before (duplicates) now that splice is removed
-function renderProject() {
+// Renders the default project named "Today" for daily projects & tasks on page load
+function renderDefault() {
+
+  // OPTION: This could potentially work as well
+  // let todayProject = appState.defaultProject; - use this as a parameter for this function as well
+  // appState.myProjects.push(todayProject);
+
+  // if (todayProject) {
   for (const project in appState.myProjects) {
-    // This conditional doesn't change anything (still duplicates previous projects) & doesn't add default project on page load at all
-    // if (project !== appState.myProjects[project].projectTitle) {
-    //   continue;
-    // }
-
-    // These solutions also don't work. Default project no longer shows up on page load.
-
-    // let projectTitle = document.getElementById("project-title").value;
-    // const availableProjects = appState.myProjects.filter(project => project.projectTitle === projectTitle).map(project => project.projectTitle)
-    // if (!availableProjects.length) return;
-
-    // let projectTitle = document.getElementById("project-title").value;
-    // if (projectTitle) { code below goes inside these brackets }
-
-    // [project] below is not defined. When I removed it, the entire app freezes after hitting "Confirm" when creating a project
-    // let latestProject = appState.myProjects.length - 1;
-    // while (latestProject)
-
-    // When confirming the project to be created, the form closes as if the project was successfully created but it never renders. Only gets added to the myProjects array.
-    // for (let i = appState.myProjects.length - 1; i < appState.myProjects.length - 1; i--)
-
-
-    // Only other solution to keep this loop would be to implement some way to 'find' the project that was entered from 'appState.addProject' and only render that one
-
-
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
@@ -54,6 +33,32 @@ function renderProject() {
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
     let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    projectBtn.classList.add("project-btn");
+
+    // Generate "Project Name" header to be added to the main area
+    const projectName = document.createElement("ul");
+    let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    projectName.classList.add("project-name");
+
+    projectBtn.appendChild(projectBtnText);
+    projectSidebar.appendChild(projectBtn);
+    projectName.appendChild(projectNameText);
+    main.appendChild(projectName);
+  }
+}
+
+// Renders all projects that are created via the "Add Project" form
+function renderProject() {
+  let formTitle = document.getElementById("project-title").value;
+
+  if (formTitle) { 
+    // DOM for "My Projects" section of the sidebar as well as the main area
+    const projectSidebar = document.querySelector(".menu-2");
+    const main = document.querySelector("main");
+
+    // Generate the sidebar button
+    const projectBtn = document.createElement("button");
+    let projectBtnText = document.createTextNode(`${formTitle}`);
     projectBtn.classList.add("project-btn");
 
     // Function to remove all currently showing content in main when a Project button is clicked. 
@@ -64,7 +69,7 @@ function renderProject() {
 
     // Generate "Project Name" header to be added to the main area
     const projectName = document.createElement("ul");
-    let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    let projectNameText = document.createTextNode(`${formTitle}`);
     projectName.classList.add("project-name");
 
     projectBtn.appendChild(projectBtnText);
@@ -104,10 +109,6 @@ function renderProject() {
       });
     });
   }
-
-  // Reinstate this if we can't figure out how to stop duplicates
-  // We could use the splice method in our function that deletes projects (which isn't written yet) - appState.myProjects.splice(projectIndex, 1);
-  // appState.myProjects.splice(-1, 1);
 }
 
 // Function for rendering all Project options to the "Add to Project" drop-down menu in the Task form
@@ -131,7 +132,7 @@ function populateProjects() {
 // May need to completely redo this function. The "Library project" DOM level 1 technique might not work for this one (task is an array within an object within another array)
 // TODO: Add rendering from the "Add to Project" drop-down section regardless (the task should go under the project selected in the UI)
 function renderTask() {
-  for (const task in tasks) {
+  for (const task in appState.myProjects.tasks) { // Previous code: (const task in tasks)
     // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
     // const taskList = document.createElement("ul");
     // taskList.classList.add("task-info");
@@ -237,4 +238,31 @@ function renderTask() {
 //   });
 // });
 
-export { projectForm, confirmProject, cancelProject, renderProject, populateProjects, taskForm, confirmTask, cancelTask, renderTask }
+export { projectForm, confirmProject, cancelProject, renderDefault, renderProject, populateProjects, taskForm, confirmTask, cancelTask, renderTask }
+
+// Old code showing several attempts to get the renderProject function to stop duplicating previously created projects when new ones were rendered
+
+// This conditional doesn't change anything (still duplicates previous projects) & doesn't add default project on page load at all
+// if (project !== appState.myProjects[project].projectTitle) {
+//   continue;
+// }
+
+// These solutions also don't work. Default project no longer shows up on page load.
+
+// let projectTitle = document.getElementById("project-title").value;
+// const availableProjects = appState.myProjects.filter(project => project.projectTitle === projectTitle).map(project => project.projectTitle)
+// if (!availableProjects.length) return;
+
+// let projectTitle = document.getElementById("project-title").value;
+// if (projectTitle) { code below goes inside these brackets }
+
+// [project] below is not defined. When I removed it, the entire app freezes after hitting "Confirm" when creating a project
+// let latestProject = appState.myProjects.length - 1;
+// while (latestProject)
+
+// When confirming the project to be created, the form closes as if the project was successfully created but it never renders. Only gets added to the myProjects array.
+// for (let i = appState.myProjects.length - 1; i < appState.myProjects.length - 1; i--)
+
+// Having no loop at all and just adding 'project' as a parameter to the renderProject function itself (sidebar buttons also no longer work)
+
+// Only other solution to keep this loop would be to implement some way to 'find' the project that was entered from 'appState.addProject' and only render that one

@@ -1,6 +1,6 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 
-import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderProject, populateProjects } from './krappieUI.js';
+import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderDefault, renderProject, populateProjects } from './krappieUI.js';
 import { createProject, appState } from './projects.js';
 import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
@@ -12,7 +12,7 @@ appState.myProjects.push(appState.defaultProject);
  
 // OPTION: separate function that only renders elements for the default project 
 // May have to go with this option - default never renders when trying other solutions to stop duplicating projects when new ones are made
-renderProject();
+renderDefault();
 // main.appendChild(whatever the 'default' project showing all tasks will be); 
 
 // Dialog forms DOM
