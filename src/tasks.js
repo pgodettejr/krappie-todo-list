@@ -5,7 +5,6 @@ import * as krappieUI from './krappieUI.js'
 let tasks = createProject.tasks;
 
 // Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)
-// OPTION: Rename this function due to misleading name? (task doesn't actually get created, simply has contents of a given task)
 function createTask (taskTitle, dueDate, priority, description) {
   let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
 
