@@ -19,6 +19,10 @@ const projectDialog = document.getElementById("project-dialog");
 const sidebarTaskBtn = document.getElementById("add-task-2");
 const sidebarProjectBtn = document.getElementById("add-project");
 
+// Update and Delete buttons DOM for Projects
+const updateProjectBtn = document.getElementById("update-project");
+const deleteProjectBtn = document. getElementById("delete-project");
+
 // Icon for Add Task button in the header
 const headerTask = document.getElementById("add-task");
 
@@ -107,3 +111,14 @@ cancelProject.addEventListener('click', () => {
   projectDialog.close();
 });
 
+// "Update Project" button functionality that brings up the Project form again to enter a new name
+updateProjectBtn.addEventListener('click', () => {
+  // Code to bring up form goes here (if we go with option 1 or 2)
+
+  // OPTION 1: Use the same form used to make new Projects 
+  // Would need a nested conditional that reads if the project already exists to change the name and place it in confirmProject button above (under it's existing 'if' statement)
+
+  // **OPTION 2: Make a new form specifically for updating existing Projects and putting the code to pull up the form here (updateProject function would go in separate button)
+
+  // OPTION 3: Figure out how to make the text itself switch to an editable state
+})
