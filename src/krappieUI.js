@@ -9,7 +9,7 @@
 import { appState } from './projects.js';
 import { tasks } from './tasks.js';
 import Update from './img/update.png';
-import Delete from '.img/trash-bin.png';
+import Delete from './img/trash-bin.png';
 
 // Global DOM elements related to adding projects and tasks to the app
 const projectForm = document.getElementById("project-dialog");
@@ -42,9 +42,32 @@ function renderDefault() {
     let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectName.classList.add("project-name");
 
+    // Render "Update" icon button to be added to "Project Name" header
+    const updateBtn = document.createElement("button");
+    updateBtn.setAttribute("id", "update-project");
+
+    const updateIcon = new Image();
+    updateIcon.src = Update;
+    updateIcon.classList.add("image-button");
+
+    // Render "Delete" icon button to be added to "Project Name" header
+    const deleteBtn = document.createElement("button");
+    deleteBtn.setAttribute("id", "delete-project");
+
+    const deleteIcon = new Image();
+    deleteIcon.src = Delete;
+    deleteIcon.classList.add("image-button");
+
+    // Append everything where it needs to be
     projectBtn.appendChild(projectBtnText);
     projectSidebar.appendChild(projectBtn);
     projectName.appendChild(projectNameText);
+
+    updateBtn.appendChild(updateIcon);
+    deleteBtn.appendChild(deleteIcon);
+    projectName.appendChild(updateBtn);
+    projectName.appendChild(deleteBtn);
+
     main.appendChild(projectName);
   }
 }
@@ -74,9 +97,32 @@ function renderProject() {
     let projectNameText = document.createTextNode(`${formTitle}`);
     projectName.classList.add("project-name");
 
+    // Render "Update" icon button to be added to "Project Name" header
+    const updateBtn = document.createElement("button");
+    updateBtn.setAttribute("id", "update-project");
+
+    const updateIcon = new Image();
+    updateIcon.src = Update;
+    updateIcon.classList.add("image-button");
+
+    // Render "Delete" icon button to be added to "Project Name" header
+    const deleteBtn = document.createElement("button");
+    deleteBtn.setAttribute("id", "delete-project");
+
+    const deleteIcon = new Image();
+    deleteIcon.src = Delete;
+    deleteIcon.classList.add("image-button");
+    
+    // Append everything where it needs to be
     projectBtn.appendChild(projectBtnText);
     projectSidebar.appendChild(projectBtn);
     projectName.appendChild(projectNameText);
+
+    updateBtn.appendChild(updateIcon);
+    deleteBtn.appendChild(deleteIcon);
+    projectName.appendChild(updateBtn);
+    projectName.appendChild(deleteBtn);
+
     main.appendChild(projectName);
 
     // When here under renderProject():
