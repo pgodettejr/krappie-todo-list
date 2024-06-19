@@ -8,6 +8,8 @@
 
 import { appState } from './projects.js';
 import { tasks } from './tasks.js';
+import Update from './img/update.png';
+import Delete from '.img/trash-bin.png';
 
 // Global DOM elements related to adding projects and tasks to the app
 const projectForm = document.getElementById("project-dialog");
