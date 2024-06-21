@@ -1,6 +1,6 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 
-import { taskForm, confirmTask, cancelTask, updateTask, renderTask, projectForm, confirmProject, cancelProject, renderDefault, updateProject, renderProject, populateProjects } from './krappieUI.js';
+import { taskForm, confirmTask, cancelTask, editTask, renderTask, projectForm, confirmProject, cancelProject, renderDefault, editProject, renderProject, populateProjects } from './krappieUI.js';
 import { createProject, appState } from './projects.js';
 import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
@@ -127,7 +127,7 @@ updateProjectBtn.addEventListener('click', () => {
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
-updateProject.addEventListener('click', (e) => {
+editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
     e.preventDefault();

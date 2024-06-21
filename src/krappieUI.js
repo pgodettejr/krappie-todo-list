@@ -15,8 +15,8 @@ import Delete from './img/trash-bin.png';
 const projectForm = document.getElementById("project-dialog");
 const confirmProject = document.getElementById("confirmProject");
 const cancelProject = document.getElementById("cancelProject");
-const updateProject = document.getElementById("updateProject");
-const updateTask = document.getElementById("updateTask");
+const editProject = document.getElementById("updateProject");
+const editTask = document.getElementById("updateTask");
 const taskForm = document.getElementById("task-dialog");
 const confirmTask = document.getElementById("confirmTask");
 const cancelTask = document.getElementById("cancelTask");
@@ -288,7 +288,7 @@ function renderTask() {
 //   });
 // });
 
-export { projectForm, confirmProject, cancelProject, updateProject, renderDefault, renderProject, populateProjects, taskForm, confirmTask, cancelTask, updateTask, renderTask }
+export { projectForm, confirmProject, cancelProject, editProject, renderDefault, renderProject, populateProjects, taskForm, confirmTask, cancelTask, editTask, renderTask }
 
 // Old code showing several attempts to get the renderProject function to stop duplicating previously created projects when new ones were rendered
 
