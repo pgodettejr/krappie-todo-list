@@ -1,6 +1,6 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 
-import { taskForm, confirmTask, cancelTask, renderTask, projectForm, confirmProject, cancelProject, renderDefault, renderProject, populateProjects } from './krappieUI.js';
+import { taskForm, confirmTask, cancelTask, updateTask, renderTask, projectForm, confirmProject, cancelProject, renderDefault, updateProject, renderProject, populateProjects } from './krappieUI.js';
 import { createProject, appState } from './projects.js';
 import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
 import './styles.css';
@@ -14,6 +14,8 @@ renderDefault();
 // Dialog forms DOM
 const taskDialog = document.getElementById("task-dialog");
 const projectDialog = document.getElementById("project-dialog");
+const taskUpdateDialog = document.getElementById("task-update-dialog");
+const projectUpdateDialog = document.getElementById("project-update-dialog");
 
 // Sidebar buttons DOM
 const sidebarTaskBtn = document.getElementById("add-task-2");
@@ -119,6 +121,23 @@ updateProjectBtn.addEventListener('click', () => {
   // Would need a nested conditional that reads if the project already exists to change the name and place it in confirmProject button above (under it's existing 'if' statement)
 
   // **OPTION 2: Make a new form specifically for updating existing Projects and putting the code to pull up the form here (updateProject function would go in separate button)
+  projectUpdateDialog.showModal();
 
   // OPTION 3: Figure out how to make the text itself switch to an editable state
-})
+});
+
+// "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
+updateProject.addEventListener('click', (e) => {
+  let projectEdit = document.getElementById("project-update-form").checkValidity();
+  if (projectEdit) {
+    e.preventDefault();
+    appState.updateProject();
+
+    // TODO: Function call that renders the update goes here
+
+    document.getElementById("project-update-form").reset();
+    projectUpdateDialog.close();
+  }
+});
+
+// TODO: Will need a separate cancel Button logic here for the Update form after all (literally the same as cancelProject event listener above except change element reset)
