@@ -11,15 +11,18 @@ import { tasks } from './tasks.js';
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
 
-// Global DOM elements related to adding projects and tasks to the app
-const projectForm = document.getElementById("project-dialog");
+// DOM elements related to adding and updating projects and tasks to the app
+const projectDialog = document.getElementById("project-dialog");
+const projectUpdateDialog = document.getElementById("project-update-dialog");
 const confirmProject = document.getElementById("confirmProject");
 const cancelProject = document.getElementById("cancelProject");
 const editProject = document.getElementById("updateProject");
-const editTask = document.getElementById("updateTask");
-const taskForm = document.getElementById("task-dialog");
+
+const taskDialog = document.getElementById("task-dialog");
+const taskUpdateDialog = document.getElementById("task-update-dialog");
 const confirmTask = document.getElementById("confirmTask");
 const cancelTask = document.getElementById("cancelTask");
+const editTask = document.getElementById("updateTask");
 
 // Renders the default project named "Today" for daily projects & tasks on page load
 function renderDefault() {
@@ -288,7 +291,7 @@ function renderTask() {
 //   });
 // });
 
-export { projectForm, confirmProject, cancelProject, editProject, renderDefault, renderProject, populateProjects, taskForm, confirmTask, cancelTask, editTask, renderTask }
+export { projectDialog, projectUpdateDialog, confirmProject, cancelProject, editProject, renderDefault, renderProject, populateProjects, taskDialog, taskUpdateDialog, confirmTask, cancelTask, editTask, renderTask }
 
 // Old code showing several attempts to get the renderProject function to stop duplicating previously created projects when new ones were rendered
 
