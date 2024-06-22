@@ -73,7 +73,7 @@ sidebarTaskBtn.addEventListener('click', () => {
   populateProjects();
 });
 
-// TODO: Retest all buttons within any forms to confirm they still work
+// TODO: Retest all Task related buttons within any forms once the Update Task options are set up throughout the app
 
 // "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area and closes the Task form
 // TODO: This is the only button that doesn't work for several reasons
@@ -89,8 +89,27 @@ krappieUI.confirmTask.addEventListener('click', (e) => {
 
 // "Cancel" button functionality that deletes all info that was entered, then closes the Task form
 krappieUI.cancelTask.addEventListener('click', () => {
-  taskForm.reset();
+  if (taskUpdateForm) {
+    taskUpdateForm.reset();
+  } else {
+    taskForm.reset();
+  }
+  
   krappieUI.taskDialog.close();
+});
+
+// "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
+krappieUI.editTask.addEventListener('click', (e) => {
+  let taskEdit = document.getElementById("task-update-form").checkValidity();
+  if (taskEdit) {
+    e.preventDefault();
+    updateTask();
+
+    // TODO: Function call that renders the update goes here
+
+    taskUpdateForm.reset();
+    krappieUI.taskUpdateDialog.close();
+  }
 });
 
 // Sidebar "Add Project" button functionality that brings up the form to enter Project details
@@ -123,15 +142,7 @@ krappieUI.cancelProject.addEventListener('click', () => {
 // "Update Project" button functionality that brings up the Project form again to enter a new name
 // OPTION: If we are going to show multiple projects in the main area of the UI, then this needs to be under a forEach method so every Update button rendered will work
 updateProjectBtn.addEventListener('click', () => {
-  // Code to bring up form goes here (if we go with option 1 or 2)
-
-  // OPTION 1: Use the same form used to make new Projects 
-  // Would need a nested conditional that reads if the project already exists to change the name and place it in confirmProject button above (under it's existing 'if' statement)
-
-  // **OPTION 2: Make a new form specifically for updating existing Projects and putting the code to pull up the form here (updateProject function would go in separate button)
   krappieUI.projectUpdateDialog.showModal();
-
-  // OPTION 3: Figure out how to make the text itself switch to an editable state
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
@@ -147,3 +158,9 @@ krappieUI.editProject.addEventListener('click', (e) => {
     krappieUI.projectUpdateDialog.close();
   }
 });
+
+// "Delete Project" button functionality that removes the project both from the myProjects array and the UI
+deleteProjectBtn.addEventListener('click', () => {
+  appState.deleteProject();
+  // TODO: Code to delete the project from the UI itself goes here
+})
