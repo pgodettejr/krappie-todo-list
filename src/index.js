@@ -9,7 +9,6 @@ import Plus from './img/plus.png';
 
 appState.myProjects.push(appState.defaultProject);
 krappieUI.renderDefault();
-// main.appendChild(whatever the 'default' project showing all tasks will be); 
 
 // Forms DOM
 const taskForm = document.getElementById("task-form");

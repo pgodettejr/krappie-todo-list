@@ -149,6 +149,8 @@ function renderProject() {
         // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked (none of the buttons disappear)
         // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
         main.replaceChildren();
+
+        // OPTION: Try "renderProject(project name selected via button);" instead
         main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
 
         // Previous version that tried to run the code only if the text from the button and the ul matched up
