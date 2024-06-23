@@ -10,6 +10,10 @@ import Plus from './img/plus.png';
 appState.myProjects.push(appState.defaultProject);
 krappieUI.renderDefault();
 
+// Main area DOM
+const mainArea = document.querySelector("main");
+const projectHeading = document.querySelector("ul");
+
 // Forms DOM
 const taskForm = document.getElementById("task-form");
 const projectForm = document.getElementById("project-form");
@@ -145,13 +149,17 @@ updateProjectBtn.addEventListener('click', () => {
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
+// TODO: Fix current bug that only leaves the 'ul' with no text & no button children beneath it
 krappieUI.editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
     e.preventDefault();
-    appState.updateProject();
+    appState.updateProject(); // I doubt this is the issue. No matter how I change this method, the deletion below happens
 
-    // TODO: Function call that renders the update goes here
+    // Literally all I'm doing is changing the text of the 'ul' element itself. Why is it deleting both the text and all the button children then?
+    // MAYBE change the name of the 'id' on the HTML element itself (since we really should only have 1 in the entire file of that name, not 2 like we have right now)
+    let newProjectTitle = document.getElementById("project-title").value;
+    projectHeading.textContent = newProjectTitle;
 
     projectUpdateForm.reset();
     krappieUI.projectUpdateDialog.close();
@@ -160,6 +168,6 @@ krappieUI.editProject.addEventListener('click', (e) => {
 
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
 deleteProjectBtn.addEventListener('click', () => {
-  appState.deleteProject();
-  // TODO: Code to delete the project from the UI itself goes here
+  appState.deleteProject(); // TODO: Make sure to double check 'myProjects' array after deleting a project to see if this updated the array correctly
+  mainArea.removeChild(ul);
 })
