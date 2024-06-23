@@ -86,32 +86,32 @@
     </dialog>
 
     <!-- TODO: Make necessary changes for Option 2 -->
-    <!-- <dialog id="task-update-dialog">
+    <dialog id="task-update-dialog">
       <form action="" method="get" id="task-update-form">
         <p>Enter your task info below:</p>
         <div class="form-col">
           <label for="task-title">Title</label>
-          <input type="text" name="task-title" id="task-title" required />
+          <input type="text" name="task-title" id="task-title" />
         </div>
   
         <div class="form-col">
           <label for="due-date">Due Date</label>
-          <input type="date" name="due-date" id="due-date" required />
+          <input type="date" name="due-date" id="due-date" />
         </div>
         
         <div class="form-col">
           <label for="add-to-project">Add To Project</label>
-          <select name="add-to-project" id="add-to-project" required></select> OPTION: Add "mr-2" Bootstrap class to push the drop down size box over?
+          <select name="add-to-project" id="add-to-project" ></select> <!-- OPTION: Add "mr-2" Bootstrap class to push the drop down size box over? -->
         </div>
   
-        TODO: Figure out how to add color labels to each option either directly here or dynamically added in the JS
+        <!-- TODO: Figure out how to add color labels to each option either directly here or dynamically added in the JS -->
         <div class="form-col">
           <label for="priority">Priority</label>
-          <select name="priority" id="priority" required>
+          <select name="priority" id="priority">
             <option value="red" selected>Urgent</option>
             <option value="yellow">Important</option>
             <option value="blue">Low Priority</option>
-            <option value="green">Done</option> Comment this option out
+            <!-- <option value="green">Done</option> -->
           </select>
         </div>
 
@@ -125,7 +125,7 @@
           <button id="cancelTask" formmethod="dialog" autofocus >Cancel</button>
         </div>
       </form>
-    </dialog> -->
+    </dialog>
 
     <dialog id="project-dialog">
       <form action="" method="get" id="project-form">
