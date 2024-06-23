@@ -48,6 +48,7 @@ function renderDefault() {
     projectName.classList.add("project-name");
 
     // Render "Update" icon button to be added to "Project Name" header
+    // TODO: May not allow the Project title itself to be updated by commenting this section out
     const updateBtn = document.createElement("button");
     updateBtn.setAttribute("id", "update-project");
 
