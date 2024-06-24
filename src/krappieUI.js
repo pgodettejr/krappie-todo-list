@@ -43,9 +43,20 @@ function renderDefault() {
     projectBtn.classList.add("project-btn");
 
     // Generate "Project Name" header to be added to the main area
-    const projectName = document.createElement("ul");
-    let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    // const projectName = document.createElement("div");
+    // let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    // projectName.classList.add("project-name");
+
+    // TODO: Change the name of this DOM and wherever else it's being called
+    // Generate "Project" wrapper/container to be added to the main area
+    const projectWrapper = document.createElement("div");
+    // let projectNameText = document.createTextNode(`${formTitle}`);
+    projectWrapper.classList.add("project-wrapper");
+
+    // Generate "Project Name" header to be added to the project container
+    const projectName = document.createElement("p");
     projectName.classList.add("project-name");
+    projectName.innerText = appState.myProjects[project].projectTitle;
 
     // Render "Update" icon button to be added to "Project Name" header
     // TODO: May not allow the Project title itself to be updated by commenting this section out
@@ -67,14 +78,15 @@ function renderDefault() {
     // Append everything where it needs to be
     projectBtn.appendChild(projectBtnText);
     projectSidebar.appendChild(projectBtn);
-    projectName.appendChild(projectNameText);
+    // projectName.appendChild(projectNameText);
 
     updateBtn.appendChild(updateIcon);
     deleteBtn.appendChild(deleteIcon);
-    projectName.appendChild(updateBtn);
-    projectName.appendChild(deleteBtn);
+    projectWrapper.appendChild(projectName);
+    projectWrapper.appendChild(updateBtn);
+    projectWrapper.appendChild(deleteBtn);
 
-    main.appendChild(projectName);
+    main.appendChild(projectWrapper);
   }
 }
 
@@ -98,10 +110,16 @@ function renderProject() {
     //   main.replaceChildren(projectName);
     // });
 
-    // Generate "Project Name" header to be added to the main area
-    const projectName = document.createElement("ul");
-    let projectNameText = document.createTextNode(`${formTitle}`);
+    // TODO: Change the name of this DOM and wherever else it's being called
+    // Generate "Project" wrapper/container to be added to the main area
+    const projectWrapper = document.createElement("div");
+    // let projectNameText = document.createTextNode(`${formTitle}`);
+    projectWrapper.classList.add("project-wrapper");
+
+    // Generate "Project Name" header to be added to the project container
+    const projectName = document.createElement("p");
     projectName.classList.add("project-name");
+    projectName.innerText = formTitle;
 
     // Render "Update" icon button to be added to "Project Name" header
     const updateBtn = document.createElement("button");
@@ -122,14 +140,15 @@ function renderProject() {
     // Append everything where it needs to be
     projectBtn.appendChild(projectBtnText);
     projectSidebar.appendChild(projectBtn);
-    projectName.appendChild(projectNameText);
+    // projectName.appendChild(projectNameText);
 
     updateBtn.appendChild(updateIcon);
     deleteBtn.appendChild(deleteIcon);
-    projectName.appendChild(updateBtn);
-    projectName.appendChild(deleteBtn);
+    projectWrapper.appendChild(projectName);
+    projectWrapper.appendChild(updateBtn);
+    projectWrapper.appendChild(deleteBtn);
 
-    main.appendChild(projectName);
+    main.appendChild(projectWrapper);
 
     // When here under renderProject():
 
@@ -152,7 +171,7 @@ function renderProject() {
         main.replaceChildren();
 
         // OPTION: Try "renderProject(project name selected via button);" instead
-        main.appendChild(projectName); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
+        main.appendChild(projectWrapper); // currentProject argument gives Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'.
 
         // Previous version that tried to run the code only if the text from the button and the ul matched up
 

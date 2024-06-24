@@ -54,23 +54,26 @@ const appState = {
   },
 
   // Finds and updates the name of an existing Project in the myProjects array. Placeholder for now.
-  updateProject: function (projectTitle, updates) {
-    const project = this.readProject();
-    if (project) {
-      Object.assign(projectTitle, updates);
-    }
+  // TODO: myProjects array is currently not updating with the new title value entered in the Update form (still says original title, see Object.assign below as well)
+  updateProject: function () {
+    // const project = this.readProject();
+    // if (project) {
+    //   Object.assign(projectTitle, updates);
+    // }
 
     // Old code & attempts
 
-    // let projectTitle = document.getElementById("project-title").value;
+    let projectTitle = document.getElementById("project-update-title").value;
 
-    // const updates = {
-    //   projectTitle,
-    //   // checked,
-    //   // id
-    // };
-    // this.readProject();
-    // Object.assign(projectTitle, updates); // Uncaught TypeError: Cannot convert undefined or null to object
+    const updates = {
+      projectTitle,
+      // checked,
+      // id
+    };
+    this.readProject();
+
+    // When I tried to run this.myProjects.projectTitle as a target, I get "Uncaught TypeError: Cannot convert undefined or null to object"
+    Object.assign(projectTitle, updates);
   },
 
   // Deletes a project

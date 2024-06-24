@@ -12,7 +12,7 @@ krappieUI.renderDefault();
 
 // Main area DOM
 const mainArea = document.querySelector("main");
-const projectHeading = document.querySelector("ul");
+const projectHeading = document.querySelector(".project-name");
 
 // Forms DOM
 const taskForm = document.getElementById("task-form");
@@ -144,25 +144,26 @@ krappieUI.cancelProject.addEventListener('click', () => {
 
 // "Update Project" button functionality that brings up the Project form again to enter a new name
 // OPTION: If we are going to show multiple projects in the main area of the UI, then this needs to be under a forEach method so every Update button rendered will work
+// Maybe we should? Have the sidebar buttons auto-scroll to the project they're related to in the main area?
 updateProjectBtn.addEventListener('click', () => {
   krappieUI.projectUpdateDialog.showModal();
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
-// TODO: Fix current bug that only leaves the 'ul' with no text & no button children beneath it
 krappieUI.editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
     e.preventDefault();
     appState.updateProject(); // I doubt this is the issue. No matter how I change this method, the deletion below happens
 
-    // Literally all I'm doing is changing the text of the 'ul' element itself. Why is it deleting both the text and all the button children then?
-    // MAYBE change the name of the 'id' on the HTML element itself (since we really should only have 1 in the entire file of that name, not 2 like we have right now)
-    let newProjectTitle = document.getElementById("project-title").value;
+    let newProjectTitle = document.getElementById("project-update-title").value;
     projectHeading.textContent = newProjectTitle;
 
     projectUpdateForm.reset();
     krappieUI.projectUpdateDialog.close();
+
+    // Debug whether or not the array is actually updated
+    console.log(appState.myProjects);
   }
 });
 
