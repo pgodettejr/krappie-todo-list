@@ -40,7 +40,7 @@ headerTask.appendChild(taskIcon);
 function poopSound() {
   const poopLogo = document.querySelector(".app-logo");
 
-  poopLogo.addEventListener('click', function(e) {
+  poopLogo.addEventListener('click', function() { // TODO: Put 'e' back in here if the audio button no longer works
     // Create the audio element via JS
     const audio = document.createElement("audio");
     audio.setAttribute("data-image", "logo-sound");
@@ -67,13 +67,13 @@ poopSound();
 // Header "Add Task" button functionality that brings up the form to enter Task details
 headerTask.addEventListener('click', () => {
   krappieUI.taskDialog.showModal();
-  populateProjects();
+  krappieUI.populateProjects();
 });
 
 // Sidebar "Add Task" button functionality that brings up the form to enter Task details
 sidebarTaskBtn.addEventListener('click', () => {
   krappieUI.taskDialog.showModal();
-  populateProjects();
+  krappieUI.populateProjects();
 });
 
 // TODO: Retest all Task related buttons within any forms once the Update Task options are set up throughout the app
@@ -169,6 +169,8 @@ krappieUI.editProject.addEventListener('click', (e) => {
 
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
 deleteProjectBtn.addEventListener('click', () => {
+  const targetProject = document.querySelector("project-wrapper");
+
   appState.deleteProject(); // TODO: Make sure to double check 'myProjects' array after deleting a project to see if this updated the array correctly
-  mainArea.removeChild(ul);
+  mainArea.removeChild(targetProject);
 })

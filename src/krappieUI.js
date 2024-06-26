@@ -7,7 +7,7 @@
 // TODO: Setting up localStorage functions may make the whole rendering process easier as far as what projects/tasks to get when a user clicks on one
 
 import { appState } from './projects.js';
-import { tasks } from './tasks.js';
+// import { tasks } from './tasks.js';
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
 
@@ -42,15 +42,8 @@ function renderDefault() {
     let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
 
-    // Generate "Project Name" header to be added to the main area
-    // const projectName = document.createElement("div");
-    // let projectNameText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
-    // projectName.classList.add("project-name");
-
-    // TODO: Change the name of this DOM and wherever else it's being called
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
-    // let projectNameText = document.createTextNode(`${formTitle}`);
     projectWrapper.classList.add("project-wrapper");
 
     // Generate "Project Name" header to be added to the project container
@@ -59,7 +52,7 @@ function renderDefault() {
     projectName.innerText = appState.myProjects[project].projectTitle;
 
     // Render "Update" icon button to be added to "Project Name" header
-    // TODO: May not allow the Project title itself to be updated by commenting this section out
+    // TODO: May not allow the Project title itself to be updated by commenting this section out (do this later on after we finish using the default Project for testing)
     const updateBtn = document.createElement("button");
     updateBtn.setAttribute("id", "update-project");
 
@@ -78,7 +71,6 @@ function renderDefault() {
     // Append everything where it needs to be
     projectBtn.appendChild(projectBtnText);
     projectSidebar.appendChild(projectBtn);
-    // projectName.appendChild(projectNameText);
 
     updateBtn.appendChild(updateIcon);
     deleteBtn.appendChild(deleteIcon);
@@ -110,10 +102,8 @@ function renderProject() {
     //   main.replaceChildren(projectName);
     // });
 
-    // TODO: Change the name of this DOM and wherever else it's being called
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
-    // let projectNameText = document.createTextNode(`${formTitle}`);
     projectWrapper.classList.add("project-wrapper");
 
     // Generate "Project Name" header to be added to the project container
@@ -140,7 +130,6 @@ function renderProject() {
     // Append everything where it needs to be
     projectBtn.appendChild(projectBtnText);
     projectSidebar.appendChild(projectBtn);
-    // projectName.appendChild(projectNameText);
 
     updateBtn.appendChild(updateIcon);
     deleteBtn.appendChild(deleteIcon);
