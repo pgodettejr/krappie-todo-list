@@ -47,33 +47,41 @@ const appState = {
     }
   },
 
-  // Finds (reads?) a project
-  // TODO: This still might not work. Shows "(parameter) project: never". May need to rename "project" to something else in the find method.
+  // Finds a project in the myProjects array. This is used to find a project to update or delete in the methods below.
   readProject: function (projectTitle) { 
     return this.myProjects.find(project => project.projectTitle === projectTitle); 
   },
 
   // Finds and updates the name of an existing Project in the myProjects array. Placeholder for now.
   // TODO: myProjects array is currently not updating with the new title value entered in the Update form (still says original title, see Object.assign below as well)
+  // TODO: Try to get this method to run correctly without having 'projectTitle' referencing the value in the form (button logic already has that)
   updateProject: function () {
-    // const project = this.readProject();
-    // if (project) {
-    //   Object.assign(projectTitle, updates);
-    // }
-
     // Old code & attempts
 
-    let projectTitle = document.getElementById("project-update-title").value;
+    // The fact that this is referencing the form value entered may be the reason why the array is not updating on 'Object.assign' below (assuming 'updates' object stays)
+    let projectTitle = document.getElementById("project-update-title").value; 
 
     const updates = {
       projectTitle,
       // checked,
       // id
-    };
+    }
+
     this.readProject();
 
     // When I tried to run this.myProjects.projectTitle as a target, I get "Uncaught TypeError: Cannot convert undefined or null to object"
     Object.assign(projectTitle, updates);
+
+    // const project = this.readProject();
+    // if (project) {
+    //   Object.assign(projectTitle, projectUpdates);
+    // }
+
+    // Attempt using 'projectTitle' and 'newTitle' as parameters in the method
+
+    // const project = this.readProject(projectTitle);
+    // project.projectTitle = newTitle;
+    // Object.assign(project, newTitle);
   },
 
   // Deletes a project
@@ -84,7 +92,8 @@ const appState = {
   },
 
   // Toggles "complete" status of a project
-  toggleProjectChecked: function () {
+  // Not sure if 'project' should be a parameter here. Shows it as undefined by ESLint if I don't though.
+  toggleProjectChecked: function (project) {
     this.readProject();
     project.checked = !project.checked
   }
