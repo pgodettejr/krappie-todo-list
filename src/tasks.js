@@ -25,7 +25,7 @@ function removeTask(taskId) {
   const taskFilter = tasks.findIndex(task => task.id === taskId);
   const taskItem = 
     taskFilter != -1
-      ? tasks.splice(todoFilter, 1)
+      ? tasks.splice(taskFilter, 1)
       : "ERROR: Task not found";
   
   // TODO: Might not need this. Delete if so. Might be able to just return ternary operator with no addt'l variable.
