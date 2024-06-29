@@ -20,9 +20,11 @@ const projectForm = document.getElementById("project-form");
 const taskUpdateForm = document.getElementById("task-update-form");
 const projectUpdateForm = document.getElementById("project-update-form");
 
-// Sidebar buttons DOM
+// Sidebar DOM
+const projectMenu = document.querySelector(".menu-2");
 const sidebarTaskBtn = document.getElementById("add-task-2");
 const sidebarProjectBtn = document.getElementById("add-project");
+const projectButton = document.querySelector("project-btn");
 
 // Update and Delete buttons DOM for Projects
 const updateProjectBtn = document.getElementById("update-project");
@@ -154,9 +156,17 @@ krappieUI.editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
     e.preventDefault();
-    appState.updateProject(); // I doubt this is the issue. No matter how I change this method, the deletion below happens
+    // appState.updateProject(); // I doubt this is the issue. No matter how I change this method, the deletion below happens
 
+    let currentProjectTitle = projectHeading.textContent;
     let newProjectTitle = document.getElementById("project-update-title").value;
+
+    appState.updateProject(currentProjectTitle, newProjectTitle);
+
+    if (projectButton) {
+      projectButton.textContent = newProjectTitle;
+    }
+
     projectHeading.textContent = newProjectTitle;
 
     projectUpdateForm.reset();
@@ -172,5 +182,10 @@ deleteProjectBtn.addEventListener('click', () => {
   const targetProject = document.querySelector("project-wrapper");
 
   appState.deleteProject(); // TODO: Make sure to double check 'myProjects' array after deleting a project to see if this updated the array correctly
+
+  if (projectButton.textContent === projectHeading) {
+    projectMenu.removeChild(projectButton);
+  }
+
   mainArea.removeChild(targetProject);
 })
