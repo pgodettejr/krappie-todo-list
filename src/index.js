@@ -26,9 +26,12 @@ const sidebarTaskBtn = document.getElementById("add-task-2");
 const sidebarProjectBtn = document.getElementById("add-project");
 const projectButton = document.querySelector("project-btn");
 
-// Update and Delete buttons DOM for Projects
-const updateProjectBtn = document.getElementById("update-project");
-const deleteProjectBtn = document.getElementById("delete-project");
+// Update and Delete buttons DOM for Projects. 
+// Button group variables will be permanent if all projects end up being shown on main area of the UI
+const updateProjectButtons = document.querySelectorAll(".update-project");
+const deleteProjectButtons = document.querySelectorAll(".delete-project");
+// const updateProjectBtn = document.querySelector(".update-project");
+// const deleteProjectBtn = document.querySelector(".delete-project");
 
 // Icon for Add Task button in the header
 const headerTask = document.getElementById("add-task");
@@ -147,18 +150,41 @@ krappieUI.cancelProject.addEventListener('click', () => {
 // "Update Project" button functionality that brings up the Project form again to enter a new name
 // OPTION: If we are going to show multiple projects in the main area of the UI, then this needs to be under a forEach method so every Update button rendered will work
 // Maybe we should? Have the sidebar buttons auto-scroll to the project they're related to in the main area?
-updateProjectBtn.addEventListener('click', () => {
-  krappieUI.projectUpdateDialog.showModal();
+// updateProjectButtons.forEach(button => {
+//   button.addEventListener('click', () => {
+//     krappieUI.projectUpdateDialog.showModal();
+//   });
+// });
+
+mainArea.addEventListener('click', (e) => {
+  if (e.target && e.target.closest(".update-project")) {
+    krappieUI.projectUpdateDialog.showModal();
+  }
+
+  if (e.target && e.target.closest(".delete-project")) {
+    const targetProject = e.target.closest(".project-wrapper");
+    if (targetProject) {
+      appState.deleteProject();
+
+      if (projectButton.textContent === projectHeading) {
+        projectMenu.removeChild(projectButton);
+      }
+
+      mainArea.removeChild(targetProject);
+    }
+  }
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
+// TODO: This only changes the very first project in the main area (the Default one currently) no matter what Update Project button is pressed on what project
+// Likely need to implement some type of 'event.target.closest' logic similar to the new Update form button/Delete button logic above (see line 187 here for details)
 krappieUI.editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
     e.preventDefault();
     // appState.updateProject(); // I doubt this is the issue. No matter how I change this method, the deletion below happens
 
-    let currentProjectTitle = projectHeading.textContent;
+    let currentProjectTitle = projectHeading.closest.textContent; // If this doesn't work, do the more complicated 'e.target' solution in the button logic above
     let newProjectTitle = document.getElementById("project-update-title").value;
 
     appState.updateProject(currentProjectTitle, newProjectTitle);
@@ -178,14 +204,16 @@ krappieUI.editProject.addEventListener('click', (e) => {
 });
 
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
-deleteProjectBtn.addEventListener('click', () => {
-  const targetProject = document.querySelector("project-wrapper");
-
-  appState.deleteProject(); // TODO: Make sure to double check 'myProjects' array after deleting a project to see if this updated the array correctly
-
-  if (projectButton.textContent === projectHeading) {
-    projectMenu.removeChild(projectButton);
-  }
-
-  mainArea.removeChild(targetProject);
-})
+// deleteProjectButtons.forEach(button => {
+//   button.addEventListener('click', () => {
+//     const targetProject = document.querySelector("project-wrapper");
+  
+//     appState.deleteProject(); // TODO: Make sure to double check 'myProjects' array after deleting a project to see if this updated the array correctly
+  
+//     if (projectButton.textContent === projectHeading) {
+//       projectMenu.removeChild(projectButton);
+//     }
+  
+//     mainArea.removeChild(targetProject);
+//   })
+// });

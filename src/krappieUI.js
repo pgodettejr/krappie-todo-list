@@ -54,7 +54,7 @@ function renderDefault() {
     // Render "Update" icon button to be added to "Project Name" header
     // TODO: May not allow the Project title itself to be updated by commenting this section out (do this later on after we finish using the default Project for testing)
     const updateBtn = document.createElement("button");
-    updateBtn.setAttribute("id", "update-project");
+    updateBtn.classList.add("update-project");
 
     const updateIcon = new Image();
     updateIcon.src = Update;
@@ -62,7 +62,7 @@ function renderDefault() {
 
     // Render "Delete" icon button to be added to "Project Name" header
     const deleteBtn = document.createElement("button");
-    deleteBtn.setAttribute("id", "delete-project");
+    deleteBtn.classList.add("delete-project");
 
     const deleteIcon = new Image();
     deleteIcon.src = Delete;
@@ -113,7 +113,7 @@ function renderProject() {
 
     // Render "Update" icon button to be added to "Project Name" header
     const updateBtn = document.createElement("button");
-    updateBtn.setAttribute("id", "update-project");
+    updateBtn.classList.add("update-project");
 
     const updateIcon = new Image();
     updateIcon.src = Update;
@@ -121,7 +121,7 @@ function renderProject() {
 
     // Render "Delete" icon button to be added to "Project Name" header
     const deleteBtn = document.createElement("button");
-    deleteBtn.setAttribute("id", "delete-project");
+    deleteBtn.classList.add("delete-project");
 
     const deleteIcon = new Image();
     deleteIcon.src = Delete;
