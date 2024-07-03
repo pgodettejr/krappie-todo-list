@@ -41,6 +41,7 @@ function renderDefault() {
     const projectBtn = document.createElement("button");
     let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
+    projectBtn.setAttribute("data-project-title", `${appState.myProjects[project].projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
 
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
@@ -95,6 +96,7 @@ function renderProject() {
     const projectBtn = document.createElement("button");
     let projectBtnText = document.createTextNode(`${formTitle}`);
     projectBtn.classList.add("project-btn");
+    projectBtn.setAttribute("data-project-title", formTitle);
 
     // Function to remove all currently showing content in main when a Project button is clicked. 
     // Just goes back to adding all projects in the array like before (duplicates) if splice is removed
