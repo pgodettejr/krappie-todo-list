@@ -152,18 +152,18 @@ krappieUI.cancelProject.addEventListener('click', () => {
 // "Update Project" button functionality that brings up the Project form again to enter a new name
 // OPTION: If we are going to show multiple projects in the main area of the UI, then this needs to be under a forEach method so every Update button rendered will work
 // Maybe we should? Have the sidebar buttons auto-scroll to the project they're related to in the main area?
-// mainArea.addEventListener('click', (e) => {
-//   if (e.target && e.target.closest(".update-project")) {
-//     krappieUI.projectUpdateDialog.showModal();
-//   }
-// });
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains(".update-project")) {
-    const projectWrapper = e.target.closest(".project-wrapper");
-    currentProjectTitle = projectWrapper.querySelector(".project-name").textContent;
+mainArea.addEventListener('click', (e) => {
+  if (e.target && e.target.closest(".update-project")) {
     krappieUI.projectUpdateDialog.showModal();
   }
-})
+});
+// document.addEventListener('click', (e) => {
+//   if (e.target.classList.contains(".update-project")) {
+//     const projectWrapper = e.target.closest(".project-wrapper");
+//     currentProjectTitle = projectWrapper.querySelector(".project-name").textContent;
+//     krappieUI.projectUpdateDialog.showModal();
+//   }
+// })
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
 // TODO: This only changes the very first project in the main area (the Default one currently) no matter what Update Project button is pressed on what project
@@ -178,9 +178,10 @@ krappieUI.editProject.addEventListener('click', (e) => {
     const projectHeadings = document.querySelectorAll(".project-name");
     const projectButtons = document.querySelectorAll(".project-btn");
 
-    appState.updateProject(currentProjectTitle, newProjectTitle);
+    // appState.updateProject(currentProjectTitle, newProjectTitle);
 
     projectButtons.forEach(button => {
+      currentProjectTitle = button.textContent;
       if (button.getAttribute("data-project-title") === currentProjectTitle) {
         button.textContent = newProjectTitle;
         button.setAttribute("data-project-title", newProjectTitle);
@@ -189,8 +190,10 @@ krappieUI.editProject.addEventListener('click', (e) => {
 
     // Attempt to loop through all 'p' tags (project headings) to find the right one to update, then updates the text
     projectHeadings.forEach(heading => {
+      currentProjectTitle = heading.textContent;
       if (heading.textContent === currentProjectTitle) {
         heading.textContent = newProjectTitle;
+        appState.updateProject(currentProjectTitle, newProjectTitle);
       }
     });
 
