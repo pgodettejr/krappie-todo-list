@@ -10,8 +10,6 @@ import Plus from './img/plus.png';
 appState.myProjects.push(appState.defaultProject);
 krappieUI.renderDefault();
 
-let currentProjectTitle;
-
 // Main area DOM
 const mainArea = document.querySelector("main");
 const projectHeading = document.querySelector(".project-name");
@@ -30,7 +28,7 @@ const projectButton = document.querySelector(".project-btn");
 
 // Update and Delete buttons DOM for Projects. 
 // Button group variables will be permanent if all projects end up being shown on main area of the UI
-const updateProjectButtons = document.querySelectorAll(".update-project");
+// const updateProjectButtons = document.querySelectorAll(".update-project");
 const deleteProjectButtons = document.querySelectorAll(".delete-project");
 // const updateProjectBtn = document.querySelector(".update-project");
 // const deleteProjectBtn = document.querySelector(".delete-project");
@@ -149,61 +147,48 @@ krappieUI.cancelProject.addEventListener('click', () => {
   krappieUI.projectDialog.close();
 });
 
+// Variable for updating projects in the UI and array
+let currentProjectName;
+
 // "Update Project" button functionality that brings up the Project form again to enter a new name
-// OPTION: If we are going to show multiple projects in the main area of the UI, then this needs to be under a forEach method so every Update button rendered will work
-// Maybe we should? Have the sidebar buttons auto-scroll to the project they're related to in the main area?
+// OPTION: May need to change EventTarget from 'mainArea' to 'document' if future bugs show up & also change 'if' condition to 'e.target.classList.contains("update-project")')
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-project")) {
+    const wrapper = e.target.closest(".project-wrapper");
+    currentProjectName = wrapper.querySelector(".project-name").textContent;
     krappieUI.projectUpdateDialog.showModal();
   }
 });
-// document.addEventListener('click', (e) => {
-//   if (e.target.classList.contains(".update-project")) {
-//     const projectWrapper = e.target.closest(".project-wrapper");
-//     currentProjectTitle = projectWrapper.querySelector(".project-name").textContent;
-//     krappieUI.projectUpdateDialog.showModal();
-//   }
-// })
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
-// TODO: This only changes the very first project in the main area (the Default one currently) no matter what Update Project button is pressed on what project
-// Need to figure out how to target the text of the current Project title for the correct Project that was targeted, then update appState.updateProject (the array) below
 krappieUI.editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
     e.preventDefault();
 
-    // let currentProjectTitle = projectHeading.textContent; // This is still reading from the first 'p' tag containing text regardless of what other project name was updated
-    let newProjectTitle = document.getElementById("project-update-title").value;
+    let newProjectName = document.getElementById("project-update-title").value;
     const projectHeadings = document.querySelectorAll(".project-name");
     const projectButtons = document.querySelectorAll(".project-btn");
 
-    // appState.updateProject(currentProjectTitle, newProjectTitle);
+    appState.updateProject(currentProjectName, newProjectName);
 
+    // Loop through all project sidebar buttons to find the right one to update, then update the text
     projectButtons.forEach(button => {
-      currentProjectTitle = button.textContent;
-      if (button.getAttribute("data-project-title") === currentProjectTitle) {
-        button.textContent = newProjectTitle;
-        button.setAttribute("data-project-title", newProjectTitle);
+      if (button.getAttribute("data-project-title") === currentProjectName) {
+        button.textContent = newProjectName;
+        button.setAttribute("data-project-title", newProjectName);
       }
     });
 
-    // Attempt to loop through all 'p' tags (project headings) to find the right one to update, then updates the text
+    // Loop through all 'p' tags (project headings) to find the right one to update, then update the text
     projectHeadings.forEach(heading => {
-      currentProjectTitle = heading.textContent;
-      if (heading.textContent === currentProjectTitle) {
-        heading.textContent = newProjectTitle;
-        appState.updateProject(currentProjectTitle, newProjectTitle);
+      if (heading.textContent === currentProjectName) {
+        heading.textContent = newProjectName;
       }
     });
-
-    // projectHeading.textContent = newProjectTitle;
 
     projectUpdateForm.reset();
     krappieUI.projectUpdateDialog.close();
-
-    // Debug whether or not the array is actually updated (delete this later on)
-    console.log(appState.myProjects);
   }
 });
 
@@ -262,3 +247,15 @@ mainArea.addEventListener('click', (e) => {
 
     // Attempt to go back to previous iteration to change sidebar project button text & end up with 'Uncaught TypeError: Cannot set properties of null (setting 'textContent')'
     // projectButton.textContent = newProjectTitle;
+
+// Previous attempts to get the correct projects to Update via update form as well as getting the Update buttons under each project to work in the first place
+// Was only changing the very first project in the main area (the Default one currently) no matter what Update Project button was pressed on what project
+// Need to figure out how to target the text of the current Project title for the correct Project that was targeted, then update appState.updateProject (the array) below
+
+// document.addEventListener('click', (e) => {
+//   if (e.target.classList.contains("update-project")) {
+//     const wrapper = e.target.closest(".project-wrapper");
+//     currentProjectName = wrapper.querySelector(".project-name").textContent;
+//     krappieUI.projectUpdateDialog.showModal();
+//   }
+// })

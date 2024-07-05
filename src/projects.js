@@ -32,7 +32,6 @@ function createProject (projectTitle) {
 const appState = {
   myProjects: [], // List of projects and tasks within those projects
   defaultProject: createProject("Today"),
-  // projectName: createProject.projectTitle, - Uncaught TypeError: Cannot convert undefined or null to object
 
   // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI
   // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
@@ -58,41 +57,10 @@ const appState = {
   // TODO: myProjects array is currently not updating with the new title value entered in the Update form (still says original title, see Object.assign below as well)
   // TODO: Try to get this method to run correctly without having 'projectTitle' referencing the value in the form (button logic already has that)
   updateProject: function (currentTitle, newTitle) {
-    // Old code & attempts
-
-    // The fact that this is referencing the form value entered may be the reason why the array is not updating on 'Object.assign' below (assuming 'updates' object stays)
-    // let projectTitle = document.getElementById("project-update-title").value; 
-
-    // let projectTitle = createProject.projectTitle; - Uncaught TypeError: Cannot convert undefined or null to object
-
-    // const updates = {
-    //   projectTitle,
-    //   // checked,
-    //   // id
-    // }
-
-    // this.readProject();
-
-    // When I tried to run this.myProjects.projectTitle as a target, I get "Uncaught TypeError: Cannot convert undefined or null to object"
-    // Object.assign(projectTitle, updates);
-
-    // const project = this.readProject();
-    // if (project) {
-    //   Object.assign(projectTitle, projectUpdates);
-    // }
-
-    // Attempt using 'projectTitle' and 'newTitle' as parameters in the method
-
-    // const project = this.readProject(projectTitle);
-    // project.projectTitle = newTitle;
-    // Object.assign(project, newTitle);
-
-    // Works similar to the other 'project' variable method above (still doesn't update array itself)
+    // TODO: Check to make sure this still updates the array itself)
     const project = this.readProject(currentTitle);
-    // const newTitle = document.getElementById("project-update-title").value;
 
     if (project) {
-      // Object.assign(project, newTitle);
       project.projectTitle = newTitle;
     }
   },
@@ -134,3 +102,37 @@ export { createProject, appState }
 //     projectStatus.checked = !projectStatus.checked;
 //   }
 // }
+
+// Old method in appState
+// projectName: createProject.projectTitle, - Uncaught TypeError: Cannot convert undefined or null to object
+
+// Old code & attempts for 'updateProject' method in appStatus
+
+    // The fact that this is referencing the form value entered may be the reason why the array is not updating on 'Object.assign' below (assuming 'updates' object stays)
+    // let projectTitle = document.getElementById("project-update-title").value; 
+
+    // let projectTitle = createProject.projectTitle; - Uncaught TypeError: Cannot convert undefined or null to object
+
+    // const updates = {
+    //   projectTitle,
+    //   // checked,
+    //   // id
+    // }
+
+    // this.readProject();
+
+    // When I tried to run this.myProjects.projectTitle as a target, I get "Uncaught TypeError: Cannot convert undefined or null to object"
+    // Object.assign(projectTitle, updates);
+
+    // const project = this.readProject();
+    // if (project) {
+    //   Object.assign(project, projectUpdates);
+    // }
+
+    // Attempt using 'projectTitle' and 'newTitle' as parameters in the method
+
+    // const project = this.readProject(projectTitle);
+    // project.projectTitle = newTitle;
+    // Object.assign(project, newTitle);
+
+    // const newTitle = document.getElementById("project-update-title").value;
