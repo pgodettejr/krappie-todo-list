@@ -54,10 +54,7 @@ const appState = {
   },
 
   // Finds and updates the name of an existing Project in the myProjects array. Placeholder for now.
-  // TODO: myProjects array is currently not updating with the new title value entered in the Update form (still says original title, see Object.assign below as well)
-  // TODO: Try to get this method to run correctly without having 'projectTitle' referencing the value in the form (button logic already has that)
   updateProject: function (currentTitle, newTitle) {
-    // TODO: Check to make sure this still updates the array itself)
     const project = this.readProject(currentTitle);
 
     if (project) {
@@ -66,10 +63,20 @@ const appState = {
   },
 
   // Deletes a project
-  // TODO: This may or may not work. If it works, it should delete the project from the array then re-render the main area. This is more of a placeholder than anything.
-  deleteProject: function (projectIndex) { // May not need a parameter at all
-    this.myProjects.splice(projectIndex, 1);
-    krappieUI.renderProject();
+  // TODO: Currently doesn't work (doesn't delete the correct project in the array, always deletes the first one in the array). This is more of a placeholder than anything.
+  deleteProject: function (currentTitle) { // May not need a parameter at all, but 'projectIndex' was supposed to represent the target project the user wants removed
+    const projectIndex = this.readProject(currentTitle);
+
+    if (projectIndex) {
+      this.myProjects.splice(projectIndex, 1);
+    }
+    
+    // Previous code with 'projectIndex' as the function parameter for the method
+    
+    // this.myProjects.splice(projectIndex, 1);
+    // krappieUI.renderProject();
+
+
   },
 
   // Toggles "complete" status of a project
