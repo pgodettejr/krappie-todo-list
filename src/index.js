@@ -196,15 +196,26 @@ krappieUI.editProject.addEventListener('click', (e) => {
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
     const targetProject = e.target.closest(".project-wrapper");
-    if (targetProject) {
-      appState.deleteProject(); // TODO: Make sure to double check 'myProjects' array after deleting a project to see if this updated the array correctly
 
+    // TODO: We need to capture the text of the sidebar button of the target project so this function knows which button to delete along with the project
+    // This is the right idea, but not quite the right DOM targeting
+    // let targetProjectButton = projectMenu.querySelector(".project-btn");
+
+    if (targetProject) {
+      // TODO: When the console logs the array below, the first project in the array is removed. Not the project we targeted.
+      // Add parameters similar to Update form button logic above (target project name text)
+      appState.deleteProject(); 
+
+      // TODO: This doesn't remove the sidebar project button related to the project we want to delete
       if (projectButton.textContent === projectHeading) {
         projectMenu.removeChild(projectButton);
       }
 
       mainArea.removeChild(targetProject);
     }
+
+    // TODO: Double checks to make sure the project in the 'myProjects' array has been deleted (remove this once fixed)
+    console.log(appState.myProjects);
   }
 });
 
