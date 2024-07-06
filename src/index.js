@@ -167,8 +167,8 @@ krappieUI.editProject.addEventListener('click', (e) => {
     e.preventDefault();
 
     let newProjectName = document.getElementById("project-update-title").value;
-    const projectHeadings = document.querySelectorAll(".project-name");
     const projectButtons = document.querySelectorAll(".project-btn");
+    const projectHeadings = document.querySelectorAll(".project-name");
 
     appState.updateProject(currentProjectName, newProjectName);
 
@@ -189,6 +189,9 @@ krappieUI.editProject.addEventListener('click', (e) => {
 
     projectUpdateForm.reset();
     krappieUI.projectUpdateDialog.close();
+
+    // Remove this once the Delete Project buttons work correctly (correct project still needs to be removed from the array)
+    console.log(appState.myProjects);
   }
 });
 
@@ -196,21 +199,22 @@ krappieUI.editProject.addEventListener('click', (e) => {
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
     const targetProject = e.target.closest(".project-wrapper");
-
-    // TODO: We need to capture the text of the sidebar button of the target project so this function knows which button to delete along with the project
-    // This is the right idea, but not quite the right DOM targeting
-    // let targetProjectButton = projectMenu.querySelector(".project-btn");
+    currentProjectName = targetProject.querySelector(".project-name").textContent;
 
     if (targetProject) {
-      // TODO: When the console logs the array below, the first project in the array is removed. Not the project we targeted.
-      // Add parameters similar to Update form button logic above (target project name text)
-      appState.deleteProject(); 
+      const projectButtons = document.querySelectorAll(".project-btn");
 
-      // TODO: This doesn't remove the sidebar project button related to the project we want to delete
-      if (projectButton.textContent === projectHeading) {
-        projectMenu.removeChild(projectButton);
-      }
+      // TODO: When the console logs the array below, the first project in the array is removed. Not the project we targeted (even with parameters)
+      // Either the issue is the parameter/argument I'm passing or it's the deleteProject method itself under the projects module (which I need to update anyway)
+      appState.deleteProject(currentProjectName); // 'targetProject' was a parameter we previously tried
 
+      // Loop through all project sidebar buttons to find the right one to delete, then delete it
+      projectButtons.forEach(button => {
+        if (button.getAttribute("data-project-title") === currentProjectName) {
+          projectMenu.removeChild(button);
+        }
+      });
+      
       mainArea.removeChild(targetProject);
     }
 
