@@ -63,19 +63,14 @@ const appState = {
   },
 
   // Deletes a project
-  // TODO: Currently doesn't work (doesn't delete the correct project in the array, always deletes the first one in the array). This is more of a placeholder than anything.
+  // TODO: Currently doesn't quite work (doesn't delete the correct project in the array, always deletes the first one in the array). This is more of a placeholder than anything.
+  // When this method runs, the correct project is shown in DevTools on every line of code, yet when it gets to logging the current array, the first index is gone no matter what
   deleteProject: function (currentTitle) { // May not need a parameter at all, but 'projectIndex' was supposed to represent the target project the user wants removed
-    const projectIndex = this.readProject(currentTitle);
+    const projectIndex = this.myProjects.findIndex(project => project.projectTitle === currentTitle);
 
-    if (projectIndex) {
+    if (projectIndex !== -1) {
       this.myProjects.splice(projectIndex, 1);
     }
-    
-    // Previous code with 'projectIndex' as the function parameter for the method
-    
-    // this.myProjects.splice(projectIndex, 1);
-    // krappieUI.renderProject();
-
 
   },
 
@@ -143,3 +138,11 @@ export { createProject, appState }
     // Object.assign(project, newTitle);
 
     // const newTitle = document.getElementById("project-update-title").value;
+
+// Old code for 'deleteProject' method in appStatus
+
+// Previous code with 'projectIndex' as the function parameter for the method. 
+// Misunderstanding of how 'splice' worked: thought I could remove the object itself when it only works with the index of an array
+    
+// this.myProjects.splice(projectIndex, 1); 
+// krappieUI.renderProject();

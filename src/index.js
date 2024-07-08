@@ -1,4 +1,5 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
+// TODO: Hitting the "Enter" key on the keyboard doesn't submit & close any form it seems. Either fix here in all the button logic or in the HTML itself?
 
 import * as krappieUI from './krappieUI.js';
 import { createProject, appState } from './projects.js';
