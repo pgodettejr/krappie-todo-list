@@ -15,6 +15,9 @@ krappieUI.renderDefault();
 const mainArea = document.querySelector("main");
 const projectHeading = document.querySelector(".project-name");
 
+// Search bar DOM
+const searchBar = document.getElementById("search-text");
+
 // Forms DOM
 const taskForm = document.getElementById("task-form");
 const projectForm = document.getElementById("project-form");
@@ -69,6 +72,29 @@ function poopSound() {
 };
 
 poopSound();
+
+// Search filter event 
+searchBar.addEventListener('keyup', searchFilter);
+
+// Search bar functionality
+function searchFilter (e) {
+  // Convert text to lowercase
+  let searchTextConvert = e.target.value.toLowerCase();
+
+  // List of projects
+  let projectList = document.querySelectorAll(".project-wrapper");
+
+  // Filters out the project the user wants to search for
+  projectList.forEach(project => {
+    let projectName = project.firstChild.textContent;
+
+    if (projectName.toLowerCase().indexOf(searchTextConvert) != -1) {
+      project.style.display = 'block';
+    } else {
+      project.style.display = 'none';
+    }
+  });
+}
 
 // Header "Add Task" button functionality that brings up the form to enter Task details
 headerTask.addEventListener('click', () => {

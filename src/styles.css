@@ -46,6 +46,13 @@ body {
   border-radius: 50%;
 }
 
+/* Search bar styling starts here  */
+.search #search-text {
+  background-color: #EEE;
+  width: 60%;
+  border-radius: 28px;
+}
+
 /* Styling for "Add Task" button in the heading goes in this spot */
 
 .sidebar {
