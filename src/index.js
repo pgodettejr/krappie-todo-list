@@ -73,6 +73,8 @@ function poopSound() {
 
 poopSound();
 
+// TODO: Test out search bar functionality to make sure it works properly once the next stage of CSS is completed for the app
+
 // Search filter event 
 searchBar.addEventListener('keyup', searchFilter);
 

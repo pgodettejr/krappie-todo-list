@@ -1,9 +1,4 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
-
-// TODO: We either need a function to switch from one project to another (similar to Restaurant page) or let user see all projects but only <main> scrolls down in the CSS
-// Look at Alex Younger's ScreenController function from his Connect 4 article as a template for how to switch from one project to another (using function that 'get' them)
-// updateScreen() in particular
-
 // TODO: Setting up localStorage functions may make the whole rendering process easier as far as what projects/tasks to get when a user clicks on one
 
 import { appState } from './projects.js';
@@ -97,12 +92,6 @@ function renderProject() {
     let projectBtnText = document.createTextNode(`${formTitle}`);
     projectBtn.classList.add("project-btn");
     projectBtn.setAttribute("data-project-title", formTitle);
-
-    // Function to remove all currently showing content in main when a Project button is clicked. 
-    // Just goes back to adding all projects in the array like before (duplicates) if splice is removed
-    // projectBtn.addEventListener('click', () => {
-    //   main.replaceChildren(projectName);
-    // });
 
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
