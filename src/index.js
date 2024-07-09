@@ -39,6 +39,7 @@ const headerTask = document.getElementById("add-task");
 
 const taskIcon = new Image();
 taskIcon.src = Plus;
+taskIcon.classList.add("image-button");
 
 headerTask.appendChild(taskIcon);
 
@@ -71,6 +72,7 @@ function poopSound() {
 poopSound();
 
 // TODO: Test out search bar functionality to make sure it works properly once the next stage of CSS is completed for the app
+// OPTION: Possibly add a Search image as an icon for the search button in the HTML currently. Similar to "Add Task" header button above.
 
 // Search bar DOM
 const searchBar = document.getElementById("search-text");
