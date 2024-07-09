@@ -15,9 +15,6 @@ krappieUI.renderDefault();
 const mainArea = document.querySelector("main");
 const projectHeading = document.querySelector(".project-name");
 
-// Search bar DOM
-const searchBar = document.getElementById("search-text");
-
 // Forms DOM
 const taskForm = document.getElementById("task-form");
 const projectForm = document.getElementById("project-form");
@@ -65,8 +62,8 @@ function poopSound() {
     // Append the audio itself to the image file
     imageButton.appendChild(audio);
 
-    if(!audio) return; // stops function from running altogether
-    audio.currentTime = 1; // rewinds file to just before the sound clip starts (1 second mark)
+    if(!audio) return; // Stops function from running altogether
+    audio.currentTime = 1; // Rewinds file to just before the sound clip starts (1 second mark)
     audio.play();
   });
 };
@@ -74,6 +71,9 @@ function poopSound() {
 poopSound();
 
 // TODO: Test out search bar functionality to make sure it works properly once the next stage of CSS is completed for the app
+
+// Search bar DOM
+const searchBar = document.getElementById("search-text");
 
 // Search filter event 
 searchBar.addEventListener('keyup', searchFilter);
@@ -176,7 +176,7 @@ krappieUI.cancelProject.addEventListener('click', () => {
   krappieUI.projectDialog.close();
 });
 
-// Variable for updating projects in the UI and array
+// Variable used for updating and deleting projects in the UI and 'myProjects' array in appState (projects.js)
 let currentProjectName;
 
 // "Update Project" button functionality that brings up the Project form again to enter a new name
@@ -218,9 +218,6 @@ krappieUI.editProject.addEventListener('click', (e) => {
 
     projectUpdateForm.reset();
     krappieUI.projectUpdateDialog.close();
-
-    // Remove this once the Delete Project buttons work correctly (correct project still needs to be removed from the array)
-    console.log(appState.myProjects);
   }
 });
 
@@ -233,9 +230,7 @@ mainArea.addEventListener('click', (e) => {
     if (targetProject) {
       const projectButtons = document.querySelectorAll(".project-btn");
 
-      // TODO: When the console logs the array below, the first project in the array is removed. Not the project we targeted (even with parameters)
-      // Either the issue is the parameter/argument I'm passing or it's the deleteProject method itself under the projects module (which I need to update anyway)
-      appState.deleteProject(currentProjectName); // 'targetProject' was a parameter we previously tried
+      appState.deleteProject(currentProjectName);
 
       // Loop through all project sidebar buttons to find the right one to delete, then delete it
       projectButtons.forEach(button => {
@@ -246,9 +241,6 @@ mainArea.addEventListener('click', (e) => {
       
       mainArea.removeChild(targetProject);
     }
-
-    // TODO: Double checks to make sure the project in the 'myProjects' array has been deleted (remove this once fixed)
-    console.log(appState.myProjects);
   }
 });
 
