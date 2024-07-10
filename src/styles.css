@@ -53,7 +53,9 @@ body {
   grid-template-columns: 1fr 2.5fr 0.5fr;
 }
 
-.left-heading {
+/* TODO: Check to see if adding '.center-heading' in this manner works for centering the search bar (see TODO comment under #search-text below where the 'margin' is */
+.left-heading,
+.center-heading {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -78,7 +80,7 @@ body {
   border-radius: 28px;
 
   /* TODO: Find another way to center the search bar without using 'margin' as 'margin' doesn't keep it centered as projects are created in 'main' */
-  margin: 3% auto auto 15%;
+  /* margin: 3% auto auto 15%; */
 }
 
 /* Styling for "Add Task" button in the heading goes in this spot */
