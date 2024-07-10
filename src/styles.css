@@ -71,10 +71,12 @@ body {
 
 /* Keep in mind original image is 512 x 512 px */
 /* TODO: Remove the gray background color from this. Make it 100% transparent? */
+/* OPTION: Transition to a brighter color similar to sidebar buttons below. Make the icons even smaller? */
 .image-button {
   height: 100px;
   width: 100px;
   border-radius: 50%;
+  /* transition: 0.3s; */
 }
 
 /* Search bar styling starts here (NOT the div that the search bar is in)  */
@@ -87,7 +89,7 @@ body {
   /* display: block; */
   background-color: #EEE;
   width: 300%;
-  /* height: 200%; */
+  /* height: auto; */
   border-radius: 28px;
 }
 
@@ -115,6 +117,29 @@ body {
   & li {
     margin-bottom: 20px;
   }
+
+  & button {
+    margin: 2rem;
+    padding: 1rem 2rem;
+    width: 60%;
+    height: 60%;
+    border-radius: 100vw;
+    transition: 0.3s;
+
+    background-color: rgb(89, 109, 72);
+    border: 1px solid rgb(89, 109, 72);
+  }
+
+  & button:hover,
+    button:focus {
+    background-color: rgb(141, 165, 120);
+    border: 1px solid rgb(141, 165, 120);
+  }
+
+  /* & button[aria-current] {
+    background: rgb(4, 155, 155);
+    border: 1px solid rgb(4, 155, 155);
+  } */
 }
 
 /* TODO: Temporary styling for main. Revisit this at some point if it doesn't look right (looks good so far without tasks being added) */

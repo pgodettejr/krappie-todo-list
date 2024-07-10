@@ -71,9 +71,6 @@ function poopSound() {
 
 poopSound();
 
-// TODO: Test out search bar functionality to make sure it works properly once the next stage of CSS is completed for the app
-// OPTION: Possibly add a Search image as an icon for the search button in the HTML currently if this auto filter function fails. Similar to "Add Task" header button above.
-
 // Search bar DOM
 const searchBar = document.getElementById("search-text");
 
