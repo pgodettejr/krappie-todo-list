@@ -21,7 +21,8 @@ body {
   /* grid-template-columns: 0.5fr 3.5fr; */
   /* grid-template-columns: repeat(4, 1fr); */
 
-  /* Alternative setup: reactivate 'grid-areas' below & possibly refactor this to work within the .container and not here in .content */
+  /* OPTION: Alternative setup - reactivate 'grid-areas' below & possibly refactor this to work within both the .container below and here in .content (split this code up) */
+  /* Read up on grid-template-areas. What do the dots represent on each line below? */
   
   /* grid-template: 200px auto 100px / 1fr 3fr 1fr;
   grid-template-areas: 
@@ -40,8 +41,7 @@ body {
 .heading {
   min-width: 100vw;
 
-  /* We can probably remove these? */
-  grid-column: 1; /* Adding 'span 2' pushes the 'main' area closer to the sidebar in a centered way. Why? Read up on 'span' for Grid. */
+  grid-column: 1;
   grid-row: 1 / 2;
   /* grid-area: heading; */
 
@@ -61,6 +61,11 @@ body {
   gap: 20px;
 }
 
+.right-heading {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* Keep in mind original image is 512 x 512 px */
 /* TODO: Remove the gray background color from this. Make it 100% transparent? */
 .image-button {
@@ -69,7 +74,7 @@ body {
   border-radius: 50%;
 }
 
-/* Search bar styling starts here  */
+/* Search bar styling starts here (NOT the div that the search bar is in)  */
 .search #search-text {
   /* display: flex;
   justify-content: center;
@@ -109,13 +114,13 @@ body {
   }
 }
 
-/* TODO: Temporary styling for main. Revisit this at some point if it doesn't look right */
+/* TODO: Temporary styling for main. Revisit this at some point if it doesn't look right (looks good so far without tasks being added) */
 main {
   /* grid-column: 2 / 3; */
 
   background-color: #EEE;
   grid-column: 2 / span 2;
-  grid-row: 2;
+  grid-row: 1 / span 2; 
   gap: 15px;
 
   /* display: grid; */
