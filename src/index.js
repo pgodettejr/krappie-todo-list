@@ -47,7 +47,7 @@ headerTask.appendChild(taskIcon);
 function poopSound() {
   const poopLogo = document.querySelector(".app-logo");
 
-  poopLogo.addEventListener('click', function() { // TODO: Put 'e' back in here if the audio button no longer works
+  poopLogo.addEventListener('click', function() {
     // Create the audio element via JS
     const audio = document.createElement("audio");
     audio.setAttribute("data-image", "logo-sound");
@@ -72,7 +72,7 @@ function poopSound() {
 poopSound();
 
 // TODO: Test out search bar functionality to make sure it works properly once the next stage of CSS is completed for the app
-// OPTION: Possibly add a Search image as an icon for the search button in the HTML currently. Similar to "Add Task" header button above.
+// OPTION: Possibly add a Search image as an icon for the search button in the HTML currently if this auto filter function fails. Similar to "Add Task" header button above.
 
 // Search bar DOM
 const searchBar = document.getElementById("search-text");
