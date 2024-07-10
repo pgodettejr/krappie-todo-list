@@ -15,7 +15,7 @@ body {
 
 .content {
   display: grid;
-  grid-template: 1fr 2.5fr 0.5fr / repeat(3, 1fr);
+  grid-template: 0.75fr 3fr 0.25fr / repeat(3, 1fr);
   grid-gap: 10px;
   /* grid-template-rows: 1fr 2.5fr 0.5fr; */
   /* grid-template-columns: 0.5fr 3.5fr; */
@@ -53,12 +53,15 @@ body {
   grid-template-columns: 1fr 2.5fr 0.5fr;
 }
 
-/* TODO: Check to see if adding '.center-heading' in this manner works for centering the search bar (see TODO comment under #search-text below where the 'margin' is */
 .left-heading,
 .center-heading {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.center-heading {
+  margin-left: 5em;
 }
 
 .right-heading {
@@ -75,20 +78,20 @@ body {
 }
 
 /* Search bar styling starts here (NOT the div that the search bar is in)  */
+/* TODO: Center the search bar further, make it longer and make the input part bigger */
 .search #search-text {
   /* display: flex;
   justify-content: center;
   align-items: center; */
 
+  /* display: block; */
   background-color: #EEE;
-  width: 60%;
+  width: 300%;
+  /* height: 200%; */
   border-radius: 28px;
-
-  /* TODO: Find another way to center the search bar without using 'margin' as 'margin' doesn't keep it centered as projects are created in 'main' */
-  /* margin: 3% auto auto 15%; */
 }
 
-/* Styling for "Add Task" button in the heading goes in this spot */
+/* Styling for "Add Task" button in the heading goes in this spot (if any additional styling is needed on top of '.image-button' above) */
 
 .container {
   /* grid-column: auto; */
@@ -96,12 +99,12 @@ body {
   /* grid-area: main; */
 
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 0.5fr 3.5fr;
 }
 
 .sidebar {
-  grid-column: 1 / 2;
-  grid-row: 1 / span 2;
+  grid-column: 1;
+  grid-row: 1 / span 3;
   /* grid-area: sidebar; */
 
   & ul {
@@ -120,7 +123,7 @@ main {
 
   background-color: #EEE;
   grid-column: 2 / span 2;
-  grid-row: 1 / span 2; 
+  grid-row: 1 / span 3; 
   gap: 15px;
 
   /* display: grid; */
@@ -128,8 +131,17 @@ main {
 }
 
 footer {
-  grid-row: 3 / 4;
-  /* text-align: center; */
+  grid-row: 3;
+
+  & .credits {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .credits:first-child {
+    text-align: center;
+  }
+    
   /* grid-area: footer; */
 }
 
