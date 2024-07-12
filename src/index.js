@@ -143,6 +143,10 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // TODO: Function call that renders the update goes here
 
+    // Values of all form sections
+    // Run the updateTask function
+    // Some type of 'forEach' method for all the tasks in the project until JS finds the right task to update?
+
     taskUpdateForm.reset();
     krappieUI.taskUpdateDialog.close();
   }
