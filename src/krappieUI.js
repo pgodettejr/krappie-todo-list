@@ -186,6 +186,7 @@ function populateProjects() {
 // Function for dynamically adding the task to the <main> area
 // May need to completely redo this function. The "Library project" DOM level 1 technique might not work for this one (task is an array within an object within another array)
 // TODO: Add rendering from the "Add to Project" drop-down section regardless (the task should go under the project selected in the UI)
+// TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
 function renderTask() {
   for (const task in appState.myProjects.tasks) { // Previous code: (const task in tasks)
     // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
@@ -197,6 +198,7 @@ function renderTask() {
     const isChecked = task.checked ? 'done' : '';
 
     // DOM for existing "Project Name" header (that was previously rendered)
+    // TODO: Fix this as it most likely just grabs the very first <ul> in the DOM, not the <ul> that was targeted in the form
     const projectNameHeader = document.querySelector("ul");
 
     // Sets up the name of the task entered as a list element so the user can have a list of tasks
@@ -236,8 +238,6 @@ function renderTask() {
     // Places the task itself (via it's name) as a child under the Project <ul>
     // TODO: It works currently. It's just showing undefined on everything is all (not due to this code itself)
     projectNameHeader.appendChild(taskName);
-
-    // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
   }
 }
 
