@@ -72,7 +72,7 @@ const appState = {
 
   },
 
-  // Toggles "complete" status of a project
+  // OPTION/BRANCH: Toggles "complete" status of a project 
   // Not sure if 'project' should be a parameter here. Shows it as undefined by ESLint if I don't though.
   toggleProjectChecked: function (project) {
     this.readProject();

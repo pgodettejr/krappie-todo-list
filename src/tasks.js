@@ -4,11 +4,11 @@ import * as krappieUI from './krappieUI.js'
 // Access to the tasks array inside of the createProject function
 let tasks = createProject.tasks;
 
-// Function for making "Task" objects & reporting the "Task" added to the project (does NOT add it to the UI or array; there is a separate function for this)
+// Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
 function createTask (taskTitle, dueDate, priority, description) {
   let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
 
-  // ID number for each project assigned at "random?" used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
+  // ID number for each project assigned at "random(?)" used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
   let id = Date.now().toString(); 
 
   // Alternate way of generating a random id number
@@ -21,26 +21,29 @@ function createTask (taskTitle, dueDate, priority, description) {
 }
 
 // Deletes a task
+// TODO: Can the ternary operator be written "cleaner"? Instead of using it within a declared variable, try another way (MDN doc - Ternary Operator)
 function removeTask(taskId) {
   const taskFilter = tasks.findIndex(task => task.id === taskId);
-  const taskItem = 
+  const taskItem = // OPTION: Write this as a traditional function instead, returning the ternary operator on the inside or an 'if' statement similar to deleteProject
     taskFilter != -1
       ? tasks.splice(taskFilter, 1)
       : "ERROR: Task not found";
   
-  // TODO: Might not need this. Delete if so. Might be able to just return ternary operator with no addt'l variable.
+  // TODO: Almost positive we need this, but delete it if not. Very small chance we're able to just return ternary operator with no additional variable.
   return taskItem; 
 }
 
 // Updates information on an existing task
+// TODO: Change target of "tasks" back to "task"? Also, 'Object.assign' might not even work with 'updates' (it didn't for updateProject). Try 'map' function in old code below?
 function updateTask(taskId, updates) {
   const taskFind = tasks.find(task => task.id === taskId);
   if (taskFind) {
-    Object.assign(taskFind, updates); // Change target of "tasks" back to "task"?
+    Object.assign(taskFind, updates); 
   }
 }
 
 // Toggles "complete" status of a given task
+// TODO: Either logic to change the 'checked' status in the UI goes here or in the UI module or as button logic in the index module
 function toggleTaskChecked(taskId) {
   const toggleStatus = tasks.find(task => task.id === taskId);
   if (toggleStatus) {
@@ -48,20 +51,22 @@ function toggleTaskChecked(taskId) {
   }
 }
 
-// Stores the "task" object to the projects array, then runs the task rendering function to display it on the UI
+// Stores the "task" object to the target project (object) inside the 'myProjects' array, then runs the task rendering function to display it on the UI
 // Add "projectIndex" back in as a function parameter if needed
 
-// TODO: This needs to find the right project to add the tasks array to. Link this with the readProject method in the appStatus function in projects module
+// TODO: This needs to find the right project to add the tasks array to. Link this with the readProject method in the appState function in projects module (appState.readProject)
+// Likely need to add the 'addToProject' variable as a parameter to appState.readProject, then declare a variable = appState.readProject(addToProject);
 
 function storeTask() {
   // const tasks = createProject.tasks;
 
   let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
   let dueDate = document.getElementById("due-date").value;
+  let addToProject = document.getElementById("add-to-project").value;
   let priority = document.getElementById("priority").value;
   let description = document.getElementById("description").value;
 
-  if (taskTitle && dueDate && priority) { // Do we need !isNaN(dueDate) instead?
+  if (taskTitle && dueDate && addToProject && priority) { // Do we need !isNaN(dueDate) instead?
     // TODO: Refactor "addTask" to get it to work.
 
     // Uncaught TypeError: Cannot read properties of undefined (reading 'addTask'). Likely due to addTask function not being part of myProjects property (it's just an array).
@@ -77,7 +82,8 @@ function storeTask() {
     const newTask = createTask(taskTitle, dueDate, priority, description);
     // TODO: Uncaught TypeError - Cannot read properties of undefined (reading 'push')
     // Tried adding 'tasks' as a parameter for storeTask but get this same error
-    appState.myProjects.tasks.push(newTask); // tasks.push(newTask) was the previous code, which also gave the same TypeError 
+    // Maybe 'tasks' is NOT correct, but something else goes in it's place? (has to represent the tasks array of the correct project)
+    appState.myProjects.tasks.push(newTask); // tasks.push(newTask) was the previous code, which also gave the same TypeError. 
     krappieUI.renderTask();
   }
 }
