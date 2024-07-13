@@ -183,7 +183,7 @@ function populateProjects() {
   }
 }
 
-// Function for dynamically adding the task to the <main> area
+// Function for dynamically adding the task to the target project in the <main> area
 // May need to completely redo this function. The "Library project" DOM level 1 technique might not work for this one (task is an array within an object within another array)
 // TODO: Add rendering from the "Add to Project" drop-down section regardless (the task should go under the project selected in the UI)
 // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
@@ -195,6 +195,7 @@ function renderTask() {
 
     // Checkbox rendering goes here or under taskName
     // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)
+    // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
     const isChecked = task.checked ? 'done' : '';
 
     // DOM for existing "Project Name" header (that was previously rendered)

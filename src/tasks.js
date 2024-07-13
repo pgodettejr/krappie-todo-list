@@ -2,6 +2,7 @@ import { createProject, appState } from './projects.js';
 import * as krappieUI from './krappieUI.js'
 
 // Access to the tasks array inside of the createProject function
+// If we remove this, we'd need to declare it in each function below as needed (not ALL of them)
 let tasks = createProject.tasks;
 
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
@@ -53,10 +54,6 @@ function toggleTaskChecked(taskId) {
 
 // Stores the "task" object to the target project (object) inside the 'myProjects' array, then runs the task rendering function to display it on the UI
 // Add "projectIndex" back in as a function parameter if needed
-
-// TODO: This needs to find the right project to add the tasks array to. Link this with the readProject method in the appState function in projects module (appState.readProject)
-// Likely need to add the 'addToProject' variable as a parameter to appState.readProject, then declare a variable = appState.readProject(addToProject);
-
 function storeTask() {
   // const tasks = createProject.tasks;
 
@@ -67,23 +64,15 @@ function storeTask() {
   let description = document.getElementById("description").value;
 
   if (taskTitle && dueDate && addToProject && priority) { // Do we need !isNaN(dueDate) instead?
-    // TODO: Refactor "addTask" to get it to work.
-
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'addTask'). Likely due to addTask function not being part of myProjects property (it's just an array).
-    // appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); 
-
-    // Uncaught TypeError: createProject.addTask is not a function
-    // createProject.addTask(taskTitle, dueDate, priority, description); 
-
-    // My attempt at combining the previous two functions to get the task to be added to the tasks array within a project
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'createProject')
-    // appState.myProjects[0].createProject.addTask(taskTitle, dueDate, priority, description);
+    appState.readProject(addToProject); // Do we even need this if targetProject is equal to this below?
 
     const newTask = createTask(taskTitle, dueDate, priority, description);
-    // TODO: Uncaught TypeError - Cannot read properties of undefined (reading 'push')
-    // Tried adding 'tasks' as a parameter for storeTask but get this same error
-    // Maybe 'tasks' is NOT correct, but something else goes in it's place? (has to represent the tasks array of the correct project)
-    appState.myProjects.tasks.push(newTask); // tasks.push(newTask) was the previous code, which also gave the same TypeError. 
+    const targetProject = appState.readProject(addToProject);
+
+    if (targetProject) {
+      targetProject.tasks.push(newTask);
+    }
+    
     krappieUI.renderTask();
   }
 }
@@ -162,3 +151,15 @@ export { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask
     
 //     return revisedTasks;
 //   }
+
+// Old code attempts at refactoring storeTask (under the 'if' statement)
+
+// Uncaught TypeError: Cannot read properties of undefined (reading 'addTask'). Likely due to addTask function not being part of myProjects property (it's just an array).
+// appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); 
+
+// Uncaught TypeError: createProject.addTask is not a function
+// createProject.addTask(taskTitle, dueDate, priority, description); 
+
+// My attempt at combining the previous two functions to get the task to be added to the tasks array within a project
+// Uncaught TypeError: Cannot read properties of undefined (reading 'createProject')
+// appState.myProjects[0].createProject.addTask(taskTitle, dueDate, priority, description);
