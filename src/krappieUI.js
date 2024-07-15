@@ -185,8 +185,7 @@ function populateProjects() {
 }
 
 // Function for dynamically adding the task to the target project in the <main> area
-// TODO: Add rendering from the "Add to Project" drop-down section regardless (the task should go under the project selected in the UI)
-// TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
+// TODO: Need to render an Update button, a Delete button and a checkbox (see 'isChecked' variable below for the checkbox)
 function renderTask() {
   let formTaskTitle = document.getElementById("task-title").value;
   let formDueDate = document.getElementById("due-date").value;
@@ -225,7 +224,7 @@ function renderTask() {
     const projectNameHeader = addToProjectUI(formProject);
 
     // Sets up the name of the task entered (as a list element so the user can have a list of tasks?)
-    // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead
+    // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
     const taskName = document.createElement("p");
     // taskName.setAttribute('data-key', task.id); - Don't think I need this. UI should have nothing to do with rendering any task/project's ID number on screen
     taskName.classList.add(`task-item-${isChecked}`);
@@ -238,7 +237,6 @@ function renderTask() {
     taskPriority.classList.add("task-priority");
     
     // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
-    // TODO: ALL of these are showing as "undefined" in the UI and DevTools (elements themselves are rendering correctly)
     const taskNameInfo = document.createTextNode(`${formTaskTitle}`);
     const taskDateInfo = document.createTextNode(`${formDueDate}`);
     const taskPriorityInfo = document.createTextNode(`${formPriority}`);
@@ -249,7 +247,7 @@ function renderTask() {
     taskPriority.appendChild(taskPriorityInfo);
 
     // Places the Date, Time, Priority level and Description as children under the Task Name <li>
-    // TODO: Test to see if this looks ok in the UI. Think of a different implementation if it doesn't
+    // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
     taskName.appendChild(taskDate);
     taskName.appendChild(taskPriority);
 
@@ -265,8 +263,7 @@ function renderTask() {
     }
 
     // Places the task itself (via it's name) as a child under the Project <ul>
-    // TODO: It works currently. It's just showing undefined on everything is all (not due to this code itself)
-    projectNameHeader.appendChild(taskName); // Uncaught TypeError: Cannot read properties of null (reading 'appendChild')
+    projectNameHeader.appendChild(taskName);
   }
 }
 
