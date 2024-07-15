@@ -204,8 +204,7 @@ function renderTask() {
     // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
     const isChecked = createTask.checked ? 'done' : '';
 
-    // DOM for existing "Project Name" header (that was previously rendered)
-    // TODO: Fix this as it most likely just grabs the very first <ul> in the DOM, not the <ul> that was targeted in the form
+    // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
 
     // OPTION 1: change the <p> element holding the project title text to a <ul>, then target the <ul> here that has the same text matching the value of formProject above
     // OPTION 2: Leave it as a <p> element and just target it here the same way as Option #1 (render a new empty ul with li's under it or change all tasks to <p> and render those)
@@ -225,8 +224,9 @@ function renderTask() {
 
     const projectNameHeader = addToProjectUI(formProject);
 
-    // Sets up the name of the task entered as a list element so the user can have a list of tasks
-    const taskName = document.createElement("li");
+    // Sets up the name of the task entered (as a list element so the user can have a list of tasks?)
+    // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead
+    const taskName = document.createElement("p");
     // taskName.setAttribute('data-key', task.id); - Don't think I need this. UI should have nothing to do with rendering any task/project's ID number on screen
     taskName.classList.add(`task-item-${isChecked}`);
 
@@ -243,17 +243,6 @@ function renderTask() {
     const taskDateInfo = document.createTextNode(`${formDueDate}`);
     const taskPriorityInfo = document.createTextNode(`${formPriority}`);
 
-    // Render necessary elements from Description box to be added as text under the task Title if the user did fill out a description in the form
-    if (formDescription) {
-      const taskDescription = document.createElement("p");
-      taskDescription.classList.add("task-description");
-
-      const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
-
-      taskDescription.appendChild(taskDescriptionInfo);
-      taskName.appendChild(taskDescription); // Uncaught ReferenceError: Cannot access 'taskName' before initialization - due to trying to run this conditional first, not later
-    }
-
     // Attaches text info via user input to the <p> tags that were created
     taskName.appendChild(taskNameInfo);
     taskDate.appendChild(taskDateInfo);
@@ -263,6 +252,17 @@ function renderTask() {
     // TODO: Test to see if this looks ok in the UI. Think of a different implementation if it doesn't
     taskName.appendChild(taskDate);
     taskName.appendChild(taskPriority);
+
+    // Render necessary elements from Description box to be added as text under the task Title if filled out by the user
+    if (formDescription) {
+      const taskDescription = document.createElement("p");
+      taskDescription.classList.add("task-description");
+
+      const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
+
+      taskDescription.appendChild(taskDescriptionInfo);
+      taskName.appendChild(taskDescription);
+    }
 
     // Places the task itself (via it's name) as a child under the Project <ul>
     // TODO: It works currently. It's just showing undefined on everything is all (not due to this code itself)
