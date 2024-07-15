@@ -195,18 +195,6 @@ function renderTask() {
   let formDescription = document.getElementById("description").value;
 
   if (formTaskTitle && formDueDate && formProject && formPriority) { // Previous code: for (const task in tasks) (const task in appState.myProjects.tasks)
-
-    // Render necessary elements from Description box to be added as text under the task Title if the user did fill out a description in the form
-    if (formDescription) {
-      const taskDescription = document.createElement("p");
-      taskDescription.classList.add("task-description");
-
-      const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
-
-      taskDescription.appendChild(taskDescriptionInfo);
-      taskName.appendChild(taskDescription);
-    }
-
     // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
     // const taskList = document.createElement("ul");
     // taskList.classList.add("task-info");
@@ -218,7 +206,24 @@ function renderTask() {
 
     // DOM for existing "Project Name" header (that was previously rendered)
     // TODO: Fix this as it most likely just grabs the very first <ul> in the DOM, not the <ul> that was targeted in the form
-    const projectNameHeader = document.querySelector("ul");
+
+    // OPTION 1: change the <p> element holding the project title text to a <ul>, then target the <ul> here that has the same text matching the value of formProject above
+    // OPTION 2: Leave it as a <p> element and just target it here the same way as Option #1 (render a new empty ul with li's under it or change all tasks to <p> and render those)
+    // OPTION 3: Make a brand new empty <ul> with a class in renderProject, then target it here (but how would we know which empty <ul> to add the task to?)
+    // OPTION 4: Try to utilize 'appState.findProject(formProject)' somehow - have this variable equal that and then try to find the matching <p> element with other code
+
+    function addToProjectUI (text) {
+      const projectHeaders = document.querySelectorAll(".project-name");
+      for (const projectHeader of projectHeaders) {
+        if (projectHeader.textContent.trim() === text) {
+          return projectHeader;
+        }
+      }
+
+      return null;
+    }
+
+    const projectNameHeader = addToProjectUI(formProject);
 
     // Sets up the name of the task entered as a list element so the user can have a list of tasks
     const taskName = document.createElement("li");
@@ -238,6 +243,17 @@ function renderTask() {
     const taskDateInfo = document.createTextNode(`${formDueDate}`);
     const taskPriorityInfo = document.createTextNode(`${formPriority}`);
 
+    // Render necessary elements from Description box to be added as text under the task Title if the user did fill out a description in the form
+    if (formDescription) {
+      const taskDescription = document.createElement("p");
+      taskDescription.classList.add("task-description");
+
+      const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
+
+      taskDescription.appendChild(taskDescriptionInfo);
+      taskName.appendChild(taskDescription); // Uncaught ReferenceError: Cannot access 'taskName' before initialization - due to trying to run this conditional first, not later
+    }
+
     // Attaches text info via user input to the <p> tags that were created
     taskName.appendChild(taskNameInfo);
     taskDate.appendChild(taskDateInfo);
@@ -250,7 +266,7 @@ function renderTask() {
 
     // Places the task itself (via it's name) as a child under the Project <ul>
     // TODO: It works currently. It's just showing undefined on everything is all (not due to this code itself)
-    projectNameHeader.appendChild(taskName);
+    projectNameHeader.appendChild(taskName); // Uncaught TypeError: Cannot read properties of null (reading 'appendChild')
   }
 }
 

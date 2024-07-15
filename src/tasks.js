@@ -22,6 +22,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 }
 
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
+// OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first beforehand.
 function readTask (taskId) {
   return tasks.find(task => task.id === taskId);
 }
@@ -42,7 +43,7 @@ function removeTask(taskId) {
 // Updates information on an existing task
 // TODO: Change target of "tasks" back to "task"? Also, 'Object.assign' might not even work with 'updates' (it didn't for updateProject). Try 'map' function in old code below?
 function updateTask(taskId, updates) {
-  const taskFind = tasks.find(task => task.id === taskId);
+  const taskFind = readTask(taskId);
   if (taskFind) {
     Object.assign(taskFind, updates); 
   }
@@ -69,7 +70,7 @@ function storeTask() {
   let description = document.getElementById("description").value;
 
   if (taskTitle && dueDate && addToProject && priority) { // Do we need !isNaN(dueDate) instead?
-    appState.readProject(addToProject); // Do we even need this if targetProject is equal to this below?
+    appState.readProject(addToProject); // Do we even need this if targetProject is equal to this below? Test it out by commenting this code out in the future
 
     const newTask = createTask(taskTitle, dueDate, priority, description);
     const targetProject = appState.readProject(addToProject);
