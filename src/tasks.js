@@ -21,6 +21,11 @@ function createTask (taskTitle, dueDate, priority, description) {
   return { taskTitle, dueDate, priority, description, checked, id };
 }
 
+// Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
+function readTask (taskId) {
+  return tasks.find(task => task.id === taskId);
+}
+
 // Deletes a task
 // TODO: Can the ternary operator be written "cleaner"? Instead of using it within a declared variable, try another way (MDN doc - Ternary Operator)
 function removeTask(taskId) {

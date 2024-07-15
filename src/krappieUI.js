@@ -3,6 +3,7 @@
 
 import { appState } from './projects.js';
 // import { tasks } from './tasks.js';
+import { createTask } from './tasks.js';
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
 
@@ -184,11 +185,28 @@ function populateProjects() {
 }
 
 // Function for dynamically adding the task to the target project in the <main> area
-// May need to completely redo this function. The "Library project" DOM level 1 technique might not work for this one (task is an array within an object within another array)
 // TODO: Add rendering from the "Add to Project" drop-down section regardless (the task should go under the project selected in the UI)
 // TODO: Code for a conditional statement that checks to see if the project the user selected exists before adding the task to it (if else statement)
 function renderTask() {
-  for (const task in appState.myProjects.tasks) { // Previous code: (const task in tasks)
+  let formTaskTitle = document.getElementById("task-title").value;
+  let formDueDate = document.getElementById("due-date").value;
+  let formProject = document.getElementById("add-to-project").value;
+  let formPriority = document.getElementById("priority").value;
+  let formDescription = document.getElementById("description").value;
+
+  if (formTaskTitle && formDueDate && formProject && formPriority) { // Previous code: for (const task in tasks) (const task in appState.myProjects.tasks)
+
+    // Render necessary elements from Description box to be added as text under the task Title if the user did fill out a description in the form
+    if (formDescription) {
+      const taskDescription = document.createElement("p");
+      taskDescription.classList.add("task-description");
+
+      const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
+
+      taskDescription.appendChild(taskDescriptionInfo);
+      taskName.appendChild(taskDescription);
+    }
+
     // Should the actual rendering of the <ul> be handled by index.js? (have this function run in index.js, then append everything to the project <ul> afterwards in index.js)
     // const taskList = document.createElement("ul");
     // taskList.classList.add("task-info");
@@ -196,45 +214,39 @@ function renderTask() {
     // Checkbox rendering goes here or under taskName
     // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)
     // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
-    const isChecked = task.checked ? 'done' : '';
+    const isChecked = createTask.checked ? 'done' : '';
 
     // DOM for existing "Project Name" header (that was previously rendered)
     // TODO: Fix this as it most likely just grabs the very first <ul> in the DOM, not the <ul> that was targeted in the form
     const projectNameHeader = document.querySelector("ul");
 
     // Sets up the name of the task entered as a list element so the user can have a list of tasks
-    // TODO: "data-key" is showing as undefined, likely due to 'task.id' being incorrect in showing the ID number for the task created
     const taskName = document.createElement("li");
-    taskName.setAttribute('data-key', task.id);
-    taskName.classList.add(`todo-item-${isChecked}`);
+    // taskName.setAttribute('data-key', task.id); - Don't think I need this. UI should have nothing to do with rendering any task/project's ID number on screen
+    taskName.classList.add(`task-item-${isChecked}`);
 
     // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
     const taskDate = document.createElement("p");
     const taskPriority = document.createElement("p");
-    const taskDescription = document.createElement("p");
 
     taskDate.classList.add("task-date");
     taskPriority.classList.add("task-priority");
-    taskDescription.classList.add("task-description");
-
+    
     // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
     // TODO: ALL of these are showing as "undefined" in the UI and DevTools (elements themselves are rendering correctly)
-    const taskNameInfo = document.createTextNode(`${appState.myProjects[task].taskTitle}`);
-    const taskDateInfo = document.createTextNode(`${appState.myProjects[task].dueDate}`);
-    const taskPriorityInfo = document.createTextNode(`${appState.myProjects[task].priority}`);
-    const taskDescriptionInfo = document.createTextNode(`${appState.myProjects[task].description}`);
+    const taskNameInfo = document.createTextNode(`${formTaskTitle}`);
+    const taskDateInfo = document.createTextNode(`${formDueDate}`);
+    const taskPriorityInfo = document.createTextNode(`${formPriority}`);
 
     // Attaches text info via user input to the <p> tags that were created
     taskName.appendChild(taskNameInfo);
     taskDate.appendChild(taskDateInfo);
     taskPriority.appendChild(taskPriorityInfo);
-    taskDescription.appendChild(taskDescriptionInfo);
 
     // Places the Date, Time, Priority level and Description as children under the Task Name <li>
     // TODO: Test to see if this looks ok in the UI. Think of a different implementation if it doesn't
     taskName.appendChild(taskDate);
     taskName.appendChild(taskPriority);
-    taskName.appendChild(taskDescription);
 
     // Places the task itself (via it's name) as a child under the Project <ul>
     // TODO: It works currently. It's just showing undefined on everything is all (not due to this code itself)
