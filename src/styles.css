@@ -73,10 +73,18 @@ body {
 /* TODO: Remove the gray background color from this. Make it 100% transparent? */
 /* OPTION: Transition to a brighter color similar to sidebar buttons below. Make the icons even smaller? */
 .image-button {
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
   border-radius: 50%;
   /* transition: 0.3s; */
+}
+
+.update-project .image-button {
+  background-color:rgb(141, 165, 120);
+}
+
+.delete-project .image-button {
+  background-color: red;
 }
 
 /* Search bar styling starts here (NOT the div that the search bar is in)  */
@@ -155,8 +163,26 @@ main {
   /* grid-template-columns: 2fr 1fr; */
 }
 
+p[class^="task-item"] .image-button {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  /* transition: 0.3s; */
+}
+
+.update-task .image-button {
+  background-color:rgb(141, 165, 120);
+}
+
+.delete-task .image-button {
+  background-color: red;
+}
+
 footer {
   grid-row: 3;
+
+  /* TODO: Absolute positioning puts the footer text in the top left of the page. Why? */
+  /* position: sticky; */
 
   & .credits {
     display: flex;

@@ -1,5 +1,6 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 // TODO: Setting up localStorage functions may make the whole rendering process easier as far as what projects/tasks to get when a user clicks on one
+// TODO: Try to place all project buttons rendered under the Project Title <p> element as children (so button placement looks better in the UI)
 
 import { appState } from './projects.js';
 // import { tasks } from './tasks.js';
@@ -242,12 +243,36 @@ function renderTask() {
     const taskDateInfo = document.createTextNode(`${formDueDate}`);
     const taskPriorityInfo = document.createTextNode(`${formPriority}`);
 
+    // Render "Update" icon button to be added to "Task Name" header
+    const updateTaskBtn = document.createElement("button");
+    updateTaskBtn.classList.add("update-task");
+
+    const updateTaskIcon = new Image();
+    updateTaskIcon.src = Update;
+    updateTaskIcon.classList.add("image-button");
+
+    // Render "Delete" icon button to be added to "Task Name" header
+    const deleteTaskBtn = document.createElement("button");
+    deleteTaskBtn.classList.add("delete-task");
+
+    const deleteTaskIcon = new Image();
+    deleteTaskIcon.src = Delete;
+    deleteTaskIcon.classList.add("image-button");
+
+    // Attaches button icon images to the buttons themselves
+    updateTaskBtn.appendChild(updateTaskIcon);
+    deleteTaskBtn.appendChild(deleteTaskIcon);
+
     // Attaches text info via user input to the <p> tags that were created
     taskName.appendChild(taskNameInfo);
     taskDate.appendChild(taskDateInfo);
     taskPriority.appendChild(taskPriorityInfo);
 
-    // Places the Date, Time, Priority level and Description as children under the Task Name <li>
+    // Places the "Update" and "Delete" buttons under the Task Name <p>
+    taskName.appendChild(updateTaskBtn);
+    taskName.appendChild(deleteTaskBtn);
+
+    // Places the Date, Time, Priority level and Description as children under the Task Name <p>
     // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
     taskName.appendChild(taskDate);
     taskName.appendChild(taskPriority);
