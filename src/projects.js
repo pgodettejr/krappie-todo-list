@@ -1,6 +1,6 @@
 // TODO: Try to switch everything that fetches a project via its title to fetching it via its ID
 
-import * as krappieUI from "./krappieUI.js"; // Change this back to importing each export separately?
+// import * as krappieUI from "./krappieUI.js";
 import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 
 // Creates "project" objects to be added to the "myProjects" array
@@ -36,14 +36,12 @@ const appState = {
   // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI
   // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
   storeProject: function () {
-    let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
+    let projectTitle = document.getElementById("project-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
 
     if (projectTitle) {
       const newProject = createProject(projectTitle); 
       
       this.myProjects.push(newProject);
-      // This might not have to be here. Could maybe just run this under the button logic itself.
-      krappieUI.renderProject(); // Remove the dot notation if changes on line 1 are made
     }
   },
 
@@ -69,7 +67,6 @@ const appState = {
     if (projectIndex !== -1) {
       this.myProjects.splice(projectIndex, 1);
     }
-
   },
 
   // OPTION/BRANCH: Toggles "complete" status of a project 

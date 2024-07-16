@@ -112,12 +112,12 @@ sidebarTaskBtn.addEventListener('click', () => {
 // TODO: Retest all Task related buttons within any forms once the Update Task options are set up throughout the app
 
 // "Confirm" button functionality that checks that all required task sections were completed by the user, then submits it to the main area and closes the Task form
-// TODO: This is the only button that doesn't work for several reasons
 krappieUI.confirmTask.addEventListener('click', (e) => {
   let taskComplete = document.getElementById("task-form").checkValidity();
   if (taskComplete) {
     e.preventDefault();
     storeTask();
+    krappieUI.renderTask();
     taskForm.reset();
     krappieUI.taskDialog.close();
   }
@@ -163,6 +163,7 @@ krappieUI.confirmProject.addEventListener('click', (e) => {
   if (projectComplete) {
     e.preventDefault();
     appState.storeProject();
+    krappieUI.renderProject();
     projectForm.reset();
     krappieUI.projectDialog.close();
   }
@@ -198,7 +199,7 @@ krappieUI.editProject.addEventListener('click', (e) => {
   if (projectEdit) {
     e.preventDefault();
 
-    let newProjectName = document.getElementById("project-update-title").value;
+    let newProjectName = document.getElementById("project-update-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
     const projectButtons = document.querySelectorAll(".project-btn");
     const projectHeadings = document.querySelectorAll(".project-name");
 

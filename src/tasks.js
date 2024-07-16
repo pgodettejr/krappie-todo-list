@@ -1,5 +1,5 @@
 import { createProject, appState } from './projects.js';
-import * as krappieUI from './krappieUI.js'
+// import * as krappieUI from './krappieUI.js'
 
 // Access to the tasks array inside of the createProject function
 // If we remove this, we'd need to declare it in each function below as needed (not ALL of them)
@@ -61,25 +61,19 @@ function toggleTaskChecked(taskId) {
 // Stores the "task" object to the target project (object) inside the 'myProjects' array, then runs the task rendering function to display it on the UI
 // Add "projectIndex" back in as a function parameter if needed
 function storeTask() {
-  // const tasks = createProject.tasks;
-
-  let taskTitle = document.getElementById("task-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
+  let taskTitle = document.getElementById("task-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
   let dueDate = document.getElementById("due-date").value;
   let addToProject = document.getElementById("add-to-project").value;
   let priority = document.getElementById("priority").value;
   let description = document.getElementById("description").value;
 
   if (taskTitle && dueDate && addToProject && priority) { // Do we need !isNaN(dueDate) instead?
-    appState.readProject(addToProject); // Do we even need this if targetProject is equal to this below? Test it out by commenting this code out in the future
-
     const newTask = createTask(taskTitle, dueDate, priority, description);
     const targetProject = appState.readProject(addToProject);
 
     if (targetProject) {
       targetProject.tasks.push(newTask);
     }
-    
-    krappieUI.renderTask();
   }
 }
 

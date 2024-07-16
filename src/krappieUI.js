@@ -81,7 +81,7 @@ function renderDefault() {
 
 // Renders all projects that are created via the "Add Project" form
 function renderProject() {
-  let formTitle = document.getElementById("project-title").value;
+  let formTitle = document.getElementById("project-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
 
   if (formTitle) { 
     // DOM for "My Projects" section of the sidebar as well as the main area
@@ -187,7 +187,7 @@ function populateProjects() {
 // Function for dynamically adding the task to the target project in the <main> area
 // TODO: Need to render an Update button, a Delete button and a checkbox (see 'isChecked' variable below for the checkbox)
 function renderTask() {
-  let formTaskTitle = document.getElementById("task-title").value;
+  let formTaskTitle = document.getElementById("task-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
   let formDueDate = document.getElementById("due-date").value;
   let formProject = document.getElementById("add-to-project").value;
   let formPriority = document.getElementById("priority").value;
@@ -209,6 +209,7 @@ function renderTask() {
     // OPTION 2: Leave it as a <p> element and just target it here the same way as Option #1 (render a new empty ul with li's under it or change all tasks to <p> and render those)
     // OPTION 3: Make a brand new empty <ul> with a class in renderProject, then target it here (but how would we know which empty <ul> to add the task to?)
     // OPTION 4: Try to utilize 'appState.findProject(formProject)' somehow - have this variable equal that and then try to find the matching <p> element with other code
+    // This would involve adding a forEach method similar to what we have now and that method would still have to be inside a function to work most likely
 
     function addToProjectUI (text) {
       const projectHeaders = document.querySelectorAll(".project-name");
