@@ -170,6 +170,34 @@ p[class^="task-item"] .image-button {
   /* transition: 0.3s; */
 }
 
+/* Checkbox styling */
+input[type="checkbox"] {
+  display: none;
+}
+
+.js-tick {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #333;
+  border-radius: 50%;
+  
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.js-tick::before {
+  content: '✓';
+  font-size: 20px;
+  display: none;
+}
+
+.done .js-tick::before {
+  display: inline;
+}
+
+/* Task update & delete button styling */
 .update-task .image-button {
   background-color:rgb(141, 165, 120);
 }

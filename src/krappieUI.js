@@ -4,7 +4,7 @@
 
 import { appState } from './projects.js';
 // import { tasks } from './tasks.js';
-import { createTask } from './tasks.js';
+import { createTask, readTask } from './tasks.js';
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
 
@@ -220,6 +220,13 @@ function renderTask() {
 
     const projectNameHeader = addToProjectUI(formProject);
 
+    // Attempt to declare a variable using readTask combined with formTaskTitle to select the right task based on the ID in the array for the checkbox elements below via form entry
+    const targetTask = readTask(formTaskTitle);
+
+    // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)
+    // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
+    const isChecked = targetTask.checked ? 'done' : '';
+
     // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
     // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
     const taskName = document.createElement("p");
@@ -228,18 +235,13 @@ function renderTask() {
 
     // Renders the checkbox elements
 
-    // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)
-    // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
-    const isChecked = createTask.checked ? 'done' : '';
-
-    // TODO: The target 'id' and 'for' are likely not correct. The objective is to select the right task based on the ID in the array if possible.
-    // If not, try to select it based on form entry?
+    // TODO: The target 'id' and 'for' are not correct. The objective is to select the right task based on the ID in the array if possible.
     const taskCheckbox = document.createElement("input");
-    taskCheckbox.setAttribute("id", `${createTask.id}`);
+    taskCheckbox.setAttribute("id", `${targetTask.id}`); // 'id' showing undefined
     taskCheckbox.setAttribute("type", "checkbox");
 
     const taskCheckboxLabel = document.createElement("label");
-    taskCheckboxLabel.setAttribute("for", `${createTask.id}`);
+    taskCheckboxLabel.setAttribute("for", `${targetTask.id}`); // 'for' showing undefined
     taskCheckboxLabel.classList.add("js-tick");
 
     // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
