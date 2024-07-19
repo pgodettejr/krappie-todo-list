@@ -199,11 +199,6 @@ function renderTask() {
     // const taskList = document.createElement("ul");
     // taskList.classList.add("task-info");
 
-    // Checkbox rendering goes here or under taskName
-    // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)
-    // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
-    const isChecked = createTask.checked ? 'done' : '';
-
     // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
 
     // OPTION 1: change the <p> element holding the project title text to a <ul>, then target the <ul> here that has the same text matching the value of formProject above
@@ -225,11 +220,27 @@ function renderTask() {
 
     const projectNameHeader = addToProjectUI(formProject);
 
-    // Sets up the name of the task entered (as a list element so the user can have a list of tasks?)
+    // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
     // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
     const taskName = document.createElement("p");
     // taskName.setAttribute('data-key', task.id); - Don't think I need this. UI should have nothing to do with rendering any task/project's ID number on screen
     taskName.classList.add(`task-item-${isChecked}`);
+
+    // Renders the checkbox elements
+
+    // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)
+    // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
+    const isChecked = createTask.checked ? 'done' : '';
+
+    // TODO: The target 'id' and 'for' are likely not correct. The objective is to select the right task based on the ID in the array if possible.
+    // If not, try to select it based on form entry?
+    const taskCheckbox = document.createElement("input");
+    taskCheckbox.setAttribute("id", `${createTask.id}`);
+    taskCheckbox.setAttribute("type", "checkbox");
+
+    const taskCheckboxLabel = document.createElement("label");
+    taskCheckboxLabel.setAttribute("for", `${createTask.id}`);
+    taskCheckboxLabel.classList.add("js-tick");
 
     // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
     const taskDate = document.createElement("p");
@@ -268,6 +279,10 @@ function renderTask() {
     taskDate.appendChild(taskDateInfo);
     taskPriority.appendChild(taskPriorityInfo);
 
+    // Places the checkbox elements under the Task Name <p>
+    taskName.appendChild(taskCheckbox);
+    taskName.appendChild(taskCheckboxLabel);
+    
     // Places the "Update" and "Delete" buttons under the Task Name <p>
     taskName.appendChild(updateTaskBtn);
     taskName.appendChild(deleteTaskBtn);
