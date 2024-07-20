@@ -1,7 +1,7 @@
 // TODO: Try to switch everything that fetches a project via its title to fetching it via its ID
 
 // import * as krappieUI from "./krappieUI.js";
-import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
+// import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 
 // Creates "project" objects to be added to the "myProjects" array
 function createProject (projectTitle) {

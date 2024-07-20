@@ -3,8 +3,7 @@
 // TODO: Try to place all project buttons rendered under the Project Title <p> element as children (so button placement looks better in the UI)
 
 import { appState } from './projects.js';
-// import { tasks } from './tasks.js';
-import { createTask, readTask } from './tasks.js';
+import { tasks, createTask, readTask } from './tasks.js';
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
 
@@ -186,7 +185,6 @@ function populateProjects() {
 }
 
 // Function for dynamically adding the task to the target project in the <main> area
-// TODO: Need to render an Update button, a Delete button and a checkbox (see 'isChecked' variable below for the checkbox)
 function renderTask() {
   let formTaskTitle = document.getElementById("task-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
   let formDueDate = document.getElementById("due-date").value;
@@ -220,12 +218,16 @@ function renderTask() {
 
     const projectNameHeader = addToProjectUI(formProject);
 
-    // TODO: Failed attempt to declare a variable using readTask combined with formTaskTitle to select the right task based on the ID in the array for the checkbox elements below via form entry (go back to previous solution?)
-    const targetTask = readTask(formTaskTitle);
+    // Finds the task in the nested array within the projects by name, matches it with the name of the task in the form entered by the user & returns the task for checkbox use
+    const getTask = (taskTitle) => {
+      let targetTask = tasks.find(task => task.title === taskTitle);
+      if (targetTask === formTaskTitle) {
+        return targetTask;
+      }
+    }
 
-    // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)
-    // Should read the status of 'checked' in the array. If yes, render empty checkbox. If no, render checked checkbox (either here or somewhere else in the code)
-    const isChecked = targetTask.checked ? 'done' : '';
+    // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
+    const isChecked = getTask.checked ? 'done' : '';
 
     // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
     // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
@@ -234,14 +236,12 @@ function renderTask() {
     taskName.classList.add(`task-item-${isChecked}`);
 
     // Renders the checkbox elements
-
-    // TODO: The target 'id' and 'for' are not correct. The objective is to select the right task based on the ID in the array if possible.
     const taskCheckbox = document.createElement("input");
-    taskCheckbox.setAttribute("id", `${targetTask.id}`); // 'id' showing undefined
+    taskCheckbox.setAttribute("id", `${getTask.id}`);
     taskCheckbox.setAttribute("type", "checkbox");
 
     const taskCheckboxLabel = document.createElement("label");
-    taskCheckboxLabel.setAttribute("for", `${targetTask.id}`); // 'for' showing undefined
+    taskCheckboxLabel.setAttribute("for", `${getTask.id}`);
     taskCheckboxLabel.classList.add("js-tick");
 
     // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
