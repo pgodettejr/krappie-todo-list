@@ -220,7 +220,7 @@ function renderTask() {
 
     const projectNameHeader = addToProjectUI(formProject);
 
-    // Attempt to declare a variable using readTask combined with formTaskTitle to select the right task based on the ID in the array for the checkbox elements below via form entry
+    // TODO: Failed attempt to declare a variable using readTask combined with formTaskTitle to select the right task based on the ID in the array for the checkbox elements below via form entry (go back to previous solution?)
     const targetTask = readTask(formTaskTitle);
 
     // TODO: Change this to createTask.checked and see if that will show the "checked" status on render? (currently doesn't show "checked" status at all)

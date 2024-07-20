@@ -152,6 +152,18 @@ krappieUI.editTask.addEventListener('click', (e) => {
   }
 });
 
+// Task checkbox functionality. Detects the task being checked off as completed. Currently targets individual checkbox elements based on how everything is rendered currently.
+// const task = document.querySelector("[class^='task-item-']");
+
+// task.addEventListener('click', (e) => {
+//   if (e.target.classList.contains('js-tick')) {
+//     const taskItem = e.target.parentElement.classList;
+//     toggleTaskChecked(taskItem);
+//     task.style.textDecoration = "line-through";
+//     // renderTask(toggleTaskChecked.toggleStatus);
+//   }
+// });
+
 // Sidebar "Add Project" button functionality that brings up the form to enter Project details
 sidebarProjectBtn.addEventListener('click', () => {
   krappieUI.projectDialog.showModal();

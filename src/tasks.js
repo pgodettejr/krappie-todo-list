@@ -139,7 +139,7 @@ function storeTask() {
 // project2.addTodo(task2);
 // console.log(project2);
 
-export { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask }
+export { tasks, createTask, readTask, removeTask, updateTask, toggleTaskChecked, storeTask }
 
 // Old code for another solution I came up with on my own that updated list of tasks using map (Object.assign is cleaner). Keep it (in case of emergency, break glass)
 //   function updateTask(todoId, updates) {
