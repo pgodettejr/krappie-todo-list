@@ -153,16 +153,43 @@ krappieUI.editTask.addEventListener('click', (e) => {
 });
 
 // Task checkbox functionality. Detects the task being checked off as completed. Currently targets individual checkbox elements based on how everything is rendered currently.
-// const task = document.querySelector("[class^='task-item-']");
+// TODO: This may not work to UNCHECK a task. Would need a conditional if/else added in if it doesn't.
+// const completedTask = document.querySelector("p[data-key]");
+// const checkboxToggle = document.querySelector(".js-tick");
+const checkboxToggle = document.querySelectorAll(".js-tick");
 
-// task.addEventListener('click', (e) => {
+// TODO: Currently shows "Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')", removing functionality for all buttons in the UI. Find out why.
+// Tried removing "p" in the variable above. Didn't work.
+// completedTask.addEventListener('click', (e) => {
 //   if (e.target.classList.contains('js-tick')) {
-//     const taskItem = e.target.parentElement.classList;
+//     const taskItem = e.target.parentElement.dataset.key;
 //     toggleTaskChecked(taskItem);
-//     task.style.textDecoration = "line-through";
+//     completedTask.style.textDecoration = "line-through";
 //     // renderTask(toggleTaskChecked.toggleStatus);
 //   }
 // });
+
+// TODO: Also shows "Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')".
+// checkboxToggle.addEventListener('click', (e) => {
+//   const taskItem = e.target.parentElement.dataset.key;
+//   toggleTaskChecked(taskItem);
+//   taskItem.style.textDecoration = "line-through";
+//   // renderTask(toggleTaskChecked.toggleStatus);
+// });
+
+// 'forEach' method attempt of the above
+// TODO: Currently goes through 'mainArea' event listeners below and never gets to this function when checkboxes are clicked. Shouldn't matter though based on how those listeners are written? Find out why regardless (MDN docs on checkboxes, "other" example solutions to get the checkboxes to toggle properly on tasks, do I need to remove mainArea as an event listener below?)
+checkboxToggle.forEach(checkbox => {
+  const taskItem = checkbox.target.parentElement.dataset.key;
+  const taskClass = checkbox.target.parentElement.classList;
+
+  if (taskClass !== "task-item-done") {
+    toggleTaskChecked(taskItem);
+    taskItem.style.textDecoration = "line-through";
+    taskClass.setAttribute("class", "task-item-done");
+    // renderTask(toggleTaskChecked.toggleStatus)
+  }
+})
 
 // Sidebar "Add Project" button functionality that brings up the form to enter Project details
 sidebarProjectBtn.addEventListener('click', () => {

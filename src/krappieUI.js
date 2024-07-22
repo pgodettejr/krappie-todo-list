@@ -219,6 +219,7 @@ function renderTask() {
     const projectNameHeader = addToProjectUI(formProject);
 
     // Finds the task in the nested array within the projects by name, matches it with the name of the task in the form entered by the user & returns the task for checkbox use
+    // OPTION: Possibly get this down to one line of code
     const getTask = (taskTitle) => {
       let targetTask = tasks.find(task => task.title === taskTitle);
       if (targetTask === formTaskTitle) {
@@ -230,18 +231,19 @@ function renderTask() {
     const isChecked = getTask.checked ? 'done' : '';
 
     // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
+    // TODO: All of the `${getTask.id}` attributes below are showing "undefined" when rendered. Find out why.
     // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
     const taskName = document.createElement("p");
-    // taskName.setAttribute('data-key', task.id); - Don't think I need this. UI should have nothing to do with rendering any task/project's ID number on screen
+    taskName.setAttribute("data-key", `${getTask.id}`); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
     taskName.classList.add(`task-item-${isChecked}`);
 
     // Renders the checkbox elements
     const taskCheckbox = document.createElement("input");
-    taskCheckbox.setAttribute("id", `${getTask.id}`);
+    taskCheckbox.setAttribute("id", `${getTask.id}`); // See "taskName" above except this is for setting the id
     taskCheckbox.setAttribute("type", "checkbox");
 
     const taskCheckboxLabel = document.createElement("label");
-    taskCheckboxLabel.setAttribute("for", `${getTask.id}`);
+    taskCheckboxLabel.setAttribute("for", `${getTask.id}`); // See "taskName" above except this is for setting the "for" in the label element
     taskCheckboxLabel.classList.add("js-tick");
 
     // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
