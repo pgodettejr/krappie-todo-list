@@ -71,7 +71,7 @@ body {
 
 /* Keep in mind original image is 512 x 512 px */
 /* TODO: Remove the gray background color from this. Make it 100% transparent? */
-/* OPTION: Transition to a brighter color similar to sidebar buttons below. Make the icons even smaller? */
+/* OPTION: Transition to a brighter color similar to sidebar buttons below. */
 .image-button {
   height: 75px;
   width: 75px;
@@ -88,17 +88,24 @@ body {
 }
 
 /* Search bar styling starts here (NOT the div that the search bar is in)  */
-/* TODO: Center the search bar further, make it longer and make the input part bigger */
 .search #search-text {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-
-  /* display: block; */
+  display: block;
+  font-family: inherit;
+  margin: 0;
+  padding: 5px;
+  box-sizing: border-box;
   background-color: #EEE;
   width: 300%;
-  /* height: auto; */
+  height: 30px;
+
+  box-shadow: inset 1px 1px 3px #CCC;
   border-radius: 28px;
+
+  appearance: none;
+}
+
+#search-text {
+  font-size: 60%;
 }
 
 /* Styling for "Add Task" button in the heading goes in this spot (if any additional styling is needed on top of '.image-button' above) */

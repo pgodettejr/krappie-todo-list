@@ -178,13 +178,14 @@ const checkboxToggle = document.querySelectorAll(".js-tick");
 // });
 
 // 'forEach' method attempt of the above
-// TODO: Currently goes through 'mainArea' event listeners below and never gets to this function when checkboxes are clicked. Shouldn't matter though based on how those listeners are written? Find out why regardless (MDN docs on checkboxes, "other" example solutions to get the checkboxes to toggle properly on tasks, do I need to remove mainArea as an event listener below?)
+// TODO: Currently goes through 'mainArea' event listeners below and never gets to this function when checkboxes are clicked. Find out why ("other" example solutions to get the checkboxes to toggle properly on tasks, do I need to remove mainArea as an event listener below?)
 checkboxToggle.forEach(checkbox => {
   const taskItem = checkbox.target.parentElement.dataset.key;
   const taskClass = checkbox.target.parentElement.classList;
 
   if (taskClass !== "task-item-done") {
     toggleTaskChecked(taskItem);
+    checkbox.checked = true;
     taskItem.style.textDecoration = "line-through";
     taskClass.setAttribute("class", "task-item-done");
     // renderTask(toggleTaskChecked.toggleStatus)
@@ -223,7 +224,6 @@ krappieUI.cancelProject.addEventListener('click', () => {
 let currentProjectName;
 
 // "Update Project" button functionality that brings up the Project form again to enter a new name
-// OPTION: May need to change EventTarget from 'mainArea' to 'document' if future bugs show up & also change 'if' condition to 'e.target.classList.contains("update-project")')
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-project")) {
     const wrapper = e.target.closest(".project-wrapper");
