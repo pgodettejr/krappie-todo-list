@@ -178,19 +178,23 @@ const checkboxToggle = document.querySelectorAll(".js-tick");
 // });
 
 // 'forEach' method attempt of the above
-// TODO: Currently goes through 'mainArea' event listeners below and never gets to this function when checkboxes are clicked. Find out why ("other" example solutions to get the checkboxes to toggle properly on tasks, do I need to remove mainArea as an event listener below?)
-checkboxToggle.forEach(checkbox => {
-  const taskItem = checkbox.target.parentElement.dataset.key;
-  const taskClass = checkbox.target.parentElement.classList;
+// TODO: Currently goes through this function, then the other 'mainArea' event listeners below then back to this function when checkboxes are clicked but box doesn't check off. Find out why ("other" example solutions to get the checkboxes to toggle properly on tasks, do I need to change if statement to 'e.target.tagName.toLowerCase() === "input"'?, redo the entire checkbox method below regardless as nothing on it runs either time the browser runs through the function). 
+// OPTION: Might need to put the tasks in their own containers just like we did with the projects.
+mainArea.addEventListener('click', () => {
+  checkboxToggle.forEach(checkbox => {
+    const taskItem = checkbox.target.parentElement.dataset.key;
+    const taskClass = checkbox.target.parentElement.classList;
+  
+    if (taskClass !== "task-item-done") {
+      toggleTaskChecked(taskItem);
+      checkbox.checked = true;
+      taskItem.style.textDecoration = "line-through";
+      taskClass.setAttribute("class", "task-item-done");
+      // renderTask(toggleTaskChecked.toggleStatus)
+    }
+  });
+});
 
-  if (taskClass !== "task-item-done") {
-    toggleTaskChecked(taskItem);
-    checkbox.checked = true;
-    taskItem.style.textDecoration = "line-through";
-    taskClass.setAttribute("class", "task-item-done");
-    // renderTask(toggleTaskChecked.toggleStatus)
-  }
-})
 
 // Sidebar "Add Project" button functionality that brings up the form to enter Project details
 sidebarProjectBtn.addEventListener('click', () => {
