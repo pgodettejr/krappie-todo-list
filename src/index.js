@@ -156,7 +156,6 @@ krappieUI.editTask.addEventListener('click', (e) => {
 // TODO: This may not work to UNCHECK a task. Would need a conditional if/else added in if it doesn't.
 // const completedTask = document.querySelector("p[data-key]");
 // const checkboxToggle = document.querySelector(".js-tick");
-const checkboxToggle = document.querySelectorAll(".js-tick");
 
 // TODO: Currently shows "Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')", removing functionality for all buttons in the UI. Find out why.
 // Tried removing "p" in the variable above. Didn't work.
@@ -178,22 +177,43 @@ const checkboxToggle = document.querySelectorAll(".js-tick");
 // });
 
 // 'forEach' method attempt of the above
-// TODO: Currently goes through this function, then the other 'mainArea' event listeners below then back to this function when checkboxes are clicked but box doesn't check off. Find out why ("other" example solutions to get the checkboxes to toggle properly on tasks, do I need to change if statement to 'e.target.tagName.toLowerCase() === "input"'?, redo the entire checkbox method below regardless as nothing on it runs either time the browser runs through the function). 
-// OPTION: Might need to put the tasks in their own containers just like we did with the projects.
-mainArea.addEventListener('click', () => {
+// TODO: Currently goes through this function, then the other 'mainArea' event listeners below then back to this function when checkboxes are clicked but box doesn't check off. Find out why ("other" example solutions to get the checkboxes to toggle properly on tasks). 
+mainArea.addEventListener('click', (e) => { // Remove 'e' if the conditional doesn't work
+  const checkboxToggle = document.querySelectorAll(".js-tick");
+
   checkboxToggle.forEach(checkbox => {
-    const taskItem = checkbox.target.parentElement.dataset.key;
-    const taskClass = checkbox.target.parentElement.classList;
+    // const taskItem = document.querySelector("data-key"); // Coming up as 'null' so the rest of this method doesn't work
+    const taskClass = document.querySelector(".task-item-");
+    // const taskLabel = document.querySelector("label[for]");
   
-    if (taskClass !== "task-item-done") {
-      toggleTaskChecked(taskItem);
+    if (e.target.tagName.toLowerCase() === "input") { // Previous code: (taskItem === taskLabel && taskClass !== "task-item-done")
+      toggleTaskChecked(taskClass);
       checkbox.checked = true;
-      taskItem.style.textDecoration = "line-through";
-      taskClass.setAttribute("class", "task-item-done");
+      taskClass.style.textDecoration = "line-through";
+      taskClass.classList.toggle("task-item-done");
       // renderTask(toggleTaskChecked.toggleStatus)
     }
   });
 });
+
+// Previous attempt of code just above
+
+// mainArea.addEventListener('click', () => {
+//   const checkboxToggle = document.querySelectorAll(".js-tick");
+
+//   checkboxToggle.forEach(checkbox => {
+//     const taskItem = checkbox.target.parentElement.dataset.key; // Uncaught TypeError that can't read the parent element (undefined) either due to this line or renderTask in UI
+//     const taskClass = checkbox.target.parentElement.classList;
+  
+//     if (taskClass !== "task-item-done") {
+//       toggleTaskChecked(taskItem);
+//       checkbox.checked = true;
+//       taskItem.style.textDecoration = "line-through";
+//       taskClass.setAttribute("class", "task-item-done");
+//       // renderTask(toggleTaskChecked.toggleStatus)
+//     }
+//   });
+// });
 
 
 // Sidebar "Add Project" button functionality that brings up the form to enter Project details

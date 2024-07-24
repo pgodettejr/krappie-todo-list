@@ -24,7 +24,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
 // OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first beforehand.
 function readTask (taskId) {
-  return tasks.find(task => task.id === taskId);
+  return tasks.find(task => task.id === taskId); // Uncaught TypeError: Cannot read properties of undefined (reading 'find') with tagName method in the checkbox function (index.js)
 }
 
 // Deletes a task
