@@ -24,7 +24,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
 // OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first beforehand.
 function readTask (taskId) {
-  return tasks.find(task => task.id === taskId); // Uncaught TypeError: Cannot read properties of undefined (reading 'find') with tagName method in the checkbox function (index.js)
+  return tasks.find(task => task.id === taskId); 
 }
 
 // Deletes a task
@@ -52,7 +52,7 @@ function updateTask(taskId, updates) {
 // Toggles "complete" status of a given task
 // TODO: Either logic to change the 'checked' status in the UI goes here or in the UI module or as button logic in the index module
 function toggleTaskChecked(taskId) {
-  const toggleStatus = tasks.find(task => task.id === taskId);
+  const toggleStatus = tasks.find(task => task.id === taskId); // Uncaught TypeError: Cannot read properties of undefined (reading 'find') with tagName method in the checkbox function (index.js)
   if (toggleStatus) {
     toggleStatus.checked = !toggleStatus.checked;
   }
@@ -75,6 +75,8 @@ function storeTask() {
       targetProject.tasks.push(newTask);
     }
   }
+
+  console.log(appState.myProjects);
 }
 
 // Code to test functions
