@@ -224,29 +224,33 @@ function renderTask() {
     //   let targetTask = tasks.find(task => task.title === taskTitle);
     //   if (targetTask === formTaskTitle) {
     //     return targetTask;
+  
+    //  TODO: Could also try using third argument of callbackFn in the 'Array.find' method (element, index, array) to grab the ID # of the matching task
+    //     targetTask.find(targetTask => targetTask.id === taskId); <-- Could this be what we need to grab the ID of the task whose title matches form input above (formTaskTitle)?
     //   }
     // }
 
-    const getTask = (formTaskTitle) => tasks.find(task => task.title === formTaskTitle);
+    const getTask = (formTaskTitle) => tasks.find(task => task.taskTitle === formTaskTitle); // previously 'task.title'
 
     // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
     const isChecked = getTask.checked ? 'done' : '';
 
     // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
     // TODO: All of the `${getTask.id}` attributes below are showing "undefined" when rendered, causing an Uncaught TypeError on line 186 in index module. Find out why.
+    // "Undefined" meaning the variable `${getTask.id}` is declared, but not assigned
     // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
     // OPTION: Might need to put the tasks in their own containers just like we did with the projects.
     const taskName = document.createElement("p");
-    taskName.setAttribute("data-key", formTaskTitle); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
+    taskName.setAttribute("data-key", getTask.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array. Previously 'formTaskTitle'
     taskName.classList.add(`task-item-${isChecked}`);
 
     // Renders the checkbox elements
     const taskCheckbox = document.createElement("input");
-    taskCheckbox.setAttribute("id", formTaskTitle); // See "taskName" above except this is for setting the id
+    taskCheckbox.setAttribute("id", getTask.id); // See "taskName" above except this is for setting the id. Previously 'formTaskTitle'
     taskCheckbox.setAttribute("type", "checkbox");
 
     const taskCheckboxLabel = document.createElement("label");
-    taskCheckboxLabel.setAttribute("for", formTaskTitle); // See "taskName" above except this is for setting the "for" in the label element
+    taskCheckboxLabel.setAttribute("for", getTask.id); // See "taskName" above except this is for setting the "for" in the label element. Previously 'formTaskTitle'
     taskCheckboxLabel.classList.add("js-tick");
 
     // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
