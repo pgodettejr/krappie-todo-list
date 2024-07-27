@@ -1,5 +1,6 @@
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 // TODO: Hitting the "Enter" key on the keyboard doesn't submit & close any form it seems. Either fix here in all the button logic or in the HTML itself?
+// OPTION: Could add 'document.addEventListener('DOMContentLoaded', () => { move EVERYTHING in here except imports });' to ensure they are attached correctly after DOM becomes available
 
 import * as krappieUI from './krappieUI.js';
 import { createProject, appState } from './projects.js';
@@ -291,6 +292,7 @@ krappieUI.editProject.addEventListener('click', (e) => {
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
+    // e.preventDefault() here potentially to stop form submission to the backend of the browser?
     const targetProject = e.target.closest(".project-wrapper");
     currentProjectName = targetProject.querySelector(".project-name").textContent;
 
