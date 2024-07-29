@@ -135,19 +135,41 @@ krappieUI.cancelTask.addEventListener('click', () => {
   krappieUI.taskDialog.close();
 });
 
+let taskId;
+
+// "Update Task" button functionality that brings up the Task form again to enter new details
+projectHeading.addEventListener('click', (e) => {
+  if (e.target && e.target.closest(".update-task")) {
+    const taskItem = e.target.closest(".task-item");
+    taskId = taskItem.getAttribute("data-key");
+    krappieUI.taskUpdateDialog.showModal();
+    krappieUI.populateProjects();
+  }
+});
+
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
 krappieUI.editTask.addEventListener('click', (e) => {
   let taskEdit = document.getElementById("task-update-form").checkValidity();
   if (taskEdit) {
     e.preventDefault();
-    updateTask();
+
+    // Collect updated task details from the form
+    const updatedTask = {
+      newTaskTitle: document.getElementById("update-task-title").value.trim(),
+      newDueDate: document.getElementById("update-due-date").value,
+      newPriority: document.getElementById("update-priority").value,
+      newDescription: document.getElementById("update-description").value
+    };
+
+    updateTask(taskId, updatedTask);
 
     // TODO: Function call that renders the update goes here
 
     // Values of all form sections
     // Run the updateTask function
     // Some type of 'forEach' method for all the tasks in the project until JS finds the right task to update?
-
+    krappieUI.renderTask();
+    
     taskUpdateForm.reset();
     krappieUI.taskUpdateDialog.close();
   }

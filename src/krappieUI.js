@@ -81,7 +81,13 @@ function renderDefault() {
 
 // Renders all projects that are created via the "Add Project" form
 function renderProject() {
+  // My version provides immediate feedback ("faster"), is straightforward and avoids any synchronization issues between the form & array, but is less consistent especially if something goes wrong with the array & risks duplication if there is a delay on the array side making the UI less consistent
+
   let formTitle = document.getElementById("project-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
+
+  // OPTION: Alternative to rendering the correct project via the array instead of the form value. No conditional (if) required. More robust/consistent & provides a single source of truth, but "slower" & more complex.
+
+  // const lastProject = appState.myProjects[appState.myProjects.length - 1];
 
   if (formTitle) { 
     // DOM for "My Projects" section of the sidebar as well as the main area
