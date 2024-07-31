@@ -236,11 +236,15 @@ function renderTask() {
     //   }
     // }
 
-    const getTask = taskTitle => tasks.find(task => task.taskTitle === taskTitle); // previously 'task.title'
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'find) unless I remove the "task" variable just below this and have getTask as the parameter for the 'if' statement
 
-    const task = getTask(formTaskTitle);
+    // const getTask = (taskTitle) => tasks.find(task => task.taskTitle === taskTitle); // previously 'task.title'
 
-    if (task) {
+    // const task = getTask(formTaskTitle);
+
+    const getTask = (formTaskTitle) => tasks.find(task => task.taskTitle === formTaskTitle);
+
+    if (getTask) {
       // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
       const isChecked = getTask.checked ? 'done' : '';
 

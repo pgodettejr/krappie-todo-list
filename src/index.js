@@ -138,6 +138,7 @@ krappieUI.cancelTask.addEventListener('click', () => {
 let taskId;
 
 // "Update Task" button functionality that brings up the Task form again to enter new details
+// TODO: Task not being found in the array
 projectHeading.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-task")) {
     const taskItem = e.target.closest(".task-item");
