@@ -237,12 +237,14 @@ function renderTask() {
     // }
 
     // Uncaught TypeError: Cannot read properties of undefined (reading 'find) unless I remove the "task" variable just below this and have getTask as the parameter for the 'if' statement
-
     // const getTask = (taskTitle) => tasks.find(task => task.taskTitle === taskTitle); // previously 'task.title'
-
     // const task = getTask(formTaskTitle);
 
     const getTask = (formTaskTitle) => tasks.find(task => task.taskTitle === formTaskTitle);
+    // const getTaskId = (getTask) => tasks.find(task => task.id === getTask);
+
+    // Attempt to render everything directly from the nested "tasks" array. Uncaught TypeError: Cannot read properties of undefined (reading 'length')
+    // const lastTask = tasks[tasks.length - 1];
 
     if (getTask) {
       // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
