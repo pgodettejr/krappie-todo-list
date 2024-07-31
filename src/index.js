@@ -141,9 +141,13 @@ let taskId;
 projectHeading.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-task")) {
     const taskItem = e.target.closest(".task-item");
-    taskId = taskItem.getAttribute("data-key");
-    krappieUI.taskUpdateDialog.showModal();
-    krappieUI.populateProjects();
+    if (taskItem) {
+      taskId = taskItem.getAttribute("data-key"); // Uncaught TypeError: Cannot read properties of null (reading 'getAttribute') - issue is likely in renderTask UI function
+      krappieUI.taskUpdateDialog.showModal();
+      krappieUI.populateProjects();
+    } else {
+      console.error('Task not found in the tasks array');
+    }
   }
 });
 
@@ -153,7 +157,7 @@ krappieUI.editTask.addEventListener('click', (e) => {
   if (taskEdit) {
     e.preventDefault();
 
-    // Collect updated task details from the form
+    // Values of all updated form sections
     const updatedTask = {
       newTaskTitle: document.getElementById("update-task-title").value.trim(),
       newDueDate: document.getElementById("update-due-date").value,
@@ -161,14 +165,14 @@ krappieUI.editTask.addEventListener('click', (e) => {
       newDescription: document.getElementById("update-description").value
     };
 
+    // Run the updateTask function
     updateTask(taskId, updatedTask);
 
-    // TODO: Function call that renders the update goes here
-
-    // Values of all form sections
-    // Run the updateTask function
-    // Some type of 'forEach' method for all the tasks in the project until JS finds the right task to update?
+    // Function call that renders the update
     krappieUI.renderTask();
+    
+    
+    // TODO: Some type of 'forEach' method for all the tasks in the project until JS finds the right task to update?
     
     taskUpdateForm.reset();
     krappieUI.taskUpdateDialog.close();
@@ -238,6 +242,19 @@ mainArea.addEventListener('click', (e) => { // Remove 'e' if the conditional doe
 //   });
 // });
 
+// "Delete Task" button functionality that removes the task both from the nested tasks array inside the myProjects array and the UI
+projectHeading.addEventListener('click', (e) => {
+  if (e.target && e.target.closest(".delete-task")) {
+    const taskItem = e.target.closest(".task-item");
+    taskId = taskItem.getAttribute("data-key");
+
+    // Removes the task from the tasks array nested inside of the projects in appState
+    removeTask(taskId); // OPTION: (appState.myProjects.tasks.taskId);
+
+    // Removes the task from the UI
+    taskItem.remove();
+  }
+});
 
 // Sidebar "Add Project" button functionality that brings up the form to enter Project details
 sidebarProjectBtn.addEventListener('click', () => {

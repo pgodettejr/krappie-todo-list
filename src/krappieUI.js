@@ -232,96 +232,102 @@ function renderTask() {
     //     return targetTask;
   
     //  TODO: Could also try using third argument of callbackFn in the 'Array.find' method (element, index, array) to grab the ID # of the matching task
-    //     targetTask.find(targetTask => targetTask.id === taskId); <-- Could this be what we need to grab the ID of the task whose title matches form input above (formTaskTitle)?
+    //     targetTask.find(targetTask => targetTask.id === taskId); // Could this be what we need to grab the ID of the task whose title matches form input above (formTaskTitle)?
     //   }
     // }
 
-    const getTask = (formTaskTitle) => tasks.find(task => task.taskTitle === formTaskTitle); // previously 'task.title'
+    const getTask = taskTitle => tasks.find(task => task.taskTitle === taskTitle); // previously 'task.title'
 
-    // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
-    const isChecked = getTask.checked ? 'done' : '';
+    const task = getTask(formTaskTitle);
 
-    // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
-    // TODO: All of the `${getTask.id}` attributes below are showing "undefined" when rendered, causing an Uncaught TypeError on line 186 in index module. Find out why.
-    // "Undefined" meaning the variable `${getTask.id}` is declared, but not assigned
-    // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
-    // OPTION: Might need to put the tasks in their own containers just like we did with the projects.
-    const taskName = document.createElement("p");
-    taskName.setAttribute("data-key", getTask.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array. Previously 'formTaskTitle'
-    taskName.classList.add(`task-item-${isChecked}`);
+    if (task) {
+      // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
+      const isChecked = getTask.checked ? 'done' : '';
 
-    // Renders the checkbox elements
-    const taskCheckbox = document.createElement("input");
-    taskCheckbox.setAttribute("id", getTask.id); // See "taskName" above except this is for setting the id. Previously 'formTaskTitle'
-    taskCheckbox.setAttribute("type", "checkbox");
+      // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
+      // TODO: All of the `${getTask.id}` attributes below are showing "undefined" when rendered, causing an Uncaught TypeError on line 186 in index module. Find out why.
+      // "Undefined" meaning the variable `${getTask.id}` is declared, but not assigned
+      // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
+      // OPTION: Might need to put the tasks in their own containers just like we did with the projects.
+      const taskName = document.createElement("p");
+      taskName.setAttribute("data-key", getTask.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array. Previously 'formTaskTitle'
+      taskName.classList.add(`task-item-${isChecked}`);
 
-    const taskCheckboxLabel = document.createElement("label");
-    taskCheckboxLabel.setAttribute("for", getTask.id); // See "taskName" above except this is for setting the "for" in the label element. Previously 'formTaskTitle'
-    taskCheckboxLabel.classList.add("js-tick");
+      // Renders the checkbox elements
+      const taskCheckbox = document.createElement("input");
+      taskCheckbox.setAttribute("id", getTask.id); // See "taskName" above except this is for setting the id. Previously 'formTaskTitle'
+      taskCheckbox.setAttribute("type", "checkbox");
 
-    // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
-    const taskDate = document.createElement("p");
-    const taskPriority = document.createElement("p");
+      const taskCheckboxLabel = document.createElement("label");
+      taskCheckboxLabel.setAttribute("for", getTask.id); // See "taskName" above except this is for setting the "for" in the label element. Previously 'formTaskTitle'
+      taskCheckboxLabel.classList.add("js-tick");
 
-    taskDate.classList.add("task-date");
-    taskPriority.classList.add("task-priority");
-    
-    // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
-    const taskNameInfo = document.createTextNode(`${formTaskTitle}`);
-    const taskDateInfo = document.createTextNode(`${formDueDate}`);
-    const taskPriorityInfo = document.createTextNode(`${formPriority}`);
+      // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
+      const taskDate = document.createElement("p");
+      const taskPriority = document.createElement("p");
 
-    // Render "Update" icon button to be added to "Task Name" header
-    const updateTaskBtn = document.createElement("button");
-    updateTaskBtn.classList.add("update-task");
+      taskDate.classList.add("task-date");
+      taskPriority.classList.add("task-priority");
+      
+      // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
+      const taskNameInfo = document.createTextNode(`${formTaskTitle}`);
+      const taskDateInfo = document.createTextNode(`${formDueDate}`);
+      const taskPriorityInfo = document.createTextNode(`${formPriority}`);
 
-    const updateTaskIcon = new Image();
-    updateTaskIcon.src = Update;
-    updateTaskIcon.classList.add("image-button");
+      // Render "Update" icon button to be added to "Task Name" header
+      const updateTaskBtn = document.createElement("button");
+      updateTaskBtn.classList.add("update-task");
 
-    // Render "Delete" icon button to be added to "Task Name" header
-    const deleteTaskBtn = document.createElement("button");
-    deleteTaskBtn.classList.add("delete-task");
+      const updateTaskIcon = new Image();
+      updateTaskIcon.src = Update;
+      updateTaskIcon.classList.add("image-button");
 
-    const deleteTaskIcon = new Image();
-    deleteTaskIcon.src = Delete;
-    deleteTaskIcon.classList.add("image-button");
+      // Render "Delete" icon button to be added to "Task Name" header
+      const deleteTaskBtn = document.createElement("button");
+      deleteTaskBtn.classList.add("delete-task");
 
-    // Attaches button icon images to the buttons themselves
-    updateTaskBtn.appendChild(updateTaskIcon);
-    deleteTaskBtn.appendChild(deleteTaskIcon);
+      const deleteTaskIcon = new Image();
+      deleteTaskIcon.src = Delete;
+      deleteTaskIcon.classList.add("image-button");
 
-    // Attaches text info via user input to the <p> tags that were created
-    taskName.appendChild(taskNameInfo);
-    taskDate.appendChild(taskDateInfo);
-    taskPriority.appendChild(taskPriorityInfo);
+      // Attaches button icon images to the buttons themselves
+      updateTaskBtn.appendChild(updateTaskIcon);
+      deleteTaskBtn.appendChild(deleteTaskIcon);
 
-    // Places the checkbox elements under the Task Name <p>
-    taskName.appendChild(taskCheckbox);
-    taskName.appendChild(taskCheckboxLabel);
-    
-    // Places the "Update" and "Delete" buttons under the Task Name <p>
-    taskName.appendChild(updateTaskBtn);
-    taskName.appendChild(deleteTaskBtn);
+      // Attaches text info via user input to the <p> tags that were created
+      taskName.appendChild(taskNameInfo);
+      taskDate.appendChild(taskDateInfo);
+      taskPriority.appendChild(taskPriorityInfo);
 
-    // Places the Date, Time, Priority level and Description as children under the Task Name <p>
-    // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
-    taskName.appendChild(taskDate);
-    taskName.appendChild(taskPriority);
+      // Places the checkbox elements under the Task Name <p>
+      taskName.appendChild(taskCheckbox);
+      taskName.appendChild(taskCheckboxLabel);
+      
+      // Places the "Update" and "Delete" buttons under the Task Name <p>
+      taskName.appendChild(updateTaskBtn);
+      taskName.appendChild(deleteTaskBtn);
 
-    // Render necessary elements from Description box to be added as text under the task Title if filled out by the user
-    if (formDescription) {
-      const taskDescription = document.createElement("p");
-      taskDescription.classList.add("task-description");
+      // Places the Date, Time, Priority level and Description as children under the Task Name <p>
+      // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
+      taskName.appendChild(taskDate);
+      taskName.appendChild(taskPriority);
 
-      const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
+      // Render necessary elements from Description box to be added as text under the task Title if filled out by the user
+      if (formDescription) {
+        const taskDescription = document.createElement("p");
+        taskDescription.classList.add("task-description");
 
-      taskDescription.appendChild(taskDescriptionInfo);
-      taskName.appendChild(taskDescription);
+        const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
+
+        taskDescription.appendChild(taskDescriptionInfo);
+        taskName.appendChild(taskDescription);
+      }
+
+      // Places the task itself (via it's name) as a child under the Project <ul>
+      projectNameHeader.appendChild(taskName);
+    } else {
+      console.error('Task not found in the tasks array');
     }
-
-    // Places the task itself (via it's name) as a child under the Project <ul>
-    projectNameHeader.appendChild(taskName);
   }
 }
 
