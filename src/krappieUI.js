@@ -224,6 +224,13 @@ function renderTask() {
 
     const projectNameHeader = addToProjectUI(formProject);
 
+    // TODO: Check to see if tasks is an array (it isn't)
+    // console.log('Tasks: ', tasks);
+    // if (!Array.isArray(tasks)) {
+    //   console.error('Tasks is not an array');
+    //   return;
+    // }
+
     // Finds the task in the nested array within the projects by name, matches it with the name of the task in the form entered by the user & returns the task for checkbox use
     // OPTION: Possibly get this down to one line of code
     // const getTask = (taskTitle) => {
