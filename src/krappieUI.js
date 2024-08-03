@@ -223,126 +223,98 @@ function renderTask() {
     }
 
     const projectNameHeader = addToProjectUI(formProject);
+    const targetProject = appState.readProject(formProject);
 
-    // TODO: Check to see if tasks is an array (it isn't)
-    // console.log('Tasks: ', tasks);
-    // if (!Array.isArray(tasks)) {
-    //   console.error('Tasks is not an array');
-    //   return;
-    // }
+    targetProject.tasks.forEach((task) => { // Previously 'if (getTask)'
+      if (task.taskTitle === formTaskTitle) {
+        // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
+        const isChecked = task.checked ? 'done' : '';
 
-    // Finds the task in the nested array within the projects by name, matches it with the name of the task in the form entered by the user & returns the task for checkbox use
-    // OPTION: Possibly get this down to one line of code
-    // const getTask = (taskTitle) => {
-    //   let targetTask = tasks.find(task => task.title === taskTitle);
-    //   if (targetTask === formTaskTitle) {
-    //     return targetTask;
-  
-    //  TODO: Could also try using third argument of callbackFn in the 'Array.find' method (element, index, array) to grab the ID # of the matching task
-    //     targetTask.find(targetTask => targetTask.id === taskId); // Could this be what we need to grab the ID of the task whose title matches form input above (formTaskTitle)?
-    //   }
-    // }
+        // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
+        // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
+        // OPTION: Might need to put the tasks in their own containers just like we did with the projects.
+        const taskName = document.createElement("p");
+        taskName.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
+        taskName.classList.add(`task-item-${isChecked}`);
 
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'find) unless I remove the "task" variable just below this and have getTask as the parameter for the 'if' statement
-    // const getTask = (taskTitle) => tasks.find(task => task.taskTitle === taskTitle); // previously 'task.title'
-    // const task = getTask(formTaskTitle);
+        // Renders the checkbox elements
+        const taskCheckbox = document.createElement("input");
+        taskCheckbox.setAttribute("id", task.id); // See "taskName" above except this is for setting the id
+        taskCheckbox.setAttribute("type", "checkbox");
 
-    const getTask = (formTaskTitle) => tasks.find(task => task.taskTitle === formTaskTitle);
-    // const getTaskId = (getTask) => tasks.find(task => task.id === getTask);
+        const taskCheckboxLabel = document.createElement("label");
+        taskCheckboxLabel.setAttribute("for", task.id); // See "taskName" above except this is for setting the "for" in the label element
+        taskCheckboxLabel.classList.add("js-tick");
 
-    // Attempt to render everything directly from the nested "tasks" array. Uncaught TypeError: Cannot read properties of undefined (reading 'length')
-    // const lastTask = tasks[tasks.length - 1];
+        // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
+        const taskDate = document.createElement("p");
+        const taskPriority = document.createElement("p");
 
-    if (getTask) {
-      // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
-      const isChecked = getTask.checked ? 'done' : '';
+        taskDate.classList.add("task-date");
+        taskPriority.classList.add("task-priority");
+        
+        // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
+        const taskNameInfo = document.createTextNode(`${formTaskTitle}`);
+        const taskDateInfo = document.createTextNode(`${formDueDate}`);
+        const taskPriorityInfo = document.createTextNode(`${formPriority}`);
 
-      // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
-      // TODO: All of the `${getTask.id}` attributes below are showing "undefined" when rendered, causing an Uncaught TypeError on line 186 in index module. Find out why.
-      // "Undefined" meaning the variable `${getTask.id}` is declared, but not assigned
-      // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
-      // OPTION: Might need to put the tasks in their own containers just like we did with the projects.
-      const taskName = document.createElement("p");
-      taskName.setAttribute("data-key", getTask.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array. Previously 'formTaskTitle'
-      taskName.classList.add(`task-item-${isChecked}`);
+        // Render "Update" icon button to be added to "Task Name" header
+        const updateTaskBtn = document.createElement("button");
+        updateTaskBtn.classList.add("update-task");
 
-      // Renders the checkbox elements
-      const taskCheckbox = document.createElement("input");
-      taskCheckbox.setAttribute("id", getTask.id); // See "taskName" above except this is for setting the id. Previously 'formTaskTitle'
-      taskCheckbox.setAttribute("type", "checkbox");
+        const updateTaskIcon = new Image();
+        updateTaskIcon.src = Update;
+        updateTaskIcon.classList.add("image-button");
 
-      const taskCheckboxLabel = document.createElement("label");
-      taskCheckboxLabel.setAttribute("for", getTask.id); // See "taskName" above except this is for setting the "for" in the label element. Previously 'formTaskTitle'
-      taskCheckboxLabel.classList.add("js-tick");
+        // Render "Delete" icon button to be added to "Task Name" header
+        const deleteTaskBtn = document.createElement("button");
+        deleteTaskBtn.classList.add("delete-task");
 
-      // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
-      const taskDate = document.createElement("p");
-      const taskPriority = document.createElement("p");
+        const deleteTaskIcon = new Image();
+        deleteTaskIcon.src = Delete;
+        deleteTaskIcon.classList.add("image-button");
 
-      taskDate.classList.add("task-date");
-      taskPriority.classList.add("task-priority");
-      
-      // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
-      const taskNameInfo = document.createTextNode(`${formTaskTitle}`);
-      const taskDateInfo = document.createTextNode(`${formDueDate}`);
-      const taskPriorityInfo = document.createTextNode(`${formPriority}`);
+        // Attaches button icon images to the buttons themselves
+        updateTaskBtn.appendChild(updateTaskIcon);
+        deleteTaskBtn.appendChild(deleteTaskIcon);
 
-      // Render "Update" icon button to be added to "Task Name" header
-      const updateTaskBtn = document.createElement("button");
-      updateTaskBtn.classList.add("update-task");
+        // Attaches text info via user input to the <p> tags that were created
+        taskName.appendChild(taskNameInfo);
+        taskDate.appendChild(taskDateInfo);
+        taskPriority.appendChild(taskPriorityInfo);
 
-      const updateTaskIcon = new Image();
-      updateTaskIcon.src = Update;
-      updateTaskIcon.classList.add("image-button");
+        // Places the checkbox elements under the Task Name <p>
+        taskName.appendChild(taskCheckbox);
+        taskName.appendChild(taskCheckboxLabel);
+        
+        // Places the "Update" and "Delete" buttons under the Task Name <p>
+        taskName.appendChild(updateTaskBtn);
+        taskName.appendChild(deleteTaskBtn);
 
-      // Render "Delete" icon button to be added to "Task Name" header
-      const deleteTaskBtn = document.createElement("button");
-      deleteTaskBtn.classList.add("delete-task");
+        // Places the Date, Time, Priority level and Description as children under the Task Name <p>
+        // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
+        taskName.appendChild(taskDate);
+        taskName.appendChild(taskPriority);
 
-      const deleteTaskIcon = new Image();
-      deleteTaskIcon.src = Delete;
-      deleteTaskIcon.classList.add("image-button");
+        // Render necessary elements from Description box to be added as text under the task Title if filled out by the user
+        if (formDescription) {
+          const taskDescription = document.createElement("p");
+          taskDescription.classList.add("task-description");
 
-      // Attaches button icon images to the buttons themselves
-      updateTaskBtn.appendChild(updateTaskIcon);
-      deleteTaskBtn.appendChild(deleteTaskIcon);
+          const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
 
-      // Attaches text info via user input to the <p> tags that were created
-      taskName.appendChild(taskNameInfo);
-      taskDate.appendChild(taskDateInfo);
-      taskPriority.appendChild(taskPriorityInfo);
+          taskDescription.appendChild(taskDescriptionInfo);
+          taskName.appendChild(taskDescription);
+        }
 
-      // Places the checkbox elements under the Task Name <p>
-      taskName.appendChild(taskCheckbox);
-      taskName.appendChild(taskCheckboxLabel);
-      
-      // Places the "Update" and "Delete" buttons under the Task Name <p>
-      taskName.appendChild(updateTaskBtn);
-      taskName.appendChild(deleteTaskBtn);
-
-      // Places the Date, Time, Priority level and Description as children under the Task Name <p>
-      // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
-      taskName.appendChild(taskDate);
-      taskName.appendChild(taskPriority);
-
-      // Render necessary elements from Description box to be added as text under the task Title if filled out by the user
-      if (formDescription) {
-        const taskDescription = document.createElement("p");
-        taskDescription.classList.add("task-description");
-
-        const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
-
-        taskDescription.appendChild(taskDescriptionInfo);
-        taskName.appendChild(taskDescription);
+        // Places the task itself (via it's name) as a child under the Project <ul>
+        projectNameHeader.appendChild(taskName); // TODO: Uncaught TypeError: Cannot read properties of null (reading 'appendChild') when adding subsequent tasks to same project
+      } else {
+        console.error('Task not found in the tasks array');
       }
-
-      // Places the task itself (via it's name) as a child under the Project <ul>
-      projectNameHeader.appendChild(taskName);
-    } else {
-      console.error('Task not found in the tasks array');
-    }
+    })
   }
-}
+};
 
 // Example of navigation bar button functionality in the Restaurant project that switches pages via tabbed browsing
 
@@ -424,3 +396,41 @@ export { projectDialog, projectUpdateDialog, confirmProject, cancelProject, edit
 // Having no loop at all and just adding 'project' as a parameter to the renderProject function itself (sidebar buttons also no longer work)
 
 // Only other solution to keep this loop would be to implement some way to 'find' the project that was entered from 'appState.addProject' and only render that one
+
+// TODO: Check to see if tasks is an array (it isn't)
+    // console.log('Tasks: ', tasks);
+    // if (!Array.isArray(tasks)) {
+    //   console.error('Tasks is not an array');
+    //   return;
+    // }
+
+    // Finds the task in the nested array within the projects by name, matches it with the name of the task in the form entered by the user & returns the task for checkbox use
+    // OPTION: Possibly get this down to one line of code
+    // const getTask = (taskTitle) => {
+    //   let targetTask = tasks.find(task => task.title === taskTitle);
+    //   if (targetTask === formTaskTitle) {
+    //     return targetTask;
+  
+    //  TODO: Could also try using third argument of callbackFn in the 'Array.find' method (element, index, array) to grab the ID # of the matching task
+    //     targetTask.find(targetTask => targetTask.id === taskId); // Not what I needed to grab the ID of the task whose title matches form input above (formTaskTitle)
+    //   }
+    // }
+
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'find) unless I remove the "task" variable just below this and have getTask as the parameter for the 'if' statement
+    // const getTask = (taskTitle) => tasks.find(task => task.taskTitle === taskTitle); // previously 'task.title'
+    // const task = getTask(formTaskTitle);
+
+        // const getTask = (formTaskTitle) => targetProject.tasks.find(task => task.taskTitle === formTaskTitle);
+
+    // Literally reads off as a string on all attributes related to it below (on its own anyway)
+    // Uncaught TypeError: Cannot read properties of undefined (reading 'find) unless I remove the "task" variable just below this and have getTask as the parameter for the 'if' statement
+    // const getTaskId = (taskId) => getTask.find(task => task.id === taskId);
+    // const task = getTaskId(formTaskTitle);
+
+    // TypeError: xx.readTask is not a function
+    // const getTaskId = targetProject.readTask();
+    // const getTaskId = getTask.readTask();
+    
+
+    // Attempt to render everything directly from the nested "tasks" array. Uncaught TypeError: Cannot read properties of undefined (reading 'length')
+    // const lastTask = tasks[tasks.length - 1];
