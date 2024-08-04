@@ -48,7 +48,9 @@ body {
   padding: 40px 30px 40px;
   margin-bottom: 4px;
   /* box-shadow: -3px 10px 5px #c7c9cc; */
-  filter: drop-shadow(-3px 10px 5px #c7c9cc);  /* TODO: Testing this out for the heading to see if this looks better than box-shadow - 0 0 1rem black or green or #c7c9cc */
+
+  /* TODO: This gives all items a drop shadow instead of the heading itself. It kinda looks better? - test out 0 0 1rem black or green or #c7c9cc */
+  filter: drop-shadow(-3px 10px 5px #c7c9cc);  
 
   display: grid;
   grid-template-columns: 1fr 2.5fr 0.5fr;
@@ -217,11 +219,13 @@ input[type="checkbox"] {
 footer {
   grid-row: 3;
 
-  /* TODO: Absolute positioning puts the footer text in the top left of the page. Why? Test out this new positioning code first */
+  /* TODO: Absolute positioning puts the footer text in the top left of the page. Why? */
   /* position: sticky; */
-  position: absolute;
-  justify-self: end; /* Might need to be "center" instead or even use "place-self" somewhere */
-  align-self: end;
+
+  /* Might need to use "place-self" somewhere */
+  /* position: absolute;
+  justify-self: center; 
+  align-self: end; */
 
   & .credits {
     display: flex;

@@ -206,7 +206,8 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
 // 'forEach' method attempt of the above
 // TODO: Currently goes through this function, then the other 'mainArea' event listeners below then back to this function when checkboxes are clicked but box doesn't check off. Find out why ("other" example solutions to get the checkboxes to toggle properly on tasks). 
-mainArea.addEventListener('click', (e) => { // Remove 'e' if the conditional doesn't work
+// I don't think it matters which code we go with since the issue seems to be the toggle function in tasks, not this function
+mainArea.addEventListener('click', (e) => { // TODO: Remove 'e' back if the conditional doesn't work
   const checkboxToggle = document.querySelectorAll(".js-tick");
 
   checkboxToggle.forEach(checkbox => {
@@ -214,7 +215,8 @@ mainArea.addEventListener('click', (e) => { // Remove 'e' if the conditional doe
     const taskClass = document.querySelector(".task-item-");
     // const taskLabel = document.querySelector("label[for]");
   
-    if (e.target.tagName.toLowerCase() === "input") { // Previous code: (taskItem === taskLabel && taskClass !== "task-item-done")
+    // Previous code: (taskItem === taskLabel && taskClass !== "task-item-done") is worse because it doesn't even make it to the toggle classList line before the code finishes (nothing changes in the UI)
+    if (e.target.tagName.toLowerCase() === "input") { 
       toggleTaskChecked(taskClass);
       checkbox.checked = true;
       taskClass.style.textDecoration = "line-through";
