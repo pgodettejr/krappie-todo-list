@@ -174,6 +174,7 @@ function renderProject() {
 }
 
 // Function for rendering all Project options to the "Add to Project" drop-down menu in the Task form
+// TODO: Probably need to declare a variable equal to the "update-add-to-project" form node for the DOM followed by a conditional that allows this to run for both forms
 function populateProjects() {
   for (const project in appState.myProjects) {
     const projectSelect = document.getElementById("add-to-project");

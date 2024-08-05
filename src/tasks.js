@@ -3,7 +3,7 @@ import { createProject, appState } from './projects.js';
 
 // Access to the tasks array inside of the createProject function
 // If we remove this, we'd need to declare it in each function below as needed (not ALL of them)
-let tasks = createProject.tasks;
+// let tasks = createProject.tasks;
 
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
 function createTask (taskTitle, dueDate, priority, description) {
@@ -22,9 +22,17 @@ function createTask (taskTitle, dueDate, priority, description) {
 }
 
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
+// TODO: Correct ID number shows for the task without needing the project that it's under first (clue)
 // OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first beforehand.
-function readTask (taskId) {
-  return tasks.find(task => task.id === taskId); // TODO: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
+function readTask (taskId) { 
+  // return tasks.find(task => task.id === taskId); // TODO: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
+  const project = appState.readProject();// TODO: projectTitle comes up as 'undefined' when calling this function here, then browser finishes rendering with no changes in UI
+  for (const key in project) {
+    if (key === "tasks") {
+      const task = project[key].find(task => task.id === taskId);
+      if (task) return task;
+    }
+  }
 }
 
 // Deletes a task
@@ -42,6 +50,7 @@ function removeTask(taskId) {
 
 // Updates information on an existing task
 // TODO: Change target of "tasks" back to "task"? Also, 'Object.assign' might not even work with 'updates' (it didn't for updateProject). Try 'map' function in old code below?
+// TODO: Currently function never gets to the conditional (see 'project' variable notes in readTask above). Need to fix readTask to get this to go through (although UI "completes")
 function updateTask(taskId, updates) {
   const taskFind = readTask(taskId); // TODO: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
   if (taskFind) {
@@ -141,7 +150,7 @@ function storeTask() {
 // project2.addTodo(task2);
 // console.log(project2);
 
-export { tasks, createTask, readTask, removeTask, updateTask, toggleTaskChecked, storeTask }
+export { createTask, readTask, removeTask, updateTask, toggleTaskChecked, storeTask }
 
 // Old code for another solution I came up with on my own that updated list of tasks using map (Object.assign is cleaner). Keep it (in case of emergency, break glass)
 //   function updateTask(todoId, updates) {

@@ -144,7 +144,7 @@ projectHeading.addEventListener('click', (e) => {
     if (taskItem) {
       taskId = taskItem.getAttribute("data-key");
       krappieUI.taskUpdateDialog.showModal();
-      krappieUI.populateProjects();
+      krappieUI.populateProjects(); // TODO: This is not populating any list of current projects - is it the function itself? (only populates on initial creation of task)
     } else {
       console.error('Task not found in the tasks array');
     }
@@ -152,6 +152,7 @@ projectHeading.addEventListener('click', (e) => {
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
+// TODO: Need to figure out "Add to Project" logic - how are we going to get the code to remove the task from one project and add it to another if the user so chooses?
 krappieUI.editTask.addEventListener('click', (e) => {
   let taskEdit = document.getElementById("task-update-form").checkValidity();
   if (taskEdit) {
@@ -165,6 +166,8 @@ krappieUI.editTask.addEventListener('click', (e) => {
       newPriority: document.getElementById("update-priority").value,
       newDescription: document.getElementById("update-description").value
     };
+
+    // TODO: Do we need a conditional that shows if the newProject does NOT match the name of the current project in the UI, update where the task is rendered?
 
     // Run the updateTask function
     updateTask(taskId, updatedTask);
