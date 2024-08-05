@@ -138,12 +138,11 @@ krappieUI.cancelTask.addEventListener('click', () => {
 let taskId;
 
 // "Update Task" button functionality that brings up the Task form again to enter new details
-// TODO: Task not being found in the array
 projectHeading.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-task")) {
-    const taskItem = e.target.closest(".task-item");
+    const taskItem = e.target.closest(".task-item-");
     if (taskItem) {
-      taskId = taskItem.getAttribute("data-key"); // Uncaught TypeError: Cannot read properties of null (reading 'getAttribute') - issue is likely in renderTask UI function
+      taskId = taskItem.getAttribute("data-key");
       krappieUI.taskUpdateDialog.showModal();
       krappieUI.populateProjects();
     } else {
@@ -160,7 +159,7 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // Values of all updated form sections
     const updatedTask = {
-      newTaskTitle: document.getElementById("update-task-title").value.trim(),
+      newTaskTitle: document.getElementById("update-task-title").value.trim(), // TODO: Uncaught TypeError: Cannot read properties of null (reading 'value')
       newDueDate: document.getElementById("update-due-date").value,
       newPriority: document.getElementById("update-priority").value,
       newDescription: document.getElementById("update-description").value
