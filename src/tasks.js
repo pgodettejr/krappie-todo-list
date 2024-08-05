@@ -24,7 +24,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
 // OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first beforehand.
 function readTask (taskId) {
-  return tasks.find(task => task.id === taskId); 
+  return tasks.find(task => task.id === taskId); // TODO: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
 }
 
 // Deletes a task
@@ -43,7 +43,7 @@ function removeTask(taskId) {
 // Updates information on an existing task
 // TODO: Change target of "tasks" back to "task"? Also, 'Object.assign' might not even work with 'updates' (it didn't for updateProject). Try 'map' function in old code below?
 function updateTask(taskId, updates) {
-  const taskFind = readTask(taskId);
+  const taskFind = readTask(taskId); // TODO: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
   if (taskFind) {
     Object.assign(taskFind, updates); 
   }

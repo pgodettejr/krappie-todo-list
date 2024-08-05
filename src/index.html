@@ -100,13 +100,13 @@
       <form action="" method="get" id="task-update-form">
         <p>Enter your task info below:</p>
         <div class="form-col">
-          <label for="task-title">Title</label>
-          <input type="text" name="task-title" id="task-title" />
+          <label for="update-task-title">Title</label>
+          <input type="text" name="update-task-title" id="update-task-title" />
         </div>
   
         <div class="form-col">
-          <label for="due-date">Due Date</label>
-          <input type="date" name="due-date" id="due-date" />
+          <label for="update-due-date">Due Date</label>
+          <input type="date" name="update-due-date" id="update-due-date" />
         </div>
         
         <div class="form-col">
@@ -116,18 +116,18 @@
   
         <!-- TODO: Figure out how to add color labels to each option either directly here or dynamically added in the JS -->
         <div class="form-col">
-          <label for="priority">Priority</label>
-          <select name="priority" id="priority">
-            <option value="red" selected>Urgent</option>
-            <option value="yellow">Important</option>
-            <option value="blue">Low Priority</option>
+          <label for="update-priority">Priority</label>
+          <select name="update-priority" id="update-priority">
+            <option value="Urgent" selected>Urgent</option>
+            <option value="Important">Important</option>
+            <option value="Low Priority">Low Priority</option>
             <!-- <option value="green">Done</option> -->
           </select>
         </div>
 
         <div class="form-col">
-          <label for="description">Description</label>
-          <textarea name="description" id="description" cols="50" rows="10">Type your task description here</textarea>
+          <label for="update-description">Description</label>
+          <textarea name="update-description" id="update-description" cols="50" rows="10">Type your task description here</textarea>
         </div>
 
         <div class="form-buttons">
