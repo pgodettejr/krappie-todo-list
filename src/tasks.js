@@ -25,8 +25,12 @@ function createTask (taskTitle, dueDate, priority, description) {
 // TODO: Correct ID number shows for the task without needing the project that it's under first (clue)
 // OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first beforehand.
 function readTask (taskId) { 
-  // return tasks.find(task => task.id === taskId); // TODO: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
-  const project = appState.readProject();// TODO: projectTitle comes up as 'undefined' when calling this function here, then browser finishes rendering with no changes in UI
+
+  // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
+  // return tasks.find(task => task.id === taskId); 
+
+  // ATTEMPT #2: projectTitle comes up as 'undefined' when calling appState.readProject(), then browser finishes rendering with no changes in UI
+  const project = appState.readProject();
   for (const key in project) {
     if (key === "tasks") {
       const task = project[key].find(task => task.id === taskId);
@@ -49,13 +53,18 @@ function removeTask(taskId) {
 }
 
 // Updates information on an existing task
-// TODO: Change target of "tasks" back to "task"? Also, 'Object.assign' might not even work with 'updates' (it didn't for updateProject). Try 'map' function in old code below?
-// TODO: Currently function never gets to the conditional (see 'project' variable notes in readTask above). Need to fix readTask to get this to go through (although UI "completes")
+// TODO: 'Object.assign' might not even work with 'updates' (it didn't for updateProject). Try 'map' function in old code below?
 function updateTask(taskId, updates) {
-  const taskFind = readTask(taskId); // TODO: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
-  if (taskFind) {
-    Object.assign(taskFind, updates); 
-  }
+
+  // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
+  // This code never gets to the conditional (see 'project' variable notes in readTask above). Need to fix readTask to get this to go through (although UI "completes")
+  // const taskFind = readTask(taskId); 
+  // if (taskFind) {
+  //   Object.assign(taskFind, updates); 
+  // }
+
+  // ATTEMPT #2: This alone doesn't update the task. We still need to locate the original task in the tasks array inside the project then apply updates with this
+  Object.assign(taskId, updates);
 }
 
 // Toggles "complete" status of a given task

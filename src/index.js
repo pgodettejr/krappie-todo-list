@@ -160,7 +160,7 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // Values of all updated form sections
     const updatedTask = {
-      newTaskTitle: document.getElementById("update-task-title").value.trim(), // TODO: Uncaught TypeError: Cannot read properties of null (reading 'value')
+      newTaskTitle: document.getElementById("update-task-title").value.trim(),
       newDueDate: document.getElementById("update-due-date").value,
       // newProject: document.getElementById("update-add-to-project").value, - TODO: Change the "for", "name" and "id" attributes to "update-add-to-project" in the HTML 
       newPriority: document.getElementById("update-priority").value,
@@ -172,7 +172,12 @@ krappieUI.editTask.addEventListener('click', (e) => {
     // Run the updateTask function
     updateTask(taskId, updatedTask);
 
+    // TODO: Logs the array to see if the task updated (it doesn't currently)
+    console.log(appState.myProjects);
+
     // Function call that renders the update
+    // TODO: Currently doesn't render the updated values because renderTask isn't attached to the update form at all, only the original form. 
+    // Figure out another method to render (either update renderTask itself to include update form or render the elements directly on here somehow - see editProject below?)
     krappieUI.renderTask();
     
     
