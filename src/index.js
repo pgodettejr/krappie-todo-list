@@ -162,7 +162,7 @@ krappieUI.editTask.addEventListener('click', (e) => {
     const updatedTask = {
       newTaskTitle: document.getElementById("update-task-title").value.trim(),
       newDueDate: document.getElementById("update-due-date").value,
-      // newProject: document.getElementById("update-add-to-project").value, - TODO: Change the "for", "name" and "id" attributes to "update-add-to-project" in the HTML 
+      newProject: document.getElementById("update-add-to-project").value,
       newPriority: document.getElementById("update-priority").value,
       newDescription: document.getElementById("update-description").value
     };
