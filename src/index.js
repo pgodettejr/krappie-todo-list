@@ -14,7 +14,7 @@ krappieUI.renderDefault();
 
 // Main area DOM
 const mainArea = document.querySelector("main");
-const projectHeading = document.querySelector(".project-name");
+// const projectHeading = document.querySelector(".project-name");
 
 // Forms DOM
 const taskForm = document.getElementById("task-form");
@@ -26,7 +26,7 @@ const projectUpdateForm = document.getElementById("project-update-form");
 const projectMenu = document.querySelector(".menu-2");
 const sidebarTaskBtn = document.getElementById("add-task-2");
 const sidebarProjectBtn = document.getElementById("add-project");
-const projectButton = document.querySelector(".project-btn");
+// const projectButton = document.querySelector(".project-btn");
 
 // Update and Delete buttons DOM for Projects. 
 // Button group variables will be permanent if all projects end up being shown on main area of the UI
@@ -138,7 +138,7 @@ krappieUI.cancelTask.addEventListener('click', () => {
 let taskId;
 
 // "Update Task" button functionality that brings up the Task form again to enter new details
-projectHeading.addEventListener('click', (e) => {
+mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-task")) {
     const taskItem = e.target.closest(".task-item-");
     if (taskItem) {
@@ -254,7 +254,7 @@ mainArea.addEventListener('click', (e) => { // TODO: Remove 'e' back if the cond
 // });
 
 // "Delete Task" button functionality that removes the task both from the nested tasks array inside the myProjects array and the UI
-projectHeading.addEventListener('click', (e) => {
+mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-task")) {
     const taskItem = e.target.closest(".task-item");
     taskId = taskItem.getAttribute("data-key");

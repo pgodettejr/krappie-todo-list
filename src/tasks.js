@@ -27,7 +27,8 @@ function createTask (taskTitle, dueDate, priority, description) {
 function readTask (taskId) { 
 
   // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
-  // return tasks.find(task => task.id === taskId); 
+  let tasks = createProject.tasks;
+  return tasks.find(task => task.id === taskId); 
 
   // ATTEMPT #2: projectTitle comes up as 'undefined' when calling appState.readProject(), then browser finishes rendering with no changes in UI
   const project = appState.readProject();
@@ -42,10 +43,10 @@ function readTask (taskId) {
 // Deletes a task
 // TODO: Can the ternary operator be written "cleaner"? Instead of using it within a declared variable, try another way (MDN doc - Ternary Operator)
 function removeTask(taskId) {
-  const taskFilter = tasks.findIndex(task => task.id === taskId);
+  const taskFilter = appState.myProjects.project[projectIndex].tasks.findIndex(task => task.id === taskId);
   const taskItem = // OPTION: Write this as a traditional function instead, returning the ternary operator on the inside or an 'if' statement similar to deleteProject
     taskFilter != -1
-      ? tasks.splice(taskFilter, 1)
+      ? appState.myProjects.project[projectIndex].tasks.splice(taskFilter, 1)
       : "ERROR: Task not found";
   
   // TODO: Almost positive we need this, but delete it if not. Very small chance we're able to just return ternary operator with no additional variable.
@@ -58,10 +59,10 @@ function updateTask(taskId, updates) {
 
   // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
   // This code never gets to the conditional (see 'project' variable notes in readTask above). Need to fix readTask to get this to go through (although UI "completes")
-  // const taskFind = readTask(taskId); 
-  // if (taskFind) {
-  //   Object.assign(taskFind, updates); 
-  // }
+  const taskFind = readTask(taskId); 
+  if (taskFind) {
+    Object.assign(taskFind, updates); 
+  }
 
   // ATTEMPT #2: This alone doesn't update the task. We still need to locate the original task in the tasks array inside the project then apply updates with this
   Object.assign(taskId, updates);
