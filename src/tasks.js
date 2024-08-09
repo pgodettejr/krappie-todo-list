@@ -43,10 +43,10 @@ function readTask (taskId) {
 // Deletes a task
 // TODO: Can the ternary operator be written "cleaner"? Instead of using it within a declared variable, try another way (MDN doc - Ternary Operator)
 function removeTask(taskId) {
-  const taskFilter = appState.myProjects.project[projectIndex].tasks.findIndex(task => task.id === taskId);
+  const taskFilter = appState.myProjects[project].tasks.findIndex(task => task.id === taskId);
   const taskItem = // OPTION: Write this as a traditional function instead, returning the ternary operator on the inside or an 'if' statement similar to deleteProject
     taskFilter != -1
-      ? appState.myProjects.project[projectIndex].tasks.splice(taskFilter, 1)
+      ? appState.myProjects[project].tasks.splice(taskFilter, 1)
       : "ERROR: Task not found";
   
   // TODO: Almost positive we need this, but delete it if not. Very small chance we're able to just return ternary operator with no additional variable.
@@ -65,7 +65,7 @@ function updateTask(taskId, updates) {
   }
 
   // ATTEMPT #2: This alone doesn't update the task. We still need to locate the original task in the tasks array inside the project then apply updates with this
-  Object.assign(taskId, updates);
+  // Object.assign(taskId, updates);
 }
 
 // Toggles "complete" status of a given task
