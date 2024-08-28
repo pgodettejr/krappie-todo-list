@@ -154,7 +154,7 @@ function renderProject() {
         // Goal is to render the page elements of the corresponding button WITHOUT recreating the button again
 
         // TODO: Debug and step through this function and find out exactly what is happening when previously generated buttons are clicked (none of the buttons disappear)
-        // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button
+        // NOTE: Do we need to write code that says if the value of the ul is equal to the value of the button, then replace any current content and append the ul of that button?
         main.replaceChildren();
 
         // OPTION: Try "renderProject(project name selected via button);" instead
@@ -212,7 +212,7 @@ function renderTask() {
     // OPTION 1: change the <p> element holding the project title text to a <ul>, then target the <ul> here that has the same text matching the value of formProject above
     // OPTION 2: Leave it as a <p> element and just target it here the same way as Option #1 (render a new empty ul with li's under it or change all tasks to <p> and render those)
     // OPTION 3: Make a brand new empty <ul> with a class in renderProject, then target it here (but how would we know which empty <ul> to add the task to?)
-    // OPTION 4: Try to utilize 'appState.findProject(formProject)' somehow - have this variable equal that and then try to find the matching <p> element with other code
+    // OPTION 4: Try to utilize 'appState.readProject(formProject)' somehow - have this variable equal that and then try to find the matching <p> element with other code
     // This would involve adding a forEach method similar to what we have now and that method would still have to be inside a function to work most likely
 
     function addToProjectUI (text) {

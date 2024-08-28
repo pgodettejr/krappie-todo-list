@@ -21,7 +21,10 @@
   },
   "homepage": "https://github.com/pgodettejr/krappie-todo-list#readme",
   "devDependencies": {
+    "@eslint/js": "^9.9.1",
     "css-loader": "^7.1.1",
+    "eslint": "^9.9.1",
+    "globals": "^15.9.0",
     "html-webpack-plugin": "^5.6.0",
     "style-loader": "^4.0.0",
     "webpack": "^5.91.0",

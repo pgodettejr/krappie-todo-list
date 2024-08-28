@@ -20,7 +20,7 @@ function createProject (projectTitle) {
   //   const project = appState.myProjects(projectTitle);
   // }
 
-  // TODO: This likely needs to find the right project to add the tasks array to? Link this up with the findProject method in the appState below
+  // TODO: This likely needs to find the right project to add the tasks array to? Link this up with the readProject method in the appState below
   // function addTask(taskTitle, dueDate, priority, description) {
   //   const newTask = createTask(taskTitle, dueDate, priority, description);
   //   tasks.push(newTask);
