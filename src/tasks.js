@@ -27,8 +27,8 @@ function createTask (taskTitle, dueDate, priority, description) {
 function readTask (taskId) { 
 
   // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
-  let tasks = createProject.tasks;
-  return tasks.find(task => task.id === taskId); 
+  // let tasks = createProject.tasks;
+  // return tasks.find(task => task.id === taskId); 
 
   // ATTEMPT #2: projectTitle comes up as 'undefined' when calling appState.readProject(), then browser finishes rendering with no changes in UI
   const project = appState.readProject();
@@ -59,7 +59,7 @@ function updateTask(taskId, updates) {
 
   // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
   // This code never gets to the conditional (see 'project' variable notes in readTask above). Need to fix readTask to get this to go through (although UI "completes")
-  const taskFind = readTask(taskId); 
+  const taskFind = readTask(taskId); // taskFind showing as undefined due to readTask not finding the right project (projectTitle undefined)
   if (taskFind) {
     Object.assign(taskFind, updates); 
   }

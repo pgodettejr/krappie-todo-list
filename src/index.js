@@ -158,19 +158,18 @@ krappieUI.editTask.addEventListener('click', (e) => {
     e.preventDefault();
 
     // Values of all updated form sections
-    // TODO: Remove "new" from all of these properties and use original camelCase names
-    const updatedTask = {
-      newTaskTitle: document.getElementById("update-task-title").value.trim(),
-      newDueDate: document.getElementById("update-due-date").value,
-      newProject: document.getElementById("update-add-to-project").value,
-      newPriority: document.getElementById("update-priority").value,
-      newDescription: document.getElementById("update-description").value
+    const updatedDetails = {
+      taskTitle: document.getElementById("update-task-title").value.trim(),
+      dueDate: document.getElementById("update-due-date").value,
+      project: document.getElementById("update-add-to-project").value, // Take this out if we can't figure out "Add to Project" logic
+      priority: document.getElementById("update-priority").value,
+      description: document.getElementById("update-description").value
     };
 
     // TODO: Do we need a conditional that shows if the newProject does NOT match the name of the current project in the UI, update where the task is rendered?
 
     // Run the updateTask function
-    updateTask(taskId, updatedTask);
+    updateTask(taskId, updatedDetails);
 
     // TODO: Logs the array to see if the task updated (it doesn't currently)
     console.log(appState.myProjects);
