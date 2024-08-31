@@ -21,6 +21,9 @@ function createTask (taskTitle, dueDate, priority, description) {
   return { taskTitle, dueDate, priority, description, checked, id };
 }
 
+// ATTEMPT #3: trying to get the task to update based on the task ID number alone (without reading the project the task is under - see below)
+// let tasks;
+
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
 // TODO: Correct ID number shows for the task without needing the project that it's under first (clue)
 // OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first.
@@ -28,14 +31,23 @@ function readTask (taskId) {
 
   // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
   // let tasks = createProject.tasks;
-  // return tasks.find(task => task.id === taskId); 
+  // return tasks.find(task => task.id === taskId);  // same TypeError with or without the 'tasks' variable above this line
 
   // ATTEMPT #2: projectTitle comes up as 'undefined' when calling appState.readProject(), then browser finishes rendering with no changes in UI
-  const project = appState.readProject();
-  for (const key in project) {
-    if (key === "tasks") {
-      const task = project[key].find(task => task.id === taskId);
-      if (task) return task;
+  // const project = appState.readProject();
+  // for (const key in project) {
+  //   if (key === "tasks") {
+  //     const task = project[key].find(task => task.id === taskId);
+  //     if (task) return task;
+  //   }
+  // }
+
+  for (const project in appState.myProjects) {
+    for (const key in project) { // Shows "project: 0" followed by "project: 1" then eventually shows the correct task via task ID in if/else
+      if (key === "tasks") {
+        const task = project[key].find(task => task.id === taskId);
+        if (task) return task;
+      }
     }
   }
 }
@@ -64,8 +76,24 @@ function updateTask(taskId, updates) {
     Object.assign(taskFind, updates); 
   }
 
+  return taskFind; // Even with this, the task in the array doesn't update
+
   // ATTEMPT #2: This alone doesn't update the task. We still need to locate the original task in the tasks array inside the project then apply updates with this
   // Object.assign(taskId, updates);
+
+  // ATTEMPT #3: Old code using map() function from below
+  // Uncaught TypeError: Cannot read properties of undefined (reading 'map')
+  // const revisedTasks = tasks.map(task => {
+  //   if (task.id === taskId) {
+  //     return { ...task, ...updates }
+  //   }
+  // });
+    
+  // return revisedTasks;
+
+  // IMPORTANT!!
+
+  // Final(?) attempt could involve a for...in loop "for (const project in appState.myProjects)" & appState.myProjects[project].tasks.findIndex(task => task.id === taskId);
 }
 
 // Toggles "complete" status of a given task
