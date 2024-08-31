@@ -186,8 +186,10 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     const targetTitle = document.querySelector(`p[data-key="${taskId}"`)
 
-    // TODO: Find another way to target the DOM elements inside the if statement below (see comments showing what's been tried below) or create a container for all the elements to 'live' in, then use modified code from the ChatGPT solution
-    
+    // TODO: FIRST try to grab the previous forEach method in GitHub and paste it back onto here as a comment
+
+    // TODO: THEN, find another way to target the DOM elements inside the if statement below (see comments showing what's been tried below) or create a container for all the elements to 'live' in, then use modified code from the ChatGPT solution
+
     // Currently ONLY updates the title itself and leaves the other child elements blank - including deleting all buttons & checkboxes
     if (targetTitle) {
       // Attempt to target each child element under the task title that needs changing (leaves all of them blank when updating)
