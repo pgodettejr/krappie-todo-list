@@ -42,13 +42,18 @@ function readTask (taskId) {
   //   }
   // }
 
-  for (const project in appState.myProjects) {
-    for (const key in project) { // Shows "project: 0" followed by "project: 1" then eventually shows the correct task via task ID in if/else
-      if (key === "tasks") {
-        const task = project[key].find(task => task.id === taskId);
-        if (task) return task;
-      }
-    }
+  // for (const project in appState.myProjects) {
+  //   for (const key in project) { // Shows "project: 0" followed by "project: 1" then eventually shows the correct task via task ID in if/else
+  //     if (key === "tasks") {
+  //       const task = project[key].find(task => task.id === taskId);
+  //       if (task) return task;
+  //     }
+  //   }
+  // }
+
+  for (const project of appState.myProjects) {
+    const task = project.tasks.find(task => task.id === taskId);
+    if (task) return task;
   }
 }
 
