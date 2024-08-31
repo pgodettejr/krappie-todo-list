@@ -168,19 +168,39 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // TODO: Do we need a conditional that shows if the newProject does NOT match the name of the current project in the UI, update where the task is rendered?
 
+    const taskTitles = document.querySelectorAll("p[data-key]");
+    // const taskDates = document.querySelectorAll(".task-date");
+    // const taskPriorities = document.querySelectorAll(".task-priority");
+    // const taskDescriptions = document.querySelectorAll(".task-description");
+
     // Run the updateTask function
     updateTask(taskId, updatedDetails);
 
-    // TODO: Logs the array to see if the task updated (it doesn't currently)
     console.log(appState.myProjects);
 
     // Function call that renders the update
     // TODO: Currently doesn't render the updated values because renderTask isn't attached to the update form at all, only the original form. 
     // Figure out another method to render (either update renderTask itself to include update form or render the elements directly on here somehow - see editProject below?)
-    krappieUI.renderTask();
-    
-    
+    // krappieUI.renderTask();
+
     // TODO: Some type of 'forEach' method for all the tasks in the project until JS finds the right task to update?
+    // Loop through all task titles to find the right one to update, then update the text for all related children elements
+    // Currently ONLY updates the title itself and leaves the other child elements blank - including deleting all buttons & checkboxes
+    taskTitles.forEach(title => {
+      if (title.getAttribute("data-key") === taskId) {
+
+        // Attempt to target each child element under the task title that needs changing (leaves all of them blank when updating)
+        // Changed from 'title.querySelector' to 'document.querySelector'
+        const _dueDate = document.querySelector(".task-date");
+        const _priority = document.querySelector(".task-priority");
+        const _description = document.querySelector(".task-description");
+
+        title.textContent = updatedDetails.taskTitle;
+        _dueDate.textContent = updatedDetails.dueDate;
+        _priority.textContent = updatedDetails.priority;
+        _description.textContent = updatedDetails.description;
+      }
+    });
     
     taskUpdateForm.reset();
     krappieUI.taskUpdateDialog.close();

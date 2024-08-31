@@ -1,10 +1,6 @@
 import { createProject, appState } from './projects.js';
 // import * as krappieUI from './krappieUI.js'
 
-// Access to the tasks array inside of the createProject function
-// If we remove this, we'd need to declare it in each function below as needed (not ALL of them)
-// let tasks = createProject.tasks;
-
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
 function createTask (taskTitle, dueDate, priority, description) {
   let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
@@ -21,36 +17,9 @@ function createTask (taskTitle, dueDate, priority, description) {
   return { taskTitle, dueDate, priority, description, checked, id };
 }
 
-// ATTEMPT #3: trying to get the task to update based on the task ID number alone (without reading the project the task is under - see below)
-// let tasks;
-
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
-// TODO: Correct ID number shows for the task without needing the project that it's under first (clue)
 // OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first.
 function readTask (taskId) { 
-
-  // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
-  // let tasks = createProject.tasks;
-  // return tasks.find(task => task.id === taskId);  // same TypeError with or without the 'tasks' variable above this line
-
-  // ATTEMPT #2: projectTitle comes up as 'undefined' when calling appState.readProject(), then browser finishes rendering with no changes in UI
-  // const project = appState.readProject();
-  // for (const key in project) {
-  //   if (key === "tasks") {
-  //     const task = project[key].find(task => task.id === taskId);
-  //     if (task) return task;
-  //   }
-  // }
-
-  // for (const project in appState.myProjects) {
-  //   for (const key in project) { // Shows "project: 0" followed by "project: 1" then eventually shows the correct task via task ID in if/else
-  //     if (key === "tasks") {
-  //       const task = project[key].find(task => task.id === taskId);
-  //       if (task) return task;
-  //     }
-  //   }
-  // }
-
   for (const project of appState.myProjects) {
     const task = project.tasks.find(task => task.id === taskId);
     if (task) return task;
@@ -71,34 +40,13 @@ function removeTask(taskId) {
 }
 
 // Updates information on an existing task
-// TODO: 'Object.assign' might not even work with 'updates' (it didn't for updateProject). Try 'map' function in old code below?
 function updateTask(taskId, updates) {
-
-  // ATTEMPT #1: Uncaught TypeError: Cannot read properties of undefined (reading 'find') - when trying to update a task in the UI form
-  // This code never gets to the conditional (see 'project' variable notes in readTask above). Need to fix readTask to get this to go through (although UI "completes")
-  const taskFind = readTask(taskId); // taskFind showing as undefined due to readTask not finding the right project (projectTitle undefined)
+  const taskFind = readTask(taskId);
   if (taskFind) {
     Object.assign(taskFind, updates); 
   }
 
-  return taskFind; // Even with this, the task in the array doesn't update
-
-  // ATTEMPT #2: This alone doesn't update the task. We still need to locate the original task in the tasks array inside the project then apply updates with this
-  // Object.assign(taskId, updates);
-
-  // ATTEMPT #3: Old code using map() function from below
-  // Uncaught TypeError: Cannot read properties of undefined (reading 'map')
-  // const revisedTasks = tasks.map(task => {
-  //   if (task.id === taskId) {
-  //     return { ...task, ...updates }
-  //   }
-  // });
-    
-  // return revisedTasks;
-
-  // IMPORTANT!!
-
-  // Final(?) attempt could involve a for...in loop "for (const project in appState.myProjects)" & appState.myProjects[project].tasks.findIndex(task => task.id === taskId);
+  return taskFind;
 }
 
 // Toggles "complete" status of a given task
