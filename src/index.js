@@ -168,7 +168,7 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // TODO: Do we need a conditional that shows if the newProject does NOT match the name of the current project in the UI, update where the task is rendered?
 
-    const taskTitles = document.querySelectorAll("p[data-key]");
+    // const taskTitles = document.querySelectorAll("p[data-key]");
     // const taskDates = document.querySelectorAll(".task-date");
     // const taskPriorities = document.querySelectorAll(".task-priority");
     // const taskDescriptions = document.querySelectorAll(".task-description");
@@ -178,29 +178,30 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     console.log(appState.myProjects);
 
+  
     // Function call that renders the update
     // TODO: Currently doesn't render the updated values because renderTask isn't attached to the update form at all, only the original form. 
     // Figure out another method to render (either update renderTask itself to include update form or render the elements directly on here somehow - see editProject below?)
     // krappieUI.renderTask();
 
-    // TODO: Some type of 'forEach' method for all the tasks in the project until JS finds the right task to update?
-    // Loop through all task titles to find the right one to update, then update the text for all related children elements
+    const targetTitle = document.querySelector(`p[data-key="${taskId}"`)
+
+    // TODO: Find another way to target the DOM elements inside the if statement below (see comments showing what's been tried below) or create a container for all the elements to 'live' in, then use modified code from the ChatGPT solution
+    
     // Currently ONLY updates the title itself and leaves the other child elements blank - including deleting all buttons & checkboxes
-    taskTitles.forEach(title => {
-      if (title.getAttribute("data-key") === taskId) {
+    if (targetTitle) {
+      // Attempt to target each child element under the task title that needs changing (leaves all of them blank when updating)
+      // Changed from 'targetTitle.querySelector' to 'document.querySelector' - still leaves these (and the checkbox & buttons) blank
+      // I don't think we can use 'querySelector' at all.
+      const targetDueDate = targetTitle.querySelector(".task-date");
+      const targetPriority = targetTitle.querySelector(".task-priority");
+      const targetDescription = targetTitle.querySelector(".task-description");
 
-        // Attempt to target each child element under the task title that needs changing (leaves all of them blank when updating)
-        // Changed from 'title.querySelector' to 'document.querySelector'
-        const _dueDate = document.querySelector(".task-date");
-        const _priority = document.querySelector(".task-priority");
-        const _description = document.querySelector(".task-description");
-
-        title.textContent = updatedDetails.taskTitle;
-        _dueDate.textContent = updatedDetails.dueDate;
-        _priority.textContent = updatedDetails.priority;
-        _description.textContent = updatedDetails.description;
-      }
-    });
+      targetTitle.textContent = updatedDetails.taskTitle;
+      targetDueDate.textContent = updatedDetails.dueDate;
+      targetPriority.textContent = updatedDetails.priority;
+      targetDescription.textContent = updatedDetails.description;
+    }
     
     taskUpdateForm.reset();
     krappieUI.taskUpdateDialog.close();
