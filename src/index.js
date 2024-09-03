@@ -297,12 +297,15 @@ mainArea.addEventListener('click', (e) => { // TODO: Remove 'e' back if the cond
 // "Delete Task" button functionality that removes the task both from the nested tasks array inside the myProjects array and the UI
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-task")) {
-    const taskItem = e.target.closest(".task-item");
+    const taskItem = e.target.closest(".task-wrapper");
     taskId = taskItem.getAttribute("data-key");
 
     // Removes the task from the tasks array nested inside of the projects in appState
     removeTask(taskId); // OPTION: (appState.myProjects.tasks.taskId);
 
+    // Check to make sure the task was removed from the array inside the target project
+    console.log(appState.myProjects);
+    
     // Removes the task from the UI
     taskItem.remove();
   }

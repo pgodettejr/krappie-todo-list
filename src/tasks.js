@@ -27,7 +27,11 @@ function readTask (taskId) {
 }
 
 // Deletes a task
-// TODO: Can the ternary operator be written "cleaner"? Instead of using it within a declared variable, try another way (MDN doc - Ternary Operator)
+// Currently only steps through the first project in the array looking for the task with the correct ID # to delete. Doesn't go through all the projects. 
+
+// TODO: We don't need the 'for...of' loop here. We can just run 'readTask' itself instead, then write the rest of the code to delete the task from the array
+
+// OPTION: Can the ternary operator be written "cleaner"? Instead of using it within a declared variable, try another way (MDN doc - Ternary Operator)
 function removeTask(taskId) {
   for (const project of appState.myProjects) {
     const taskFilter = project.tasks.findIndex(task => task.id === taskId);
@@ -36,6 +40,14 @@ function removeTask(taskId) {
         ? project.tasks.splice(taskFilter, 1)
         : "ERROR: Task not found";
   
+    // Previous attempt to delete the task in the array using 'find' instead of 'findIndex'. Same result (see TODO for this entire function)
+    // if (taskFilter) {
+    //   project.tasks.splice(taskFilter, 1)
+    //   return taskFilter;
+    // } else {
+    //   return "ERROR: Task not found";
+    // }
+
     // TODO: Almost positive we need this, but delete it if not. Very small chance we're able to just return ternary operator with no additional variable.
     return taskItem;
   }
