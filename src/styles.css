@@ -173,8 +173,7 @@ main {
   /* grid-template-columns: 2fr 1fr; */
 }
 
-/* TODO: Do we really need to write this as an attribute selector on the 'p' element? Can't it just be ".task-item"? */
-p[class^="task-item"] .image-button {
+.task-wrapper .image-button {
   height: 50px;
   width: 50px;
   border-radius: 50%;

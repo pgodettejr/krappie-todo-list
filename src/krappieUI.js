@@ -234,23 +234,38 @@ function renderTask() {
         // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
         const isChecked = task.checked ? 'done' : '';
 
-        // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
-        // OPTION: Change this back to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
-        // OPTION: Might need to put the tasks in their own containers just like we did with the projects.
-        const taskName = document.createElement("p");
-        taskName.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
-        taskName.classList.add(`task-item-${isChecked}`);
+        // Generate "Task" wrapper/container to be added to the main area (under the target Project)
+        // OPTION: Change this to "li" if we change the "p" element for the project title to a "ul" instead (see 'taskList' code at the very top of this if statement we're in)
+        const taskWrapper = document.createElement("div");
+        taskWrapper.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
+        taskWrapper.classList.add("task-wrapper");
 
         // Renders the checkbox elements
         const taskCheckbox = document.createElement("input");
-        taskCheckbox.setAttribute("id", task.id); // See "taskName" above except this is for setting the id
+        taskCheckbox.setAttribute("id", task.id); // See "taskWrapper" above except this is for setting the id
         taskCheckbox.setAttribute("type", "checkbox");
 
         const taskCheckboxLabel = document.createElement("label");
-        taskCheckboxLabel.setAttribute("for", task.id); // See "taskName" above except this is for setting the "for" in the label element
+        taskCheckboxLabel.setAttribute("for", task.id); // See "taskWrapper" above except this is for setting the "for" in the label element
         taskCheckboxLabel.classList.add("js-tick");
 
-        // Renders <p> tags for the Date, Priority level and Description box from the "Add Task" form (to be used as parents for the text info below)
+        // Places the checkbox elements under the Task wrapper/container
+        taskWrapper.appendChild(taskCheckbox);
+        taskWrapper.appendChild(taskCheckboxLabel);
+
+        // Renders the wrapper/container that holds the text details of the task (Name, Due Date, Priority Level, Description)
+        const taskDetails = document.createElement("div");
+        taskDetails.setAttribute("data-key", task.id);
+        taskDetails.classList.add("task-details");
+
+        // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
+        // Should we go with another container that has this as a <h#> element, then a <ul> with the date, priority, etc. as <li> elements?
+        // See "DOM Item Listener Follow-Along" Codepen (Traversy Media project)
+        const taskName = document.createElement("p");
+        taskName.setAttribute("data-key", task.id); // See "taskWrapper above". Will we need to change "data-key" to another attribute?
+        taskName.classList.add(`task-item-${isChecked}`);
+
+        // Renders <p> tags for the Date and Priority level from the "Add Task" form (to be used as parents for the text info below)
         const taskDate = document.createElement("p");
         const taskPriority = document.createElement("p");
 
@@ -261,6 +276,32 @@ function renderTask() {
         const taskNameInfo = document.createTextNode(`${formTaskTitle}`);
         const taskDateInfo = document.createTextNode(`${formDueDate}`);
         const taskPriorityInfo = document.createTextNode(`${formPriority}`);
+
+        // Attaches text info via user input to the <p> tags that were created
+        taskName.appendChild(taskNameInfo);
+        taskDate.appendChild(taskDateInfo);
+        taskPriority.appendChild(taskPriorityInfo);
+
+        // Places the Name, Date, Priority level and Description as children under the Task Details wrapper/container
+        // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
+        taskDetails.appendChild(taskName);
+        taskDetails.appendChild(taskDate);
+        taskDetails.appendChild(taskPriority);
+
+        // Places the wrapper containing the text details of the task under the Task wrapper/container
+        taskWrapper.appendChild(taskDetails);
+
+        // Render necessary elements from Description box to be added as text under the Task Details wrapper (if filled out by the user)
+        if (formDescription) {
+          const taskDescription = document.createElement("p");
+          taskDescription.classList.add("task-description");
+
+          const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
+
+          // Places the Description under the Task Details wrapper/container
+          taskDescription.appendChild(taskDescriptionInfo);
+          taskDetails.appendChild(taskDescription);
+        }
 
         // Render "Update" icon button to be added to "Task Name" header
         const updateTaskBtn = document.createElement("button");
@@ -281,38 +322,13 @@ function renderTask() {
         // Attaches button icon images to the buttons themselves
         updateTaskBtn.appendChild(updateTaskIcon);
         deleteTaskBtn.appendChild(deleteTaskIcon);
-
-        // Attaches text info via user input to the <p> tags that were created
-        taskName.appendChild(taskNameInfo);
-        taskDate.appendChild(taskDateInfo);
-        taskPriority.appendChild(taskPriorityInfo);
-
-        // Places the checkbox elements under the Task Name <p>
-        taskName.appendChild(taskCheckbox);
-        taskName.appendChild(taskCheckboxLabel);
         
-        // Places the "Update" and "Delete" buttons under the Task Name <p>
-        taskName.appendChild(updateTaskBtn);
-        taskName.appendChild(deleteTaskBtn);
-
-        // Places the Date, Time, Priority level and Description as children under the Task Name <p>
-        // TODO: This looks ok in the UI, but we want a different implementation to make it better if possible (may need to do this with CSS)
-        taskName.appendChild(taskDate);
-        taskName.appendChild(taskPriority);
-
-        // Render necessary elements from Description box to be added as text under the task Title if filled out by the user
-        if (formDescription) {
-          const taskDescription = document.createElement("p");
-          taskDescription.classList.add("task-description");
-
-          const taskDescriptionInfo = document.createTextNode(`${formDescription}`);
-
-          taskDescription.appendChild(taskDescriptionInfo);
-          taskName.appendChild(taskDescription);
-        }
+        // Places the "Update" and "Delete" buttons under the Task wrapper/container
+        taskWrapper.appendChild(updateTaskBtn);
+        taskWrapper.appendChild(deleteTaskBtn);
 
         // Places the task itself (via it's name) as a child under the Project <ul>
-        projectNameHeader.appendChild(taskName); // TODO: Uncaught TypeError: Cannot read properties of null (reading 'appendChild') when adding subsequent tasks to same project
+        projectNameHeader.appendChild(taskWrapper); // TODO: Uncaught TypeError: Cannot read properties of null (reading 'appendChild') when adding subsequent tasks to same project
       } else {
         console.error('Task not found in the tasks array');
       }
