@@ -139,7 +139,7 @@ let taskId;
 // "Update Task" button functionality that brings up the Task form again to enter new details
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-task")) {
-    const taskItem = e.target.closest(".task-item-");
+    const taskItem = e.target.closest(".task-wrapper");
     if (taskItem) {
       taskId = taskItem.getAttribute("data-key");
       krappieUI.taskUpdateDialog.showModal();
@@ -183,40 +183,46 @@ krappieUI.editTask.addEventListener('click', (e) => {
     // Figure out another method to render (either update renderTask itself to include update form or render the elements directly on here somehow - see editProject below?)
     // krappieUI.renderTask();
 
-    const targetTitle = document.querySelector(`p[data-key="${taskId}"`)
+    // const targetTitle = document.querySelector(`p[data-key="${taskId}"`)
 
     // TODO: Find another way to target the DOM elements inside the if statement below (see comments showing what's been tried below) or create a container for all the elements to 'live' in, then use modified code from the ChatGPT solution
 
     // Currently ONLY updates the title itself and leaves the other child elements blank - including deleting all buttons & checkboxes
-    if (targetTitle) {
-      // Attempt to target each child element under the task title that needs changing (leaves all of them blank when updating)
-      // Changed from 'targetTitle.querySelector' to 'document.querySelector' - still leaves these (and the checkbox & buttons) blank
-      // I don't think we can use 'querySelector' at all.
-      const targetDueDate = targetTitle.querySelector(".task-date");
-      const targetPriority = targetTitle.querySelector(".task-priority");
-      const targetDescription = targetTitle.querySelector(".task-description");
+    // if (targetTitle) {
+    //   // Attempt to target each child element under the task title that needs changing (leaves all of them blank when updating)
+    //   // Changed from 'targetTitle.querySelector' to 'document.querySelector' - still leaves these (and the checkbox & buttons) blank
+    //   // I don't think we can use 'querySelector' at all.
+    //   const targetDueDate = targetTitle.querySelector(".task-date");
+    //   const targetPriority = targetTitle.querySelector(".task-priority");
+    //   const targetDescription = targetTitle.querySelector(".task-description");
 
-      targetTitle.textContent = updatedDetails.taskTitle;
-      targetDueDate.textContent = updatedDetails.dueDate;
-      targetPriority.textContent = updatedDetails.priority;
-      targetDescription.textContent = updatedDetails.description;
-    }
+    //   targetTitle.textContent = updatedDetails.taskTitle;
+    //   targetDueDate.textContent = updatedDetails.dueDate;
+    //   targetPriority.textContent = updatedDetails.priority;
+    //   targetDescription.textContent = updatedDetails.description;
+    // }
     
     // Previous attempt to get the UI to update the task from the update form via the forEach method
 
-    // const taskTitles = document.querySelectorAll("p[data-key]");
-    // taskTitles.forEach(title => {
-    //   if (title.getAttribute("data-key") === taskId) {
-    //     const _dueDate = document.querySelector(".task-date");
-    //     const _priority = document.querySelector(".task-priority");
-    //     const _description = document.querySelector(".task-description");
+    const taskItems = document.querySelectorAll(".task-wrapper");
 
-    //     title.textContent = updatedDetails.taskTitle;
-    //     _dueDate.textContent = updatedDetails.dueDate;
-    //     _priority.textContent = updatedDetails.priority;
-    //     _description.textContent = updatedDetails.description;
-    //   }
-    // });
+    taskItems.forEach(task => {
+      if (task.getAttribute("data-key") === taskId) {
+        const _details = document.querySelector(".task-details");
+
+        if (_details.getAttribute("data-key") === taskId) { 
+          const _title = _details.querySelector(".task-item-");
+          const _dueDate = _details.querySelector(".task-date");
+          const _priority = _details.querySelector(".task-priority");
+          const _description = _details.querySelector(".task-description");
+
+          _title.textContent = updatedDetails.taskTitle;
+          _dueDate.textContent = updatedDetails.dueDate;
+          _priority.textContent = updatedDetails.priority;
+          _description.textContent = updatedDetails.description;
+        }
+      }
+    });
 
     taskUpdateForm.reset();
     krappieUI.taskUpdateDialog.close();
