@@ -168,7 +168,6 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // TODO: Do we need a conditional that shows if the newProject does NOT match the name of the current project in the UI, update where the task is rendered?
 
-    // const taskTitles = document.querySelectorAll("p[data-key]");
     // const taskDates = document.querySelectorAll(".task-date");
     // const taskPriorities = document.querySelectorAll(".task-priority");
     // const taskDescriptions = document.querySelectorAll(".task-description");
@@ -186,9 +185,7 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     const targetTitle = document.querySelector(`p[data-key="${taskId}"`)
 
-    // TODO: FIRST try to grab the previous forEach method in GitHub and paste it back onto here as a comment
-
-    // TODO: THEN, find another way to target the DOM elements inside the if statement below (see comments showing what's been tried below) or create a container for all the elements to 'live' in, then use modified code from the ChatGPT solution
+    // TODO: Find another way to target the DOM elements inside the if statement below (see comments showing what's been tried below) or create a container for all the elements to 'live' in, then use modified code from the ChatGPT solution
 
     // Currently ONLY updates the title itself and leaves the other child elements blank - including deleting all buttons & checkboxes
     if (targetTitle) {
@@ -205,6 +202,22 @@ krappieUI.editTask.addEventListener('click', (e) => {
       targetDescription.textContent = updatedDetails.description;
     }
     
+    // Previous attempt to get the UI to update the task from the update form via the forEach method
+
+    // const taskTitles = document.querySelectorAll("p[data-key]");
+    // taskTitles.forEach(title => {
+    //   if (title.getAttribute("data-key") === taskId) {
+    //     const _dueDate = document.querySelector(".task-date");
+    //     const _priority = document.querySelector(".task-priority");
+    //     const _description = document.querySelector(".task-description");
+
+    //     title.textContent = updatedDetails.taskTitle;
+    //     _dueDate.textContent = updatedDetails.dueDate;
+    //     _priority.textContent = updatedDetails.priority;
+    //     _description.textContent = updatedDetails.description;
+    //   }
+    // });
+
     taskUpdateForm.reset();
     krappieUI.taskUpdateDialog.close();
   }
