@@ -46,12 +46,11 @@ const appState = {
   },
 
   // Finds a project in the myProjects array. This is used to find a project to update or delete in the methods below.
-  // TODO: When this is called, it's reading as 'projectTitle = undefined'. Is this only when the Default project is being updated or when it's ALL projects?
   readProject: function (projectTitle) { 
     return this.myProjects.find(project => project.projectTitle === projectTitle); 
   },
 
-  // Finds and updates the name of an existing Project in the myProjects array. Placeholder for now.
+  // Finds and updates the name of an existing Project in the myProjects array.
   updateProject: function (currentTitle, newTitle) {
     const project = this.readProject(currentTitle);
 

@@ -340,6 +340,7 @@ krappieUI.cancelProject.addEventListener('click', () => {
 let currentProjectName;
 
 // "Update Project" button functionality that brings up the Project form again to enter a new name
+// TODO: Change target of 'currentProjectName' in this function (after switching <p> to <h#> for the Project title)
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".update-project")) {
     const wrapper = e.target.closest(".project-wrapper");
@@ -381,13 +382,13 @@ krappieUI.editProject.addEventListener('click', (e) => {
 });
 
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
-// TODO: Test this function again to make sure that all UI elements and the actual project in the myProjects array do get removed
+// TODO: Change target of 'currentProjectName' in this function (after switching <p> to <h#> for the Project title)
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
     // e.preventDefault() here potentially to stop form submission to the backend of the browser?
     const targetProject = e.target.closest(".project-wrapper");
-    currentProjectName = targetProject.querySelector(".project-name").textContent; // This might still leave the <p>, just with no text
+    currentProjectName = targetProject.querySelector(".project-name").textContent;
 
     if (targetProject) {
       const projectButtons = document.querySelectorAll(".project-btn");
