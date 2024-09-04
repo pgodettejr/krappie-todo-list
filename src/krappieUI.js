@@ -146,6 +146,7 @@ function renderProject() {
     // When placed in index.js by itself, the buttons do nothing on click
 
     // TODO: We need to figure out how to separate this code somehow. renderProject() is doing too much as it is
+    // OPTION: HIDE the other projects in the main area instead of outright replacing their elements & add a button to "Show All Projects"
     const projectButtons = document.querySelectorAll(".project-btn");
 
     projectButtons.forEach(projectBtn => {

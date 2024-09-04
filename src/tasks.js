@@ -8,17 +8,10 @@ function createTask (taskTitle, dueDate, priority, description) {
   // ID number for each project assigned at "random(?)" used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
   let id = Date.now().toString(); 
 
-  // Alternate way of generating a random id number
-  // let id = 0;
-  // function getUniqueId(): string {
-  //   return id++ + '';
-  // }
-
   return { taskTitle, dueDate, priority, description, checked, id };
 }
 
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
-// OPTION: Potentially change this to 'findIndex' method. See if 'findIndex' works with the updateTask function below first.
 function readTask (taskId) { 
   for (const project of appState.myProjects) {
     const task = project.tasks.find(task => task.id === taskId);
@@ -27,29 +20,12 @@ function readTask (taskId) {
 }
 
 // Deletes a task
-// Currently only steps through the first project in the array looking for the task with the correct ID # to delete. Doesn't go through all the projects. 
-
-// TODO: We don't need the 'for...of' loop here. We can just run 'readTask' itself instead, then write the rest of the code to delete the task from the array
-
-// OPTION: Can the ternary operator be written "cleaner"? Instead of using it within a declared variable, try another way (MDN doc - Ternary Operator)
 function removeTask(taskId) {
-  for (const project of appState.myProjects) {
-    const taskFilter = project.tasks.findIndex(task => task.id === taskId);
-    const taskItem = // OPTION: Write this as a traditional function instead, returning the ternary operator on the inside or an 'if' statement similar to deleteProject
-      taskFilter != -1
-        ? project.tasks.splice(taskFilter, 1)
-        : "ERROR: Task not found";
-  
-    // Previous attempt to delete the task in the array using 'find' instead of 'findIndex'. Same result (see TODO for this entire function)
-    // if (taskFilter) {
-    //   project.tasks.splice(taskFilter, 1)
-    //   return taskFilter;
-    // } else {
-    //   return "ERROR: Task not found";
-    // }
-
-    // TODO: Almost positive we need this, but delete it if not. Very small chance we're able to just return ternary operator with no additional variable.
-    return taskItem;
+  const taskFilter = readTask(taskId);
+  if (taskFilter) {
+    for (const project of appState.myProjects) {
+      project.tasks.splice(taskFilter, 1);
+    }
   }
 }
 

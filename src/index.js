@@ -301,10 +301,7 @@ mainArea.addEventListener('click', (e) => {
     taskId = taskItem.getAttribute("data-key");
 
     // Removes the task from the tasks array nested inside of the projects in appState
-    removeTask(taskId); // OPTION: (appState.myProjects.tasks.taskId);
-
-    // Check to make sure the task was removed from the array inside the target project
-    console.log(appState.myProjects);
+    removeTask(taskId);
     
     // Removes the task from the UI
     taskItem.remove();
@@ -390,7 +387,7 @@ mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
     // e.preventDefault() here potentially to stop form submission to the backend of the browser?
     const targetProject = e.target.closest(".project-wrapper");
-    currentProjectName = targetProject.querySelector(".project-name").textContent;
+    currentProjectName = targetProject.querySelector(".project-name").textContent; // This might still leave the <p>, just with no text
 
     if (targetProject) {
       const projectButtons = document.querySelectorAll(".project-btn");
