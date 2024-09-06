@@ -132,7 +132,7 @@ krappieUI.cancelTask.addEventListener('click', () => {
   krappieUI.taskDialog.close();
 });
 
-// Variable used for updating and deleting tasks in the UI and nested 'tasks' array in each project
+// Variable used for updating, deleting and toggling "complete" status of tasks in the UI and nested 'tasks' array in each project
 let taskId;
 
 // "Update Task" button functionality that brings up the Task form again to enter new details
@@ -174,9 +174,6 @@ krappieUI.editTask.addEventListener('click', (e) => {
     // Run the updateTask function
     updateTask(taskId, updatedDetails);
 
-    console.log(appState.myProjects);
-
-  
     // Function call that renders the update in the UI
     const taskDetails = document.querySelectorAll(".task-details");
 
@@ -199,70 +196,29 @@ krappieUI.editTask.addEventListener('click', (e) => {
   }
 });
 
-// Task checkbox functionality. Detects the task being checked off as completed. Currently targets individual checkbox elements based on how everything is rendered currently.
-// TODO: This may not work to UNCHECK a task. Would need a conditional if/else added in if it doesn't.
-// const completedTask = document.querySelector("p[data-key]");
-// const checkboxToggle = document.querySelector(".js-tick");
+// Task checkbox functionality. Detects the task being checked off as completed.
+// TODO: Checkbox itself doesn't check off. Find out why (other example solutions whose checkboxes toggle properly & show "checked" in CSS).
+mainArea.addEventListener('click', (e) => {
+  if (e.target && e.target.closest(".js-tick")) {
+    const _taskItem = e.target.closest(".task-wrapper");
+    const _taskDetails = _taskItem.querySelector(".task-details");
+    taskId = _taskDetails.getAttribute("data-key");
 
-// TODO: Currently shows "Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')", removing functionality for all buttons in the UI. Find out why.
-// Tried removing "p" in the variable above. Didn't work.
-// completedTask.addEventListener('click', (e) => {
-//   if (e.target.classList.contains('js-tick')) {
-//     const taskItem = e.target.parentElement.dataset.key;
-//     toggleTaskChecked(taskItem);
-//     completedTask.style.textDecoration = "line-through";
-//     // renderTask(toggleTaskChecked.toggleStatus);
-//   }
-// });
+    toggleTaskChecked(taskId);
 
-// TODO: Also shows "Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')".
-// checkboxToggle.addEventListener('click', (e) => {
-//   const taskItem = e.target.parentElement.dataset.key;
-//   toggleTaskChecked(taskItem);
-//   taskItem.style.textDecoration = "line-through";
-//   // renderTask(toggleTaskChecked.toggleStatus);
-// });
+    const checkbox = e.target;
+    checkbox.checked = !checkbox.checked;
 
-// 'forEach' method attempt of the above
-// TODO: Currently goes through this function, then the other 'mainArea' event listeners below then back to this function when checkboxes are clicked but box doesn't check off. Find out why ("other" example solutions to get the checkboxes to toggle properly on tasks). 
-// I don't think it matters which code we go with since the issue seems to be the toggle function in tasks, not this function
-mainArea.addEventListener('click', (e) => { // TODO: Remove 'e' back if the conditional doesn't work
-  const checkboxToggle = document.querySelectorAll(".js-tick");
-
-  checkboxToggle.forEach(checkbox => {
-    // const taskItem = document.querySelector("data-key"); // Coming up as 'null' so the rest of this method doesn't work
-    const taskClass = document.querySelector(".task-item-");
-    // const taskLabel = document.querySelector("label[for]");
-  
-    // Previous code: (taskItem === taskLabel && taskClass !== "task-item-done") is worse because it doesn't even make it to the toggle classList line before the code finishes (nothing changes in the UI)
-    if (e.target.tagName.toLowerCase() === "input") { 
-      toggleTaskChecked(taskClass);
-      checkbox.checked = true;
-      taskClass.style.textDecoration = "line-through";
-      taskClass.classList.toggle("task-item-done");
-      // renderTask(toggleTaskChecked.toggleStatus)
+    if (checkbox.checked) {
+      _taskDetails.style.textDecoration = "line-through";
+    } else {
+      _taskDetails.style.textDecoration = "none";
     }
-  });
+
+    // Commented out this line as it could complicate other functionality that relies on targeting "task-details"
+    // _taskDetails.classList.toggle("task-details-done");  
+  }
 });
-
-// Previous attempt of code just above
-
-// mainArea.addEventListener('click', () => {
-//   const checkboxToggle = document.querySelectorAll(".js-tick");
-
-//   checkboxToggle.forEach(checkbox => {
-//     const taskItem = checkbox.target.parentElement.dataset.key; // Uncaught TypeError that can't read the parent element (undefined) either due to this line or renderTask in UI
-//     const taskClass = checkbox.target.parentElement.classList;
-  
-//     if (taskClass !== "task-item-done") {
-//       toggleTaskChecked(taskItem);
-//       checkbox.checked = true;
-//       taskItem.style.textDecoration = "line-through";
-//       taskClass.setAttribute("class", "task-item-done");
-//       // renderTask(toggleTaskChecked.toggleStatus)
-//     }
-//   });
-// });
 
 // "Delete Task" button functionality that removes the task both from the nested tasks array inside the myProjects array and the UI
 mainArea.addEventListener('click', (e) => {

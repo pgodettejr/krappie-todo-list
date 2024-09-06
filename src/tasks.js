@@ -40,11 +40,10 @@ function updateTask(taskId, updates) {
 }
 
 // Toggles "complete" status of a given task
-// TODO: Either logic to change the 'checked' status in the UI goes here or in the UI module or as button logic in the index module
 function toggleTaskChecked(taskId) {
-  const toggleStatus = tasks.find(task => task.id === taskId); // Uncaught TypeError: Cannot read properties of undefined (reading 'find') with tagName method in the checkbox function (index.js)
+  const toggleStatus = readTask(taskId);
   if (toggleStatus) {
-    toggleStatus.checked = !toggleStatus.checked;
+      toggleStatus.checked = !toggleStatus.checked;
   }
 }
 
