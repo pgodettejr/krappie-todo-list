@@ -1,5 +1,6 @@
 // TODO: Try to switch everything that fetches a project via its title to fetching it via its ID
 
+import { saveToStorage, getFromStorage } from "./localStorage.js";
 // import * as krappieUI from "./krappieUI.js";
 // import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
 
@@ -24,7 +25,7 @@ function createProject (projectTitle) {
 }
 
 const appState = {
-  myProjects: [], // List of projects and tasks within those projects
+  myProjects: getFromStorage() || [], // List of projects and tasks within those projects
   defaultProject: createProject("Today"),
 
   // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI

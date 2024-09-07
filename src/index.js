@@ -4,11 +4,14 @@
 import * as krappieUI from './krappieUI.js';
 import { createProject, appState } from './projects.js';
 import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
+import { saveToStorage, getFromStorage } from "./localStorage.js";
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
-appState.myProjects.push(appState.defaultProject);
+let projects = appState.myProjects; // May need parentheses after this
+
+projects.push(appState.defaultProject);
 krappieUI.renderDefault();
 
 // Main area DOM
@@ -211,8 +214,22 @@ mainArea.addEventListener('click', (e) => {
 
     if (checkbox.checked) {
       _taskDetails.style.textDecoration = "line-through";
+
+      // TODO: Could something similar to this work for putting a "checkmark" on the checkbox itself when marking a task as complete ("else" would be marked as empty strings or "none" - copy/paste the "checkmark" from line 201 in CSS file [.js-tick::before]). Try to change the color of the checkmark itself here in the JS (NOT in the CSS).
+
+      // cell.textContent = gameFlow.getCurrentPlayer().marker;
+      // checkbox.textContent = '✓';
+      // checkbox.innerHTML = '✓';
+
+      // checkbox.style.background = "green";
+      // checkbox.textContent/innerHTML.style.color = "white";
     } else {
       _taskDetails.style.textDecoration = "none";
+      // checkbox.textContent = " ";
+      // checkbox.textContent = "none";
+
+      // checkbox.innerHTML = " ";
+      // checkbox.innerHTML = "none";
     }
 
     // Commented out this line as it could complicate other functionality that relies on targeting "task-details"

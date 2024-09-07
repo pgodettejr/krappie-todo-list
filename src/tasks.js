@@ -1,5 +1,8 @@
 import { createProject, appState } from './projects.js';
+import { saveToStorage, getFromStorage } from "./localStorage.js";
 // import * as krappieUI from './krappieUI.js'
+
+let projects = appState.myProjects; // May need parentheses after this
 
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
 function createTask (taskTitle, dueDate, priority, description) {
@@ -13,7 +16,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
 function readTask (taskId) { 
-  for (const project of appState.myProjects) {
+  for (const project of projects) {
     const task = project.tasks.find(task => task.id === taskId);
     if (task) return task;
   }
@@ -23,7 +26,7 @@ function readTask (taskId) {
 function removeTask(taskId) {
   const taskFilter = readTask(taskId);
   if (taskFilter) {
-    for (const project of appState.myProjects) {
+    for (const project of projects) {
       project.tasks.splice(taskFilter, 1);
     }
   }
@@ -65,7 +68,7 @@ function storeTask() {
     }
   }
 
-  console.log(appState.myProjects);
+  console.log(projects);
 }
 
 // Code to test functions

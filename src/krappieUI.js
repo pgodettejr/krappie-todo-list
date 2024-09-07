@@ -1,11 +1,13 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 // TODO: Setting up localStorage functions may make the whole rendering process easier as far as what projects/tasks to get when a user clicks on one
-// TODO: Try to place all project buttons rendered under the Project Title <p> element as children (so button placement looks better in the UI)
 
 import { appState } from './projects.js';
 import { tasks, createTask, readTask } from './tasks.js';
+import { saveToStorage, getFromStorage } from "./localStorage.js";
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
+
+let projects = appState.myProjects; // May need parentheses after this
 
 // DOM elements related to adding and updating projects and tasks to the app
 const projectDialog = document.getElementById("project-dialog");
@@ -28,16 +30,16 @@ function renderDefault() {
   // appState.myProjects.push(todayProject);
 
   // if (todayProject) {
-  for (const project in appState.myProjects) {
+  for (const project in projects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
 
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
-    let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    let projectBtnText = document.createTextNode(`${projects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
-    projectBtn.setAttribute("data-project-title", `${appState.myProjects[project].projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
+    projectBtn.setAttribute("data-project-title", `${projects[project].projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
 
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
@@ -46,7 +48,7 @@ function renderDefault() {
     // Generate "Project Name" header to be added to the project container
     const projectName = document.createElement("h4");
     projectName.classList.add("project-name");
-    projectName.innerText = appState.myProjects[project].projectTitle;
+    projectName.innerText = projects[project].projectTitle;
 
     // Render "Update" icon button to be added to "Project Name" header
     // TODO: May not allow the Project title itself to be updated by commenting this section out (do this later on after we finish using the default Project for testing)
@@ -80,7 +82,6 @@ function renderDefault() {
 }
 
 // Renders all projects that are created via the "Add Project" form
-// TODO: MUST CHANGE projectName below to an <h#> & adjust code elsewhere if needed (breaking a ton of project/task functionality currently)
 function renderProject() {
   // My version provides immediate feedback ("faster"), is straightforward and avoids any synchronization issues between the form & array, but is less consistent especially if something goes wrong with the array & risks duplication if there is a delay on the array side making the UI less consistent
 
@@ -184,7 +185,7 @@ function populateProjects() {
   // Clears all existing project options before populating them (prevents duplication)
   projectSelect.innerHTML = '';
 
-  for (const project of appState.myProjects) {
+  for (const project of projects) {
     const projectOption = document.createElement("option");
     let projectOptionText = document.createTextNode(`${project.projectTitle}`);
 
