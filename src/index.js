@@ -12,7 +12,13 @@ import Plus from './img/plus.png';
 let projects = appState.myProjects; // May need parentheses after this
 
 projects.push(appState.defaultProject);
-krappieUI.renderDefault();
+
+// Previously had no parameter at all. Testing 'getFromStorage'. Might not be needed if 'DOMContentLoaded' at the bottom works?
+krappieUI.renderDefault(getFromStorage);
+
+// Wrote this to test 'getFromStorage' then realized it very likely wouldn't work (at best would only render one project/task)
+// krappieUI.renderProject(getFromStorage);
+// krappieUI.renderTask(getFromStorage);
 
 // Main area DOM
 const mainArea = document.querySelector("main");
@@ -347,6 +353,16 @@ mainArea.addEventListener('click', (e) => {
     }
   }
 });
+
+// TODO: Not sure what else I need here. Test this out.
+document.addEventListener('DOMContentLoaded'), () => {
+  const projectRef = getFromStorage();
+  if (projectRef) {
+    for (const project of projects) {
+      krappieUI.renderProject(project);
+    }
+  }
+};
 
 
 // Old code

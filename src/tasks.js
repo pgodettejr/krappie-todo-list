@@ -15,6 +15,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 }
 
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
+// TODO: Do we need to call 'getFromStorage' anywhere in here? Find out. (look at other projects for examples?) - we REALLY don't want to
 function readTask (taskId) { 
   for (const project of projects) {
     const task = project.tasks.find(task => task.id === taskId);
@@ -30,6 +31,9 @@ function removeTask(taskId) {
       project.tasks.splice(taskFilter, 1);
     }
   }
+
+  // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  saveToStorage(projects); 
 }
 
 // Updates information on an existing task
@@ -38,6 +42,9 @@ function updateTask(taskId, updates) {
   if (taskFind) {
     Object.assign(taskFind, updates); 
   }
+
+  // Do we need to add 'taskId' or 'updates' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  saveToStorage(projects); 
 
   return taskFind;
 }
@@ -48,6 +55,9 @@ function toggleTaskChecked(taskId) {
   if (toggleStatus) {
       toggleStatus.checked = !toggleStatus.checked;
   }
+
+  // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  saveToStorage(projects); 
 }
 
 // Stores the "task" object to the target project (object) inside the 'myProjects' array, then runs the task rendering function to display it on the UI
@@ -66,6 +76,9 @@ function storeTask() {
     if (targetProject) {
       targetProject.tasks.push(newTask);
     }
+
+    // Will we need a second parameter that represents the project's title or ID number?
+    saveToStorage(projects); 
   }
 
   console.log(projects);

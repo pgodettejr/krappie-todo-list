@@ -1,4 +1,5 @@
 // TODO: Try to switch everything that fetches a project via its title to fetching it via its ID
+// TODO: Test out 'saveToStorage' in each of the appState functions that it is in (store, update, delete) & 'getFromStorage'
 
 import { saveToStorage, getFromStorage } from "./localStorage.js";
 // import * as krappieUI from "./krappieUI.js";
@@ -38,6 +39,8 @@ const appState = {
       
       this.myProjects.push(newProject);
     }
+
+    saveToStorage(this.myProjects);
   },
 
   // Finds a project in the myProjects array. This is used to find a project to update or delete in the methods below.
@@ -52,6 +55,8 @@ const appState = {
     if (project) {
       project.projectTitle = newTitle;
     }
+
+    saveToStorage(this.myProjects, currentTitle); // May not need currentTitle
   },
 
   // Deletes a project
@@ -61,6 +66,8 @@ const appState = {
     if (projectIndex !== -1) {
       this.myProjects.splice(projectIndex, 1);
     }
+
+    saveToStorage(this.myProjects, currentTitle); // May not need currentTitle
   },
 
   // OPTION/BRANCH: Toggles "complete" status of a project 
