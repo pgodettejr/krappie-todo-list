@@ -11,15 +11,6 @@ import Plus from './img/plus.png';
 
 let projects = appState.myProjects; // May need parentheses after this
 
-projects.push(appState.defaultProject);
-
-// Previously had no parameter at all. Testing 'getFromStorage'. Might not be needed if 'DOMContentLoaded' at the bottom works?
-krappieUI.renderDefault(getFromStorage);
-
-// Wrote this to test 'getFromStorage' then realized it very likely wouldn't work (at best would only render one project/task)
-// krappieUI.renderProject(getFromStorage);
-// krappieUI.renderTask(getFromStorage);
-
 // Main area DOM
 const mainArea = document.querySelector("main");
 // const projectHeading = document.querySelector(".project-name");
@@ -354,15 +345,22 @@ mainArea.addEventListener('click', (e) => {
   }
 });
 
-// TODO: Not sure what else I need here. Test this out.
-document.addEventListener('DOMContentLoaded'), () => {
+// TODO: Projects are rendering but not the tasks under them on refresh. When old renderDefault code is removed, no project shows on refresh
+// Default project renders twice when both old code above and this code is active at the same time
+document.addEventListener('DOMContentLoaded', () => {
   const projectRef = getFromStorage();
-  if (projectRef) {
+  if (!projectRef) {
+    projects.push(appState.defaultProject);
+    krappieUI.renderDefault();
+  } else {
     for (const project of projects) {
       krappieUI.renderProject(project);
+
+      // TODO: This may need to be a separate function as 'renderTask' relies on form entry via user input to render currently
+      krappieUI.renderTask(project);
     }
   }
-};
+});
 
 
 // Old code

@@ -200,6 +200,7 @@ function populateProjects() {
 }
 
 // Function for dynamically adding the task to the target project in the <main> area
+// TODO: Need to add 'saveToStorage' somewhere in this code to push the new task to localStorage
 function renderTask() {
   let formTaskTitle = document.getElementById("task-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
   let formDueDate = document.getElementById("due-date").value;
@@ -224,6 +225,7 @@ function renderTask() {
     const projectNameHeader = addToProjectUI(formProject);
     const targetProject = appState.readProject(formProject);
 
+    // TODO: Getting a 'Task not found in the tasks array' when adding and/or deleting a second task to an existing project
     targetProject.tasks.forEach((task) => { 
       if (task.taskTitle === formTaskTitle) {
         // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below

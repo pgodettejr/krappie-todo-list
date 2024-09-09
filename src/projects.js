@@ -60,6 +60,7 @@ const appState = {
   },
 
   // Deletes a project
+  // TODO: While testing localStorage, deletes the wrong project in the array (correct one deletes in the UI)? Could be this or localStorage.
   deleteProject: function (currentTitle) {
     const projectIndex = this.myProjects.findIndex(project => project.projectTitle === currentTitle);
 
