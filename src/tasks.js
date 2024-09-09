@@ -4,6 +4,9 @@ import { saveToStorage, getFromStorage } from "./localStorage.js";
 
 let projects = appState.myProjects; // May need parentheses after this
 
+// This probably doesn't work the way it is because it doesn't find a specific/target project where the task is in order to update said task
+// let tasks = projects.tasks;
+
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
 function createTask (taskTitle, dueDate, priority, description) {
   let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.

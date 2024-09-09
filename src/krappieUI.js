@@ -23,6 +23,7 @@ const cancelTask = document.getElementById("cancelTask");
 const editTask = document.getElementById("updateTask");
 
 // Renders the default project named "Today" for daily projects & tasks on page load
+// TODO: Implement 'saveToStorage' in this code somehow? (might not need to as this is really only to render on first load, not subsequent)
 function renderDefault() {
 
   // OPTION: This could potentially work as well
@@ -82,14 +83,15 @@ function renderDefault() {
 }
 
 // Renders all projects that are created via the "Add Project" form
+// TODO: Need to add 'saveToStorage' somewhere in this code to push the new project to localStorage
 function renderProject() {
   // My version provides immediate feedback ("faster"), is straightforward and avoids any synchronization issues between the form & array, but is less consistent especially if something goes wrong with the array & risks duplication if there is a delay on the array side making the UI less consistent
 
   let formTitle = document.getElementById("project-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
 
-  // OPTION: Alternative to rendering the correct project via the array instead of the form value. No conditional (if) required. More robust/consistent & provides a single source of truth, but "slower" & more complex.
+  // OPTION: Alternative to rendering the correct project via the array instead of the form value. No conditional (if) required. More robust/consistent & provides a single source of truth, but "slower" & more complex. May need this after all in order to work with localStorage.
 
-  // const lastProject = appState.myProjects[appState.myProjects.length - 1];
+  // const lastProject = projects[projects.length - 1];
 
   if (formTitle) { 
     // DOM for "My Projects" section of the sidebar as well as the main area

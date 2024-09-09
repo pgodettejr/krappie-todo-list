@@ -11,6 +11,33 @@ import Plus from './img/plus.png';
 
 let projects = appState.myProjects; // May need parentheses after this
 
+// TODO: Projects are rendering but not the tasks under them on refresh. When old renderDefault code is removed, no project shows on refresh
+// Default project renders twice when both old code above and this code is active at the same time
+// OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
+// OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
+document.addEventListener('DOMContentLoaded', () => {
+  const projectRef = getFromStorage();
+  if (!projectRef) {
+    projects.push(appState.defaultProject);
+    krappieUI.renderDefault();
+  } else {
+    for (const project of projects) {
+      krappieUI.renderProject(project);
+
+      // TODO: This may need to be a separate function as 'renderTask' relies on form entry via user input to render currently
+      krappieUI.renderTask(project);
+    }
+
+    // Alternative to 'for...of' loop that may actually be correct
+    // projectRef.forEach(project => {
+    //   krappieUI.renderProject(project);
+
+    //   // TODO: This may need to be a separate function as 'renderTask' relies on form entry via user input to render currently
+    //   krappieUI.renderTask(project);
+    // })
+  }
+});
+
 // Main area DOM
 const mainArea = document.querySelector("main");
 // const projectHeading = document.querySelector(".project-name");
@@ -150,6 +177,7 @@ mainArea.addEventListener('click', (e) => {
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
+// TODO: Implement 'onchange' handler using the updatedDetails properties combined with saveToStorage (see example below)
 // TODO: Need to figure out "Add to Project" logic - how are we going to get the code to remove the task from one project and add it to another if the user so chooses?
 krappieUI.editTask.addEventListener('click', (e) => {
   let taskEdit = document.getElementById("task-update-form").checkValidity();
@@ -173,6 +201,13 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // Run the updateTask function
     updateTask(taskId, updatedDetails);
+
+    // Example for updating localStorage on any task being updated in the form
+    // updatedDetails.taskTitle.onchange = saveToStorage();
+    // updatedDetails.dueDate.onchange = saveToStorage();
+    // updatedDetails.project.onchange = saveToStorage();
+    // updatedDetails.priority.onchange = saveToStorage();
+    // updatedDetails.description.onchange = saveToStorage();
 
     // Function call that renders the update in the UI
     const taskDetails = document.querySelectorAll(".task-details");
@@ -235,6 +270,7 @@ mainArea.addEventListener('click', (e) => {
 });
 
 // "Delete Task" button functionality that removes the task both from the nested tasks array inside the myProjects array and the UI
+// TODO: Test out 'localStorage.removeItem()' below
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-task")) {
     const taskItem = e.target.closest(".task-wrapper");
@@ -245,6 +281,9 @@ mainArea.addEventListener('click', (e) => {
     
     // Removes the task from the UI
     taskItem.remove();
+
+    // Removes the task from localStorage? 'taskId' may be the wrong parameter (could also be 'projects' or something else)
+    // localStorage.removeItem(taskId);
   }
 });
 
@@ -289,6 +328,7 @@ mainArea.addEventListener('click', (e) => {
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
+// TODO: Implement 'onchange' handler using either the projectEdit or newProjectName variable combined with saveToStorage (see example below)
 krappieUI.editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
@@ -315,6 +355,9 @@ krappieUI.editProject.addEventListener('click', (e) => {
       }
     });
 
+    // Example for updating localStorage on any project being updated in the form
+    // newProjectName.onchange = saveToStorage();
+
     projectUpdateForm.reset();
     krappieUI.projectUpdateDialog.close();
   }
@@ -322,6 +365,7 @@ krappieUI.editProject.addEventListener('click', (e) => {
 
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
 // TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
+// TODO: Test out 'localStorage.removeItem()' below
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
     // e.preventDefault() here potentially to stop form submission to the backend of the browser?
@@ -341,23 +385,9 @@ mainArea.addEventListener('click', (e) => {
       });
       
       mainArea.removeChild(targetProject);
-    }
-  }
-});
 
-// TODO: Projects are rendering but not the tasks under them on refresh. When old renderDefault code is removed, no project shows on refresh
-// Default project renders twice when both old code above and this code is active at the same time
-document.addEventListener('DOMContentLoaded', () => {
-  const projectRef = getFromStorage();
-  if (!projectRef) {
-    projects.push(appState.defaultProject);
-    krappieUI.renderDefault();
-  } else {
-    for (const project of projects) {
-      krappieUI.renderProject(project);
-
-      // TODO: This may need to be a separate function as 'renderTask' relies on form entry via user input to render currently
-      krappieUI.renderTask(project);
+    // Removes the project from localStorage? 'targetProject' may be the wrong parameter (could also be 'projects' or something else)
+    // localStorage.removeItem(targetProject);
     }
   }
 });

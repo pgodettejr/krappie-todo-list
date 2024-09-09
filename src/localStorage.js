@@ -1,5 +1,8 @@
 const localStorageKey = "projects";
 
+// const projectStorageKey = "projects";
+// const taskStorageKey = "tasks";
+
 function saveToStorage(projects) {
   localStorage.setItem(localStorageKey, JSON.stringify(projects));
 }
