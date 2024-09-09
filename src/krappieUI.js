@@ -3,11 +3,9 @@
 
 import { appState } from './projects.js';
 import { tasks, createTask, readTask } from './tasks.js';
-import { saveToStorage, getFromStorage } from "./localStorage.js";
+// import { saveToStorage, getFromStorage } from "./localStorage.js";
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
-
-let projects = appState.myProjects; // May need parentheses after this
 
 // DOM elements related to adding and updating projects and tasks to the app
 const projectDialog = document.getElementById("project-dialog");
@@ -31,16 +29,16 @@ function renderDefault() {
   // appState.myProjects.push(todayProject);
 
   // if (todayProject) {
-  for (const project in projects) {
+  for (const project in appState.myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
 
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
-    let projectBtnText = document.createTextNode(`${projects[project].projectTitle}`);
+    let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
     projectBtn.classList.add("project-btn");
-    projectBtn.setAttribute("data-project-title", `${projects[project].projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
+    projectBtn.setAttribute("data-project-title", `${appState.myProjects[project].projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
 
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
@@ -49,7 +47,7 @@ function renderDefault() {
     // Generate "Project Name" header to be added to the project container
     const projectName = document.createElement("h4");
     projectName.classList.add("project-name");
-    projectName.innerText = projects[project].projectTitle;
+    projectName.innerText = appState.myProjects[project].projectTitle;
 
     // Render "Update" icon button to be added to "Project Name" header
     // TODO: May not allow the Project title itself to be updated by commenting this section out (do this later on after we finish using the default Project for testing)
@@ -91,7 +89,7 @@ function renderProject() {
 
   // OPTION: Alternative to rendering the correct project via the array instead of the form value. No conditional (if) required. More robust/consistent & provides a single source of truth, but "slower" & more complex. May need this after all in order to work with localStorage.
 
-  // const lastProject = projects[projects.length - 1];
+  // const lastProject = appState.myProjects[projects.length - 1];
 
   if (formTitle) { 
     // DOM for "My Projects" section of the sidebar as well as the main area
@@ -187,7 +185,7 @@ function populateProjects() {
   // Clears all existing project options before populating them (prevents duplication)
   projectSelect.innerHTML = '';
 
-  for (const project of projects) {
+  for (const project of appState.myProjects) {
     const projectOption = document.createElement("option");
     let projectOptionText = document.createTextNode(`${project.projectTitle}`);
 

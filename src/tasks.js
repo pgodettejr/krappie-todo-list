@@ -1,11 +1,6 @@
 import { createProject, appState } from './projects.js';
-import { saveToStorage, getFromStorage } from "./localStorage.js";
+// import { saveToStorage, getFromStorage } from "./localStorage.js";
 // import * as krappieUI from './krappieUI.js'
-
-let projects = appState.myProjects; // May need parentheses after this
-
-// This probably doesn't work the way it is because it doesn't find a specific/target project where the task is in order to update said task
-// let tasks = projects.tasks;
 
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
 function createTask (taskTitle, dueDate, priority, description) {
@@ -20,7 +15,7 @@ function createTask (taskTitle, dueDate, priority, description) {
 // Finds a task within a project in the myProjects array. This is used to find a task to update or delete in the methods below.
 // TODO: Do we need to call 'getFromStorage' anywhere in here? Find out. (look at other projects for examples?) - we REALLY don't want to
 function readTask (taskId) { 
-  for (const project of projects) {
+  for (const project of appState.myProjects) {
     const task = project.tasks.find(task => task.id === taskId);
     if (task) return task;
   }
@@ -30,13 +25,13 @@ function readTask (taskId) {
 function removeTask(taskId) {
   const taskFilter = readTask(taskId);
   if (taskFilter) {
-    for (const project of projects) {
+    for (const project of appState.myProjects) {
       project.tasks.splice(taskFilter, 1);
     }
   }
 
   // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  saveToStorage(projects); 
+  // saveToStorage(appState.myProjects); 
 }
 
 // Updates information on an existing task
@@ -47,7 +42,7 @@ function updateTask(taskId, updates) {
   }
 
   // Do we need to add 'taskId' or 'updates' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  saveToStorage(projects); 
+  // saveToStorage(appState.myProjects); 
 
   return taskFind;
 }
@@ -60,7 +55,7 @@ function toggleTaskChecked(taskId) {
   }
 
   // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  saveToStorage(projects); 
+  // saveToStorage(appState.myProjects); 
 }
 
 // Stores the "task" object to the target project (object) inside the 'myProjects' array, then runs the task rendering function to display it on the UI
@@ -81,10 +76,10 @@ function storeTask() {
     }
 
     // Will we need a second parameter that represents the project's title or ID number?
-    saveToStorage(projects); 
+    // saveToStorage(appState.myProjects); 
   }
 
-  console.log(projects);
+  console.log(appState.myProjects);
 }
 
 // Code to test functions
