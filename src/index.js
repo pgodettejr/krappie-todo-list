@@ -17,24 +17,27 @@ krappieUI.renderDefault();
 // OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
 // OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
 // document.addEventListener('DOMContentLoaded', () => {
-//   const projectRef = getFromStorage();
-//   if (!projectRef) {
+//   const appState = getFromStorage();
+//   if (!appState) {
 //     appState.myProjects.push(appState.defaultProject);
 //     krappieUI.renderDefault();
 //   } else {
 //     for (const project of appState.myProjects) {
 //       krappieUI.renderProject(project);
 
-//       // TODO: This may need to be a separate function as 'renderTask' relies on form entry via user input to render currently
-//       krappieUI.renderTask(project);
+//       for (const task of project.tasks) {
+//         krappieUI.renderTask(task);
+//       }
+      
 //     }
 
 //     // Alternative to 'for...of' loop that may actually be correct
-//     // projectRef.forEach(project => {
+//     // appState.forEach(project => {
 //     //   krappieUI.renderProject(project);
 
-//     //   // TODO: This may need to be a separate function as 'renderTask' relies on form entry via user input to render currently
-//     //   krappieUI.renderTask(project);
+//     //   project.forEach(task => {
+//     //     krappieUI.renderTask(task);
+//     //   }) 
 //     // })
 //   }
 // });

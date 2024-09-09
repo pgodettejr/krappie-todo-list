@@ -1,15 +1,10 @@
-// const localStorageKey = "projects";
-
-// const projectStorageKey = "projects";
-// const taskStorageKey = "tasks";
-
-// function saveToStorage(projects) {
-//   localStorage.setItem(localStorageKey, JSON.stringify(projects));
+// function saveToStorage(appState) {
+//   localStorage.setItem(localStorageKey, JSON.stringify(appState));
 // }
 
 // function getFromStorage() {
 //   const projectData = JSON.parse(localStorage.getItem(localStorageKey));
-//   return projectData;
+//   return projectData ? projectData : null;
 // }
 
 // export { saveToStorage, getFromStorage };
