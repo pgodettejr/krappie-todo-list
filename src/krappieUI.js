@@ -22,6 +22,7 @@ const editTask = document.getElementById("updateTask");
 
 // Renders the default project named "Today" for daily projects & tasks on page load
 // TODO: Implement 'saveToStorage' in this code somehow? (might not need to as this is really only to render on first load, not subsequent)
+// TODO: Change 'appState.myProjects[project].projectTitle' to just 'project.projectTitle' in all instances and test the function again
 function renderDefault() {
 
   // OPTION: This could potentially work as well

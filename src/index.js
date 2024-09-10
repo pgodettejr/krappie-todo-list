@@ -109,6 +109,7 @@ const searchBar = document.getElementById("search-text");
 searchBar.addEventListener('keyup', searchFilter);
 
 // Search bar functionality
+// OPTION: Add exact same type of code (NodeList + forEach method) in order to search for tasks as well? 
 function searchFilter (e) {
   // Convert text to lowercase
   let searchTextConvert = e.target.value.toLowerCase();
@@ -173,7 +174,9 @@ mainArea.addEventListener('click', (e) => {
     if (taskItem) {
       taskId = taskItem.getAttribute("data-key");
       krappieUI.taskUpdateDialog.showModal();
-      krappieUI.populateProjects(); // TODO: This is not populating any list of current projects - is it the function itself? (only populates on initial creation of task)
+
+      // TODO: This is not populating any list of current projects - is it the function itself? (only populates on initial creation of task)
+      krappieUI.populateProjects(); 
     } else {
       console.error('Task not found in the tasks array');
     }

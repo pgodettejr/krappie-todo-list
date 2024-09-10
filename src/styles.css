@@ -83,7 +83,7 @@ body {
 }
 
 .update-project .image-button {
-  background-color:rgb(141, 165, 120);
+  background-color: rgb(141, 165, 120);
 }
 
 .delete-project .image-button {
@@ -209,7 +209,7 @@ input[type="checkbox"] {
 
 /* Task update & delete button styling */
 .update-task .image-button {
-  background-color:rgb(141, 165, 120);
+  background-color: rgb(141, 165, 120);
 }
 
 .delete-task .image-button {
