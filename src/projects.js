@@ -26,7 +26,7 @@ function createProject (projectTitle) {
 }
 
 const appState = {
-  myProjects: [], // List of projects and tasks within those projects
+  myProjects: [], // List of projects and tasks within those projects - could change to 'getFromStorage() || []'
   defaultProject: createProject("Today"),
 
   // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI

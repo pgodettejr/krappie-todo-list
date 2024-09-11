@@ -109,7 +109,6 @@ const searchBar = document.getElementById("search-text");
 searchBar.addEventListener('keyup', searchFilter);
 
 // Search bar functionality
-// OPTION: Add exact same type of code (NodeList + forEach method) in order to search for tasks as well? 
 function searchFilter (e) {
   // Convert text to lowercase
   let searchTextConvert = e.target.value.toLowerCase();
@@ -127,6 +126,22 @@ function searchFilter (e) {
       project.style.display = 'none';
     }
   });
+
+  // Attempt to get the search bar to pull up tasks as well. Throws a 'Task not found in the tasks array' error.
+
+  // List of tasks
+  // let taskList = document.querySelectorAll(".task-wrapper");
+
+  // taskList.forEach(task => {
+  //   let taskInfo = task.querySelector(".task-details");
+  //   let taskName = taskInfo.firstChild.textContent;
+
+  //   if (taskName.toLowerCase().indexOf(searchTextConvert) != -1) {
+  //     task.style.display = 'block';
+  //   } else {
+  //     task.style.display = 'none';
+  //   }
+  // });
 }
 
 // Header "Add Task" button functionality that brings up the form to enter Task details
@@ -239,7 +254,6 @@ krappieUI.editTask.addEventListener('click', (e) => {
 });
 
 // Task checkbox functionality. Detects the task being checked off as completed.
-// TODO: Checkbox itself doesn't check off. Find out why (other example solutions whose checkboxes toggle properly & show "checked" in CSS).
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".js-tick")) {
     const _taskItem = e.target.closest(".task-wrapper");
@@ -253,22 +267,12 @@ mainArea.addEventListener('click', (e) => {
 
     if (checkbox.checked) {
       _taskDetails.style.textDecoration = "line-through";
-
-      // TODO: Could something similar to this work for putting a "checkmark" on the checkbox itself when marking a task as complete ("else" would be marked as empty strings or "none" - copy/paste the "checkmark" from line 201 in CSS file [.js-tick::before]). Try to change the color of the checkmark itself here in the JS (NOT in the CSS).
-
-      // cell.textContent = gameFlow.getCurrentPlayer().marker;
-      // checkbox.textContent = '✓';
-      // checkbox.innerHTML = '✓';
-
-      // checkbox.style.background = "green";
-      // checkbox.textContent/innerHTML.style.color = "white";
+      checkbox.textContent = '✓';
+      checkbox.style.cssText = "color: white; background: green; font-size: 20px;";
     } else {
       _taskDetails.style.textDecoration = "none";
-      // checkbox.textContent = " ";
-      // checkbox.textContent = "none";
-
-      // checkbox.innerHTML = " ";
-      // checkbox.innerHTML = "none";
+      checkbox.textContent = " ";
+      checkbox.style.cssText = "none";
     }
 
     // Commented out this line as it could complicate other functionality that relies on targeting "task-details"
