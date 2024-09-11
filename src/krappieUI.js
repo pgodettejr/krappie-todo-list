@@ -3,10 +3,9 @@
 
 import { appState } from './projects.js';
 import { tasks, createTask, readTask } from './tasks.js';
-// import { saveToStorage, getFromStorage } from "./localStorage.js";
+import { saveToStorage, getFromStorage } from "./localStorage.js";
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
-import { saveToStorage } from './localStorage.js';
 
 // DOM elements related to adding and updating projects and tasks to the app
 const projectDialog = document.getElementById("project-dialog");
@@ -93,6 +92,11 @@ function renderProject() {
 
   // const lastProject = appState.myProjects[projects.length - 1];
 
+  // A way to combine both together using localStorage?
+
+  // const allProjects = getFromStorage();
+
+  // Add 'allProjects' or 'getFromStorage()' itself as an OR (II) operator for this if statement?
   if (formTitle) { 
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
@@ -210,6 +214,7 @@ function renderTask() {
   let formPriority = document.getElementById("priority").value;
   let formDescription = document.getElementById("description").value;
 
+  // Add 'getFromStorage()' itself as an OR (II) operator for this if statement?
   if (formTaskTitle && formDueDate && formProject && formPriority) { 
 
     // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
@@ -224,6 +229,7 @@ function renderTask() {
       return null;
     }
 
+    // It is possible to add the logical OR (II) operator with 'getFromStorage()' to the parameters here
     const projectNameHeader = addToProjectUI(formProject);
     const targetProject = appState.readProject(formProject);
 
