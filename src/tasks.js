@@ -1,5 +1,5 @@
 import { createProject, appState } from './projects.js';
-// import { saveToStorage, getFromStorage } from "./localStorage.js";
+import { saveToStorage, getFromStorage } from "./localStorage.js";
 // import * as krappieUI from './krappieUI.js'
 
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
@@ -31,7 +31,7 @@ function removeTask(taskId) {
   }
 
   // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  // saveToStorage(appState.myProjects); 
+  saveToStorage(appState.myProjects); 
 }
 
 // Updates information on an existing task
@@ -42,7 +42,7 @@ function updateTask(taskId, updates) {
   }
 
   // Do we need to add 'taskId' or 'updates' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  // saveToStorage(appState.myProjects); 
+  saveToStorage(appState.myProjects); 
 
   return taskFind;
 }
@@ -55,7 +55,7 @@ function toggleTaskChecked(taskId) {
   }
 
   // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  // saveToStorage(appState.myProjects); 
+  saveToStorage(appState.myProjects); 
 }
 
 // Stores the "task" object to the target project (object) inside the 'myProjects' array, then runs the task rendering function to display it on the UI
@@ -76,7 +76,7 @@ function storeTask() {
     }
 
     // Will we need a second parameter that represents the project's title or ID number?
-    // saveToStorage(appState.myProjects); 
+    saveToStorage(appState.myProjects); 
   }
 
   console.log(appState.myProjects);
