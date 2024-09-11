@@ -56,7 +56,8 @@ const appState = {
       project.projectTitle = newTitle;
     }
 
-    saveToStorage(this.myProjects, currentTitle); // May not need currentTitle
+    // TODO: Test this. May not need currentTitle
+    saveToStorage(this.myProjects, currentTitle); 
   },
 
   // Deletes a project
@@ -68,7 +69,8 @@ const appState = {
       this.myProjects.splice(projectIndex, 1);
     }
 
-    saveToStorage(this.myProjects, currentTitle); // May not need currentTitle
+    // TODO: Test this. May not need currentTitle
+    saveToStorage(this.myProjects, currentTitle);
   },
 
   // OPTION/BRANCH: Toggles "complete" status of a project 

@@ -30,7 +30,7 @@ function removeTask(taskId) {
     }
   }
 
-  // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  // TODO: Test this. Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
   saveToStorage(appState.myProjects); 
 }
 
@@ -41,7 +41,7 @@ function updateTask(taskId, updates) {
     Object.assign(taskFind, updates); 
   }
 
-  // Do we need to add 'taskId' or 'updates' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  // TODO: Test this. Do we need to add 'taskId' or 'updates' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
   saveToStorage(appState.myProjects); 
 
   return taskFind;
@@ -54,7 +54,7 @@ function toggleTaskChecked(taskId) {
       toggleStatus.checked = !toggleStatus.checked;
   }
 
-  // Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  // TODO: Test this. Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
   saveToStorage(appState.myProjects); 
 }
 
@@ -75,7 +75,7 @@ function storeTask() {
       targetProject.tasks.push(newTask);
     }
 
-    // Will we need a second parameter that represents the project's title or ID number?
+    // TODO: Test this. Will we need a second parameter that represents the project's title or ID number?
     saveToStorage(appState.myProjects); 
   }
 

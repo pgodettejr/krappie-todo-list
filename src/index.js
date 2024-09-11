@@ -4,34 +4,34 @@
 import * as krappieUI from './krappieUI.js';
 import { createProject, appState } from './projects.js';
 import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
-// import { saveToStorage, getFromStorage } from "./localStorage.js";
+import { saveToStorage, getFromStorage } from "./localStorage.js";
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
-appState.myProjects.push(appState.defaultProject);
-krappieUI.renderDefault();
+// appState.myProjects.push(appState.defaultProject);
+// krappieUI.renderDefault();
 
 // TODO: Projects are rendering but not the tasks under them on refresh. When old renderDefault code is removed, no project shows on refresh
 // Default project renders twice when both old code above and this code is active at the same time
 // OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
 // OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
-// document.addEventListener('DOMContentLoaded', () => {
-//   const appState = getFromStorage();
-//   if (!appState) {
-//     appState.myProjects.push(appState.defaultProject);
-//     krappieUI.renderDefault();
-//   } else {
-//     for (const project of appState.myProjects) {
-//       krappieUI.renderProject(project);
+document.addEventListener('DOMContentLoaded', () => {
+  const appState = getFromStorage();
+  if (!appState) {
+    appState.myProjects.push(appState.defaultProject);
+    krappieUI.renderDefault();
+  } else {
+    for (const project of appState.myProjects) {
+      krappieUI.renderProject(project);
 
-//       for (const task of project.tasks) {
-//         krappieUI.renderTask(task);
-//       }
+      for (const task of project.tasks) {
+        krappieUI.renderTask(task);
+      }
       
-//     }
+    }
 
-//     // Alternative to 'for...of' loop that may actually be correct
+//     // Alternative to 'for...of' loop that may actually be correct. Not sure if it works with 'getFromStorage' though (works with array).
 //     // appState.forEach(project => {
 //     //   krappieUI.renderProject(project);
 
@@ -39,8 +39,9 @@ krappieUI.renderDefault();
 //     //     krappieUI.renderTask(task);
 //     //   }) 
 //     // })
-//   }
-// });
+
+  }
+});
 
 // Main area DOM
 const mainArea = document.querySelector("main");

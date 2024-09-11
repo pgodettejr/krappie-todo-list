@@ -6,6 +6,7 @@ import { tasks, createTask, readTask } from './tasks.js';
 // import { saveToStorage, getFromStorage } from "./localStorage.js";
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
+import { saveToStorage } from './localStorage.js';
 
 // DOM elements related to adding and updating projects and tasks to the app
 const projectDialog = document.getElementById("project-dialog");
@@ -326,6 +327,9 @@ function renderTask() {
       } else {
         console.error('Task not found in the tasks array');
       }
+
+      // TODO: Not sure on the parameter here. Test this out.
+      saveToStorage(appState.myProjects); 
     })
   }
 };
