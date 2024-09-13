@@ -21,7 +21,7 @@ const cancelTask = document.getElementById("cancelTask");
 const editTask = document.getElementById("updateTask");
 
 // Renders the default project named "Today" for daily projects & tasks on page load
-// TODO: Implement 'saveToStorage' in this code somehow? (might not need to as this is really only to render on first load, not subsequent)
+// TODO: Test 'saveToStorage' (might not need to as this is really only to render on first load, not subsequent)
 // TODO: Change 'appState.myProjects[project].projectTitle' to just 'project.projectTitle' in all instances and test the function again
 function renderDefault() {
 
@@ -37,9 +37,9 @@ function renderDefault() {
 
     // Generate the sidebar button
     const projectBtn = document.createElement("button");
-    let projectBtnText = document.createTextNode(`${appState.myProjects[project].projectTitle}`);
+    let projectBtnText = document.createTextNode(`${project.projectTitle}`);
     projectBtn.classList.add("project-btn");
-    projectBtn.setAttribute("data-project-title", `${appState.myProjects[project].projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
+    projectBtn.setAttribute("data-project-title", `${project.projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
 
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
@@ -48,7 +48,7 @@ function renderDefault() {
     // Generate "Project Name" header to be added to the project container
     const projectName = document.createElement("h4");
     projectName.classList.add("project-name");
-    projectName.innerText = appState.myProjects[project].projectTitle;
+    projectName.innerText = project.projectTitle;
 
     // Render "Update" icon button to be added to "Project Name" header
     // TODO: May not allow the Project title itself to be updated by commenting this section out (do this later on after we finish using the default Project for testing)
@@ -78,6 +78,8 @@ function renderDefault() {
     projectWrapper.appendChild(deleteBtn);
 
     main.appendChild(projectWrapper);
+
+    saveToStorage(project);
   }
 }
 
@@ -94,10 +96,10 @@ function renderProject() {
 
   // A way to combine both together using localStorage?
 
-  // const allProjects = getFromStorage();
+  const allProjects = getFromStorage();
 
-  // Add 'allProjects' or 'getFromStorage()' itself as an OR (II) operator for this if statement?
-  if (formTitle) { 
+  // TODO: Add 'allProjects' or 'getFromStorage()' itself as an OR (II) operator for this if statement & test it out
+  if (formTitle || allProjects) { 
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
@@ -179,6 +181,9 @@ function renderProject() {
         // }
       });
     });
+
+    // TODO: Not sure on the parameter here. Test this out.
+    saveToStorage(formTitle);
   }
 }
 
@@ -206,7 +211,6 @@ function populateProjects() {
 }
 
 // Function for dynamically adding the task to the target project in the <main> area
-// TODO: Need to add 'saveToStorage' somewhere in this code to push the new task to localStorage
 function renderTask() {
   let formTaskTitle = document.getElementById("task-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
   let formDueDate = document.getElementById("due-date").value;
@@ -214,8 +218,8 @@ function renderTask() {
   let formPriority = document.getElementById("priority").value;
   let formDescription = document.getElementById("description").value;
 
-  // Add 'getFromStorage()' itself as an OR (II) operator for this if statement?
-  if (formTaskTitle && formDueDate && formProject && formPriority) { 
+  // TODO: Test variation of 'task.length > 0'. Would need to refactor 'addToProjectUI' and the two variables below that (ABOVE this line)
+  if (formTaskTitle && formDueDate && formProject && formPriority || getFromStorage()) { 
 
     // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
     function addToProjectUI (text) {
@@ -229,13 +233,12 @@ function renderTask() {
       return null;
     }
 
-    // It is possible to add the logical OR (II) operator with 'getFromStorage()' to the parameters here
-    const projectNameHeader = addToProjectUI(formProject);
-    const targetProject = appState.readProject(formProject);
+    const projectNameHeader = addToProjectUI(formProject || getFromStorage());
+    const targetProject = appState.readProject(formProject || getFromStorage());
 
     // TODO: Getting a 'Task not found in the tasks array' when adding and/or deleting a second task to an existing project
     targetProject.tasks.forEach((task) => { 
-      if (task.taskTitle === formTaskTitle) {
+      if (task.taskTitle === formTaskTitle || getFromStorage()) {
         // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
         const isChecked = task.checked ? 'done' : '';
 

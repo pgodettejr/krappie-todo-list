@@ -19,6 +19,8 @@ import Plus from './img/plus.png';
 document.addEventListener('DOMContentLoaded', () => {
   const appState = getFromStorage();
   if (!appState) {
+    // Uncaught TypeError: Cannot read properties of null (reading 'myProjects')
+    // TODO: I think this has to do with the naming convention of the 'appState' variable in this listener conflicting with above import (change line 20 a different variable name)
     appState.myProjects.push(appState.defaultProject);
     krappieUI.renderDefault();
   } else {
