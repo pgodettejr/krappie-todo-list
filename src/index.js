@@ -17,16 +17,17 @@ import Plus from './img/plus.png';
 // OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
 // OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
 document.addEventListener('DOMContentLoaded', () => {
-  const appState = getFromStorage();
-  if (!appState) {
+  const saveState = getFromStorage();
+  if (!saveState) {
     // Uncaught TypeError: Cannot read properties of null (reading 'myProjects')
-    // TODO: I think this has to do with the naming convention of the 'appState' variable in this listener conflicting with above import (change line 20 a different variable name)
+    // TODO: After changing the variable from 'appState' to 'saveState', the default project from the appState object shows a title of 'undefined'. Find out why.
     appState.myProjects.push(appState.defaultProject);
     krappieUI.renderDefault();
   } else {
     for (const project of appState.myProjects) {
       krappieUI.renderProject(project);
 
+      // Uncaught TypeError: project.tasks is not iterable
       for (const task of project.tasks) {
         krappieUI.renderTask(task);
       }
