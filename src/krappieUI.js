@@ -3,7 +3,7 @@
 
 import { appState } from './projects.js';
 import { tasks, createTask, readTask } from './tasks.js';
-import { saveToStorage, getFromStorage } from "./localStorage.js";
+import { getFromStorage } from "./localStorage.js";
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
 
@@ -21,8 +21,6 @@ const cancelTask = document.getElementById("cancelTask");
 const editTask = document.getElementById("updateTask");
 
 // Renders the default project named "Today" for daily projects & tasks on page load
-// TODO: Test 'saveToStorage' (might not need to as this is really only to render on first load, not subsequent)
-// TODO: Change 'appState.myProjects[project].projectTitle' to just 'project.projectTitle' in all instances and test the function again
 function renderDefault() {
 
   // OPTION: This could potentially work as well
@@ -78,13 +76,10 @@ function renderDefault() {
     projectWrapper.appendChild(deleteBtn);
 
     main.appendChild(projectWrapper);
-
-    saveToStorage(project);
   }
 }
 
 // Renders all projects that are created via the "Add Project" form
-// TODO: Need to add 'saveToStorage' somewhere in this code to push the new project to localStorage
 function renderProject() {
   // My version provides immediate feedback ("faster"), is straightforward and avoids any synchronization issues between the form & array, but is less consistent especially if something goes wrong with the array & risks duplication if there is a delay on the array side making the UI less consistent
 
@@ -181,9 +176,6 @@ function renderProject() {
         // }
       });
     });
-
-    // TODO: Not sure on the parameter here. Test this out.
-    saveToStorage(formTitle);
   }
 }
 
@@ -336,9 +328,6 @@ function renderTask() {
       } else {
         console.error('Task not found in the tasks array');
       }
-
-      // TODO: Not sure on the parameter here. Test this out.
-      saveToStorage(appState.myProjects); 
     })
   }
 };

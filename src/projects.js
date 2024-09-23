@@ -40,6 +40,7 @@ const appState = {
       this.myProjects.push(newProject);
     }
 
+    // May move this to the Add Project button logic in 'index.js' module
     saveToStorage(this.myProjects);
   },
 
@@ -57,6 +58,7 @@ const appState = {
     }
 
     // TODO: Test this. May not need currentTitle
+    // May move this to the Update Project button logic in 'index.js' module
     saveToStorage(this.myProjects, currentTitle); 
   },
 
@@ -70,6 +72,7 @@ const appState = {
     }
 
     // TODO: Test this. May not need currentTitle
+    // May move this to the Delete Project button logic in 'index.js' module
     saveToStorage(this.myProjects, currentTitle);
   },
 

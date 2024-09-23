@@ -31,6 +31,7 @@ function removeTask(taskId) {
   }
 
   // TODO: Test this. Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  // May move this to the Delete Task button logic in 'index.js' module
   saveToStorage(appState.myProjects); 
 }
 
@@ -42,6 +43,7 @@ function updateTask(taskId, updates) {
   }
 
   // TODO: Test this. Do we need to add 'taskId' or 'updates' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  // May move this to the Update Task button logic in 'index.js' module
   saveToStorage(appState.myProjects); 
 
   return taskFind;
@@ -55,6 +57,7 @@ function toggleTaskChecked(taskId) {
   }
 
   // TODO: Test this. Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  // May move this to the Checkbox button logic in 'index.js' module
   saveToStorage(appState.myProjects); 
 }
 
@@ -76,6 +79,7 @@ function storeTask() {
     }
 
     // TODO: Test this. Will we need a second parameter that represents the project's title or ID number?
+    // May move this to the Add Task button logic in 'index.js' module
     saveToStorage(appState.myProjects); 
   }
 

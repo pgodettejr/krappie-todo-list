@@ -1,4 +1,5 @@
 // TODO: Hitting the "Enter" key on the keyboard doesn't submit & close any form it seems. Either fix here in all the button logic or in the HTML itself?
+// TODO: When projects alone are added to localStorage, only the latest project shows in the Applications tab in DevTools under the storage key, but once a task is added, all the projects show. Is this fine?
 // OPTION: Could add 'document.addEventListener('DOMContentLoaded', () => { move EVERYTHING in here except imports });' to ensure they are attached correctly after DOM becomes available
 
 import * as krappieUI from './krappieUI.js';
@@ -14,14 +15,15 @@ import Plus from './img/plus.png';
 
 // TODO: Projects are rendering but not the tasks under them on refresh. When old renderDefault code is removed, no project shows on refresh
 // Default project renders twice when both old code above and this code is active at the same time
+// TODO: When stepping through the code, it goes through all previous projects and tasks. When the code finishes, however, nothing is showing in localStorage from the previous session. Find out why.
 // OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
 // OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
 document.addEventListener('DOMContentLoaded', () => {
   const saveState = getFromStorage();
   if (!saveState) {
     // Uncaught TypeError: Cannot read properties of null (reading 'myProjects')
-    // TODO: After changing the variable from 'appState' to 'saveState', the default project from the appState object shows a title of 'undefined'. Find out why.
-    appState.myProjects.push(appState.defaultProject);
+    // TODO: After changing the variable from 'appState' to 'saveState', the default project from the appState object shows a title of 'undefined', but the array still shows a title of 'Today'. On page refresh, the project title is empty. Find out why.
+    appState.myProjects.push(appState.defaultProject); // Seems like this parameter gets skipped completely when attempting to .push
     krappieUI.renderDefault();
   } else {
     for (const project of appState.myProjects) {
@@ -34,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
     }
 
-//     // Alternative to 'for...of' loop that may actually be correct. Not sure if it works with 'getFromStorage' though (works with array).
+//     // Alternative to 'for...of' loop that may actually be correct. Not sure if it works with 'getFromStorage' though (works with array).Depends on whether or not localStorage.setItem saves the project/task as an array?
+
 //     // appState.forEach(project => {
 //     //   krappieUI.renderProject(project);
 
