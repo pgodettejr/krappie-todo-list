@@ -37,7 +37,7 @@ function renderDefault() {
     const projectBtn = document.createElement("button");
     let projectBtnText = document.createTextNode(`${project.projectTitle}`);
     projectBtn.classList.add("project-btn");
-    projectBtn.setAttribute("data-project-title", `${project.projectTitle}`); // TODO: Check this & make sure the attribute is set correctly
+    projectBtn.setAttribute("data-project-title", `${project.projectTitle}`);
 
     // Generate "Project" wrapper/container to be added to the main area
     const projectWrapper = document.createElement("div");
@@ -89,12 +89,7 @@ function renderProject() {
 
   // const lastProject = appState.myProjects[projects.length - 1];
 
-  // A way to combine both together using localStorage?
-
-  const allProjects = getFromStorage();
-
-  // TODO: Add 'allProjects' or 'getFromStorage()' itself as an OR (II) operator for this if statement & test it out
-  if (formTitle || allProjects) { 
+  if (formTitle) { 
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
@@ -210,8 +205,7 @@ function renderTask() {
   let formPriority = document.getElementById("priority").value;
   let formDescription = document.getElementById("description").value;
 
-  // TODO: Test variation of 'task.length > 0'. Would need to refactor 'addToProjectUI' and the two variables below that (ABOVE this line)
-  if (formTaskTitle && formDueDate && formProject && formPriority || getFromStorage()) { 
+  if (formTaskTitle && formDueDate && formProject && formPriority) { 
 
     // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
     function addToProjectUI (text) {
@@ -225,12 +219,12 @@ function renderTask() {
       return null;
     }
 
-    const projectNameHeader = addToProjectUI(formProject || getFromStorage());
-    const targetProject = appState.readProject(formProject || getFromStorage());
+    const projectNameHeader = addToProjectUI(formProject);
+    const targetProject = appState.readProject(formProject);
 
     // TODO: Getting a 'Task not found in the tasks array' when adding and/or deleting a second task to an existing project
     targetProject.tasks.forEach((task) => { 
-      if (task.taskTitle === formTaskTitle || getFromStorage()) {
+      if (task.taskTitle === formTaskTitle) {
         // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
         const isChecked = task.checked ? 'done' : '';
 
