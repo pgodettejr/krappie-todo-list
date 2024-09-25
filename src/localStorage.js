@@ -4,10 +4,13 @@ const localStorageKey = "appState";
 
 function saveToStorage(appState) {
   localStorage.setItem(localStorageKey, JSON.stringify(appState));
+
+  console.log(localStorage.key(0));
 }
 
 function getFromStorage() {
   const projectData = JSON.parse(localStorage.getItem(localStorageKey));
+  console.log(projectData);
   return projectData ? projectData : null;
 }
 

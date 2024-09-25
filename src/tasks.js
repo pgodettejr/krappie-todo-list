@@ -57,6 +57,8 @@ function toggleTaskChecked(taskId) {
   }
 
   // TODO: Test this. Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
+  // For some reason, this deletes the task from the localStorage "array" without needing a function/method that actually deletes it
+  // TODO: More research on localStorage.setItem and/or JSON.stringify and how it handles any "checked" status?
   // May move this to the Checkbox button logic in 'index.js' module
   saveToStorage(appState.myProjects); 
 }

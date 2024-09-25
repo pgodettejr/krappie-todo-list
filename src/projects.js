@@ -26,7 +26,9 @@ function createProject (projectTitle) {
 }
 
 const appState = {
-  myProjects: getFromStorage() || [], // List of projects and tasks within those projects - may have to flip these two around
+  // List of projects and tasks within those projects
+  // When getFromStorage() is removed, the previous session doesn't load even if the function is called in the index module page load logic
+  myProjects: getFromStorage() || [], 
   defaultProject: createProject("Today"),
 
   // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI
