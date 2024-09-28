@@ -28,6 +28,9 @@ function renderDefault() {
   // appState.myProjects.push(todayProject);
 
   // if (todayProject) {
+
+  // TODO: Reading each project title as just its index # after adding localStorage. Change to a 'for...of' loop to solve this?
+  // Either that or we don't run this function at all & still change to 'for...of' ('push' method in index module would have different parameter)
   for (const project in appState.myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
@@ -132,6 +135,7 @@ function renderPrevSession() {
 
       main.appendChild(projectWrapper);
 
+      // TODO: 'task' isn't being read for some reason. Change from 'for...in' loop to 'for...of'? Change the 'forEach' method below?
       for (const task in project.tasks) {
         // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
         function addToProjectUI (text) {
@@ -149,6 +153,7 @@ function renderPrevSession() {
         const targetProject = appState.readProject(project.projectTitle);
 
         // TODO: Getting a 'Task not found in the tasks array' when adding and/or deleting a second task to an existing project
+        // Do we need to use 'targetProject' variable for the forEach method or can we just use something else/remove method entirely?
         targetProject.tasks.forEach((task) => { 
           if (task.taskTitle) {
             // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
