@@ -10,34 +10,32 @@ import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
-// TODO: Projects are rendering multiple times (undefined 4x, Today, any other projects, Today again). Find out why
-// Hotfix removed the 'undefined' projects along with their buttons but 'Today' still renders a second time at the end
-// Will likely need to go back to a modified version of the old logic (ChatGPT notes/screenshots) & change parameter of push method (see Obsidian notes on step 8)
-
 // OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
 // OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
 document.addEventListener('DOMContentLoaded', () => {
-  appState.myProjects.push(appState.defaultProject);
-  krappieUI.renderDefault();
+  // appState.myProjects.push(appState.defaultProject);
+  // krappieUI.renderDefault();
 
   const saveState = getFromStorage();
 
-  if (saveState) {
-
+  if (!saveState) {
+    appState.myProjects.push(appState.defaultProject);
+    krappieUI.renderDefault();
     // HOTFIX: Ghetto way of removing all projects with titles of 'undefined' with their corresponding sidebar buttons
-    const duplicateButtons = projectMenu.querySelectorAll('button[data-project-title="undefined"]');
+    // const duplicateButtons = projectMenu.querySelectorAll('button[data-project-title="undefined"]');
 
-    duplicateButtons.forEach((button) => {
-      button.remove();
-    });
+    // duplicateButtons.forEach((button) => {
+    //   button.remove();
+    // });
 
-    mainArea.innerHTML = ''; 
+    // mainArea.innerHTML = ''; 
 
 
     // Calls the function that renders all projects and tasks from the user's previous session (after removing 'undefined' duplicates)
-    krappieUI.renderPrevSession();
+    // krappieUI.renderPrevSession();
   } else {
-    console.log('No previous session from localStorage found');
+    krappieUI.renderPrevSession();
+    // console.log('No previous session from localStorage found');
   }
 
 // OPTION: Alternative to 'for...of' loop that may actually be correct. Not sure if it works with 'getFromStorage' though (works with array).Depends on whether or not localStorage.setItem saves the project/task as an array?
@@ -316,6 +314,7 @@ krappieUI.confirmProject.addEventListener('click', (e) => {
   if (projectComplete) {
     e.preventDefault();
     appState.storeProject();
+    console.log(appState.myProjects); // Test and make sure project is added to the array after updating localStorage
     krappieUI.renderProject();
     projectForm.reset();
     krappieUI.projectDialog.close();

@@ -84,8 +84,6 @@ function storeTask() {
     // May move this to the Add Task button logic in 'index.js' module
     saveToStorage(appState.myProjects); 
   }
-
-  console.log(appState.myProjects);
 }
 
 // Code to test functions
