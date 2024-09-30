@@ -1,5 +1,4 @@
 // TODO: Hitting the "Enter" key on the keyboard doesn't submit & close any form it seems. Either fix here in all the button logic or in the HTML itself?
-// TODO: When projects alone are added to localStorage, only the latest project shows in the Applications tab in DevTools under the storage key, but once a task is added, all the projects show. Is this fine?
 // OPTION: Could add 'document.addEventListener('DOMContentLoaded', () => { move EVERYTHING in here except imports });' to ensure they are attached correctly after DOM becomes available
 
 import * as krappieUI from './krappieUI.js';
@@ -13,9 +12,6 @@ import Plus from './img/plus.png';
 // OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
 // OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
 document.addEventListener('DOMContentLoaded', () => {
-  // appState.myProjects.push(appState.defaultProject);
-  // krappieUI.renderDefault();
-
   const saveState = getFromStorage();
 
   if (!saveState) {
@@ -408,55 +404,3 @@ mainArea.addEventListener('click', (e) => {
     }
   }
 });
-
-
-// Old code
-
-// Previous "Update Project" button functionality
-
-// updateProjectButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     krappieUI.projectUpdateDialog.showModal();
-//   });
-// });
-
-// Previous "Delete Project" button functionality
-
-// deleteProjectButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     const targetProject = document.querySelector("project-wrapper");
-  
-//     appState.deleteProject(); // TODO: Make sure to double check 'myProjects' array after deleting a project to see if this updated the array correctly
-  
-//     if (projectButton.textContent === projectHeading) {
-//       projectMenu.removeChild(projectButton);
-//     }
-  
-//     mainArea.removeChild(targetProject);
-//   })
-// });
-
-// Previous "Update" form button functionality
-
-// Code says this was changing the text of the sidebar button for the project to the new title, but didn't show in the UI. 
-    // Because I was missing a dot when declaring the variable in the DOM above (due to it being a class) :')
-    // Tried 'projectButton.textContent === currentProjectTitle' but I get an undefined error on textContent
-    // This almost got there as a solution but even after fixing the DOM typo, it can't distinguish between which button text to change if there are multiple projects
-    // if (projectButton) {
-    //   projectButton.textContent = newProjectTitle;
-    // }
-
-    // Attempt to go back to previous iteration to change sidebar project button text & end up with 'Uncaught TypeError: Cannot set properties of null (setting 'textContent')'
-    // projectButton.textContent = newProjectTitle;
-
-// Previous attempts to get the correct projects to Update via update form as well as getting the Update buttons under each project to work in the first place
-// Was only changing the very first project in the main area (the Default one currently) no matter what Update Project button was pressed on what project
-// Need to figure out how to target the text of the current Project title for the correct Project that was targeted, then update appState.updateProject (the array) below
-
-// document.addEventListener('click', (e) => {
-//   if (e.target.classList.contains("update-project")) {
-//     const wrapper = e.target.closest(".project-wrapper");
-//     currentProjectName = wrapper.querySelector(".project-name").textContent;
-//     krappieUI.projectUpdateDialog.showModal();
-//   }
-// })

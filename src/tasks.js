@@ -22,6 +22,7 @@ function readTask (taskId) {
 }
 
 // Deletes a task
+// TODO: This still seems to be deleting the first task in the tasks array regardless of the task targeted for deletion (UI is correct). Will also need to test this on other projects to see if it affects all projects or just the default "Today" project.
 function removeTask(taskId) {
   const taskFilter = readTask(taskId);
   if (taskFilter) {
@@ -31,7 +32,6 @@ function removeTask(taskId) {
   }
 
   // TODO: Test this. Do we need to add 'taskId' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  // May move this to the Delete Task button logic in 'index.js' module
   saveToStorage(appState.myProjects); 
 }
 
@@ -42,8 +42,6 @@ function updateTask(taskId, updates) {
     Object.assign(taskFind, updates); 
   }
 
-  // TODO: Test this. Do we need to add 'taskId' or 'updates' as a second parameter? What about 'projectTitle' or the project's ID? Or leave it as is?
-  // May move this to the Update Task button logic in 'index.js' module
   saveToStorage(appState.myProjects); 
 
   return taskFind;
@@ -80,95 +78,8 @@ function storeTask() {
       targetProject.tasks.push(newTask);
     }
 
-    // TODO: Test this. Will we need a second parameter that represents the project's title or ID number?
-    // May move this to the Add Task button logic in 'index.js' module
     saveToStorage(appState.myProjects); 
   }
 }
 
-// Code to test functions
-
-// let task1 = createTask (
-//   "Buy Groceries", 
-//   "2024-05-26", 
-//   "Important", 
-//   "Buy milk, eggs, bananas and kiwi for breakfast and smoothies"
-// );
-
-// let task2 = createTask (
-//   "Finish To-Do List project", 
-//   "2024-06-01", 
-//   "Urgent", 
-//   "Finish the To-Do List project assignment in TOP"
-// );
-
-// appState.defaultProject.addTask(
-//   task1.todoTitle,
-//   task1.dueDate,
-//   task1.priority,
-//   task1.description
-// );
-
-// appState.defaultProject.addTask(
-//   task2.todoTitle,
-//   task2.dueDate,
-//   task2.priority,
-//   task2.description
-// );
-
-// let taskIdNumber = appState.defaultProject.tasks[0].id;
-// let taskIdNumber2 = appState.defaultProject.tasks[1].id;
-// console.log(project1);
-
-// Just having the properties by themselves threw a Ref Error of "property not defined" for each one
-// May still need the values to be empty strings or just have no values at all in the future when UI is implemented despite Ref error
-
-// const updates = {
-//   taskTitle: "Buy More Groceries",
-//   dueDate: "2024-06-01",
-//   priority: "Urgent",
-//   description: "Costco run"
-// };
-
-// Keep in mind these next tests might not work anymore due to separating the task functions from createProject for module purposes.
-
-// appState.defaultProject.updateTask(taskIdNumber, updates);
-
-// console.log(project1);
-// console.log(appState.defaultProject.tasks);
-
-// appState.defaultProject.toggleTaskChecked(todoIdNumber2);
-// console.log(appState.defaultProject.tasks);
-
-// appState.defaultProject.removeTask(todoIdNumber);
-// console.log(appState.defaultProject.tasks);
-
-// As the second index, currently this adds the entire object to "projectTitle", then leaves the other properties as undefined
-
-// project2.addTodo(task2);
-// console.log(project2);
-
 export { createTask, readTask, removeTask, updateTask, toggleTaskChecked, storeTask }
-
-// Old code for another solution I came up with on my own that updated list of tasks using map (Object.assign is cleaner). Keep it (in case of emergency, break glass)
-//   function updateTask(todoId, updates) {
-//     const revisedTasks = tasks.map(todo => {
-//       if (task.id === taskId) {
-//         return { ...task, ...updates }
-//       }
-//     });
-    
-//     return revisedTasks;
-//   }
-
-// Old code attempts at refactoring storeTask (under the 'if' statement)
-
-// Uncaught TypeError: Cannot read properties of undefined (reading 'addTask'). Likely due to addTask function not being part of myProjects property (it's just an array).
-// appState.myProjects[projectIndex].addTask(taskTitle, dueDate, priority, description); 
-
-// Uncaught TypeError: createProject.addTask is not a function
-// createProject.addTask(taskTitle, dueDate, priority, description); 
-
-// My attempt at combining the previous two functions to get the task to be added to the tasks array within a project
-// Uncaught TypeError: Cannot read properties of undefined (reading 'createProject')
-// appState.myProjects[0].createProject.addTask(taskTitle, dueDate, priority, description);

@@ -1,5 +1,4 @@
 // TODO: Try to switch everything that fetches a project via its title to fetching it via its ID
-// TODO: Test out 'saveToStorage' in each of the appState functions that it is in (store, update, delete) & 'getFromStorage'
 
 import { saveToStorage, getFromStorage } from "./localStorage.js";
 // import * as krappieUI from "./krappieUI.js";
@@ -26,9 +25,7 @@ function createProject (projectTitle) {
 }
 
 const appState = {
-  // List of projects and tasks within those projects
-  // When getFromStorage() is removed, the previous session doesn't load even if the function is called in the index module page load logic
-  myProjects: getFromStorage() || [], 
+  myProjects: getFromStorage() || [], // List of projects and tasks within those projects
   defaultProject: createProject("Today"),
 
   // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI
@@ -59,8 +56,6 @@ const appState = {
       project.projectTitle = newTitle;
     }
 
-    // TODO: Test this. May not need currentTitle
-    // May move this to the Update Project button logic in 'index.js' module
     saveToStorage(this.myProjects, currentTitle); 
   },
 
@@ -73,8 +68,6 @@ const appState = {
       this.myProjects.splice(projectIndex, 1);
     }
 
-    // TODO: Test this. May not need currentTitle
-    // May move this to the Delete Project button logic in 'index.js' module
     saveToStorage(this.myProjects, currentTitle);
   },
 
@@ -87,66 +80,3 @@ const appState = {
 };
 
 export { createProject, appState }
-
-// Old code for storing new "Project" objects into a new array via user input. In case of emergency, use this.
-// function storeProject() {
-//   let projectTitle = document.getElementById("project-title").value; // Potentially add '.trim()' to the end of this line if there's whitespace that needs to be removed
-
-//   if (projectTitle) {
-//     const newProject = new Project(projectTitle);
-//     myProjects.push(newProject);
-//     renderProject();
-//   }
-// }
-
-// Old code for toggling "complete" status of a given project. Use this if the method inside of appStatus object doesn't work.
-// function toggleProjectChecked (projectTitle) {
-//   let projects = appState.myProjects;
-//   const projectStatus = projects.find(project => project.projectTitle === projectTitle)
-
-//   if (projectStatus) {
-//     projectStatus.checked = !projectStatus.checked;
-//   }
-// }
-
-// Old method in appState
-// projectName: createProject.projectTitle, - Uncaught TypeError: Cannot convert undefined or null to object
-
-// Old code & attempts for 'updateProject' method in appStatus
-
-    // The fact that this is referencing the form value entered may be the reason why the array is not updating on 'Object.assign' below (assuming 'updates' object stays)
-    // let projectTitle = document.getElementById("project-update-title").value; 
-
-    // let projectTitle = createProject.projectTitle; - Uncaught TypeError: Cannot convert undefined or null to object
-
-    // const updates = {
-    //   projectTitle,
-    //   // checked,
-    //   // id
-    // }
-
-    // this.readProject();
-
-    // When I tried to run this.myProjects.projectTitle as a target, I get "Uncaught TypeError: Cannot convert undefined or null to object"
-    // Object.assign(projectTitle, updates);
-
-    // const project = this.readProject();
-    // if (project) {
-    //   Object.assign(project, projectUpdates);
-    // }
-
-    // Attempt using 'projectTitle' and 'newTitle' as parameters in the method
-
-    // const project = this.readProject(projectTitle);
-    // project.projectTitle = newTitle;
-    // Object.assign(project, newTitle);
-
-    // const newTitle = document.getElementById("project-update-title").value;
-
-// Old code for 'deleteProject' method in appStatus
-
-// Previous code with 'projectIndex' as the function parameter for the method. 
-// Misunderstanding of how 'splice' worked: thought I could remove the object itself when it only works with the index of an array
-    
-// this.myProjects.splice(projectIndex, 1); 
-// krappieUI.renderProject();

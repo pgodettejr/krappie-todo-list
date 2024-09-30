@@ -1,5 +1,4 @@
 // TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
-// TODO: Setting up localStorage functions may make the whole rendering process easier as far as what projects/tasks to get when a user clicks on one
 
 import { appState } from './projects.js';
 import { tasks, createTask, readTask } from './tasks.js';
@@ -22,12 +21,6 @@ const editTask = document.getElementById("updateTask");
 
 // Renders the default project named "Today" for daily projects & tasks on page load
 function renderDefault() {
-
-  // OPTION: This could potentially work as well
-  // let todayProject = appState.defaultProject; - use this as a parameter for this function as well
-  // appState.myProjects.push(todayProject);
-
-  // if (todayProject) {
 
   // TODO: Reading each project title as just its index # after adding localStorage. Change to a 'for...of' loop to solve this?
   // Either that or we don't run this function at all & still change to 'for...of' ('push' method in index module would have different parameter)
@@ -82,7 +75,7 @@ function renderDefault() {
   }
 }
 
-// First attempt at a separate function to render all the projects and tasks from the user's previous session
+// Renders all the projects and tasks from the user's previous session
 function renderPrevSession() {
   const prevState = getFromStorage();
 
@@ -152,7 +145,6 @@ function renderPrevSession() {
         const projectNameHeader = addToProjectUI(project.projectTitle);
         const targetProject = appState.readProject(project.projectTitle);
 
-        // TODO: Getting a 'Task not found in the tasks array' when adding and/or deleting a second task to an existing project
         // Do we need to use 'targetProject' variable for the forEach method or can we just use something else/remove method entirely?
         targetProject.tasks.forEach((task) => { 
           if (task.taskTitle) {
@@ -402,7 +394,6 @@ function renderTask() {
     const projectNameHeader = addToProjectUI(formProject);
     const targetProject = appState.readProject(formProject);
 
-    // TODO: Getting a 'Task not found in the tasks array' when adding and/or deleting a second task to an existing project
     targetProject.tasks.forEach((task) => { 
       if (task.taskTitle === formTaskTitle) {
         // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
@@ -506,121 +497,4 @@ function renderTask() {
   }
 };
 
-// Example of navigation bar button functionality in the Restaurant project that switches pages via tabbed browsing
-
-// const navButtons = document.querySelectorAll('.nav-button');
-
-// navButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     let currentButton = document.querySelector('button[aria-current]');
-
-//     switch (button.textContent) {
-//       case 'Menu':
-//         currentButton.removeAttribute('aria-current');
-//         button.setAttribute('aria-current', 'page');
-//         content.replaceChildren();
-//         content.appendChild(menupage());
-//         break;
-
-//       case 'Home':
-//         currentButton.removeAttribute('aria-current');
-//         button.setAttribute('aria-current', 'page');
-//         content.replaceChildren();
-//         content.appendChild(homepage());
-//         break;
-
-//       case 'Contact':
-//         currentButton.removeAttribute('aria-current');
-//         button.setAttribute('aria-current', 'page');
-//         content.replaceChildren();
-//         content.appendChild(contactPage());
-//         break;
-//     }
-//   })
-// })
-
-// Example from Tic Tac Toe game that places player marker in a given cell once clicked, then switches player turn. Use this to figure out what project button was clicked.
-// cells.forEach((cell, index) => {
-//   cell.addEventListener('click', () => {
-//     const row = Math.floor(index / 3);
-//     const col = index % 3;
-//     Gameboard.makeMove(row, col, gameFlow.getCurrentPlayer().marker);
-//     cell.textContent = gameFlow.getCurrentPlayer().marker; 
-//     cell.setAttribute("disabled", "");
-
-//     // Switches the player's turn on the condition that there is no game winner yet, then displays the current turn on the UI
-//     if (!Gameboard.checkWin()) {
-//       gameFlow.switchTurn();
-//       console.log(`${gameFlow.getCurrentPlayer().name()}'s turn.`); 
-//       info.replaceChildren();
-//       info.textContent = `${gameFlow.getCurrentPlayer().name()}'s turn`;
-//     } 
-//   });
-// });
-
 export { projectDialog, projectUpdateDialog, confirmProject, cancelProject, editProject, renderDefault, renderPrevSession, renderProject, populateProjects, taskDialog, taskUpdateDialog, confirmTask, cancelTask, editTask, renderTask }
-
-// Old code showing several attempts to get the renderProject function to stop duplicating previously created projects when new ones were rendered
-
-// This conditional doesn't change anything (still duplicates previous projects) & doesn't add default project on page load at all
-// if (project !== appState.myProjects[project].projectTitle) {
-//   continue;
-// }
-
-// These solutions also don't work. Default project no longer shows up on page load.
-
-// let projectTitle = document.getElementById("project-title").value;
-// const availableProjects = appState.myProjects.filter(project => project.projectTitle === projectTitle).map(project => project.projectTitle)
-// if (!availableProjects.length) return;
-
-// let projectTitle = document.getElementById("project-title").value;
-// if (projectTitle) { code below goes inside these brackets }
-
-// [project] below is not defined. When I removed it, the entire app freezes after hitting "Confirm" when creating a project
-// let latestProject = appState.myProjects.length - 1;
-// while (latestProject)
-
-// When confirming the project to be created, the form closes as if the project was successfully created but it never renders. Only gets added to the myProjects array.
-// for (let i = appState.myProjects.length - 1; i < appState.myProjects.length - 1; i--)
-
-// Having no loop at all and just adding 'project' as a parameter to the renderProject function itself (sidebar buttons also no longer work)
-
-// Only other solution to keep this loop would be to implement some way to 'find' the project that was entered from 'appState.addProject' and only render that one
-
-// TODO: Check to see if tasks is an array (it isn't)
-    // console.log('Tasks: ', tasks);
-    // if (!Array.isArray(tasks)) {
-    //   console.error('Tasks is not an array');
-    //   return;
-    // }
-
-    // Finds the task in the nested array within the projects by name, matches it with the name of the task in the form entered by the user & returns the task for checkbox use
-    // OPTION: Possibly get this down to one line of code
-    // const getTask = (taskTitle) => {
-    //   let targetTask = tasks.find(task => task.title === taskTitle);
-    //   if (targetTask === formTaskTitle) {
-    //     return targetTask;
-  
-    //  TODO: Could also try using third argument of callbackFn in the 'Array.find' method (element, index, array) to grab the ID # of the matching task
-    //     targetTask.find(targetTask => targetTask.id === taskId); // Not what I needed to grab the ID of the task whose title matches form input above (formTaskTitle)
-    //   }
-    // }
-
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'find) unless I remove the "task" variable just below this and have getTask as the parameter for the 'if' statement
-    // const getTask = (taskTitle) => tasks.find(task => task.taskTitle === taskTitle); // previously 'task.title'
-    // const task = getTask(formTaskTitle);
-
-        // const getTask = (formTaskTitle) => targetProject.tasks.find(task => task.taskTitle === formTaskTitle);
-
-    // Literally reads off as a string on all attributes related to it below (on its own anyway)
-    // Uncaught TypeError: Cannot read properties of undefined (reading 'find) unless I remove the "task" variable just below this and have getTask as the parameter for the 'if' statement
-    // const getTaskId = (taskId) => getTask.find(task => task.id === taskId);
-    // const task = getTaskId(formTaskTitle);
-
-    // TypeError: xx.readTask is not a function
-    // const getTaskId = targetProject.readTask();
-    // const getTaskId = getTask.readTask();
-    
-
-    // Attempt to render everything directly from the nested "tasks" array. Uncaught TypeError: Cannot read properties of undefined (reading 'length')
-    // const lastTask = tasks[tasks.length - 1];
