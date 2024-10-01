@@ -22,9 +22,9 @@ const editTask = document.getElementById("updateTask");
 // Renders the default project named "Today" for daily projects & tasks on page load
 function renderDefault() {
 
-  // TODO: Reading each project title as just its index # after adding localStorage. Change to a 'for...of' loop to solve this?
-  // Either that or we don't run this function at all & still change to 'for...of' ('push' method in index module would have different parameter)
-  for (const project in appState.myProjects) {
+  // TODO: Test the 'for...of' loop change as 'for...in' was reading each project title as just its index # after adding localStorage
+  // OPTION: don't run this function at all & still use 'for...of' ('push' method in index module would have different parameter)
+  for (const project of appState.myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
     const main = document.querySelector("main");
@@ -128,125 +128,121 @@ function renderPrevSession() {
 
       main.appendChild(projectWrapper);
 
-      // TODO: 'task' isn't being read for some reason. Change from 'for...in' loop to 'for...of'? Change the 'forEach' method below?
-      for (const task in project.tasks) {
-        // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
-        function addToProjectUI (text) {
-          const projectHeaders = document.querySelectorAll(".project-name");
-          for (const projectHeader of projectHeaders) {
-            if (projectHeader.textContent.trim() === text) {
-              return projectHeader;
-            }
+      // Function and DOM for finding the correct (previously rendered) project to render the task to then declaring it afterwards
+      function addToProjectUI (text) {
+        const projectHeaders = document.querySelectorAll(".project-name");
+        for (const projectHeader of projectHeaders) {
+          if (projectHeader.textContent.trim() === text) {
+            return projectHeader;
           }
-
-          return null;
         }
 
-        const projectNameHeader = addToProjectUI(project.projectTitle);
-        const targetProject = appState.readProject(project.projectTitle);
-
-        // Do we need to use 'targetProject' variable for the forEach method or can we just use something else/remove method entirely?
-        targetProject.tasks.forEach((task) => { 
-          if (task.taskTitle) {
-            // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
-            const isChecked = task.checked ? 'done' : '';
-
-            // Generate "Task" wrapper/container to be added to the main area (under the target Project)
-            const taskWrapper = document.createElement("div");
-            taskWrapper.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
-            taskWrapper.classList.add("task-wrapper");
-
-            // Renders the checkbox elements
-            const taskCheckbox = document.createElement("input");
-            taskCheckbox.setAttribute("id", task.id); // See "taskWrapper" above except this is for setting the id
-            taskCheckbox.setAttribute("type", "checkbox");
-
-            const taskCheckboxLabel = document.createElement("label");
-            taskCheckboxLabel.setAttribute("for", task.id); // See "taskWrapper" above except this is for setting the "for" in the label element
-            taskCheckboxLabel.classList.add("js-tick");
-
-            // Places the checkbox elements under the Task wrapper/container
-            taskWrapper.appendChild(taskCheckbox);
-            taskWrapper.appendChild(taskCheckboxLabel);
-
-            // Renders the wrapper/container that holds the text details of the task (Name, Due Date, Priority Level, Description)
-            const taskDetails = document.createElement("div");
-            taskDetails.setAttribute("data-key", task.id);
-            taskDetails.classList.add("task-details");
-
-            // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
-            const taskName = document.createElement("p");
-            taskName.setAttribute("data-key", task.id); // See "taskWrapper above"
-            taskName.classList.add(`task-item-${isChecked}`);
-
-            // Renders <p> tags for the Date and Priority level from the "Add Task" form (to be used as parents for the text info below)
-            const taskDate = document.createElement("p");
-            const taskPriority = document.createElement("p");
-
-            taskDate.classList.add("task-date");
-            taskPriority.classList.add("task-priority");
-            
-            // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
-            const taskNameInfo = document.createTextNode(`${task.taskTitle}`);
-            const taskDateInfo = document.createTextNode(`${task.dueDate}`);
-            const taskPriorityInfo = document.createTextNode(`${task.priority}`);
-
-            // Attaches text info via user input to the <p> tags that were created
-            taskName.appendChild(taskNameInfo);
-            taskDate.appendChild(taskDateInfo);
-            taskPriority.appendChild(taskPriorityInfo);
-
-            // Places the Name, Date, Priority level and Description as children under the Task Details wrapper/container
-            taskDetails.appendChild(taskName);
-            taskDetails.appendChild(taskDate);
-            taskDetails.appendChild(taskPriority);
-
-            // Places the wrapper containing the text details of the task under the Task wrapper/container
-            taskWrapper.appendChild(taskDetails);
-
-            // Render necessary elements from Description box to be added as text under the Task Details wrapper (if filled out by the user)
-            if (task.description) {
-              const taskDescription = document.createElement("p");
-              taskDescription.classList.add("task-description");
-
-              const taskDescriptionInfo = document.createTextNode(`${task.description}`);
-
-              // Places the Description under the Task Details wrapper/container
-              taskDescription.appendChild(taskDescriptionInfo);
-              taskDetails.appendChild(taskDescription);
-            }
-
-            // Render "Update" icon button to be added to "Task Name" header
-            const updateTaskBtn = document.createElement("button");
-            updateTaskBtn.classList.add("update-task");
-
-            const updateTaskIcon = new Image();
-            updateTaskIcon.src = Update;
-            updateTaskIcon.classList.add("image-button");
-
-            // Render "Delete" icon button to be added to "Task Name" header
-            const deleteTaskBtn = document.createElement("button");
-            deleteTaskBtn.classList.add("delete-task");
-
-            const deleteTaskIcon = new Image();
-            deleteTaskIcon.src = Delete;
-            deleteTaskIcon.classList.add("image-button");
-
-            // Attaches button icon images to the buttons themselves
-            updateTaskBtn.appendChild(updateTaskIcon);
-            deleteTaskBtn.appendChild(deleteTaskIcon);
-            
-            // Places the "Update" and "Delete" buttons under the Task wrapper/container
-            taskWrapper.appendChild(updateTaskBtn);
-            taskWrapper.appendChild(deleteTaskBtn);
-
-            // Places the task itself (via it's name) as a child under the Project Name header
-            projectNameHeader.parentNode.appendChild(taskWrapper); 
-          } else {
-            console.error('Task not found in the tasks array');
-          }
-        })
+        return null;
       }
+
+      const projectNameHeader = addToProjectUI(project.projectTitle);
+      const targetProject = appState.readProject(project.projectTitle);
+
+      targetProject.tasks.forEach((task) => { 
+        if (task.taskTitle) {
+          // Reads the status of 'checked' in the array, then adds 'done' & an empty string as toggle options for the `task-item-${isChecked}` class in the Task Name below
+          const isChecked = task.checked ? 'done' : '';
+
+          // Generate "Task" wrapper/container to be added to the main area (under the target Project)
+          const taskWrapper = document.createElement("div");
+          taskWrapper.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
+          taskWrapper.classList.add("task-wrapper");
+
+          // Renders the checkbox elements
+          const taskCheckbox = document.createElement("input");
+          taskCheckbox.setAttribute("id", task.id); // See "taskWrapper" above except this is for setting the id
+          taskCheckbox.setAttribute("type", "checkbox");
+
+          const taskCheckboxLabel = document.createElement("label");
+          taskCheckboxLabel.setAttribute("for", task.id); // See "taskWrapper" above except this is for setting the "for" in the label element
+          taskCheckboxLabel.classList.add("js-tick");
+
+          // Places the checkbox elements under the Task wrapper/container
+          taskWrapper.appendChild(taskCheckbox);
+          taskWrapper.appendChild(taskCheckboxLabel);
+
+          // Renders the wrapper/container that holds the text details of the task (Name, Due Date, Priority Level, Description)
+          const taskDetails = document.createElement("div");
+          taskDetails.setAttribute("data-key", task.id);
+          taskDetails.classList.add("task-details");
+
+          // Renders the name of the task entered (as a list element so the user can have a list of tasks?)
+          const taskName = document.createElement("p");
+          taskName.setAttribute("data-key", task.id); // See "taskWrapper above"
+          taskName.classList.add(`task-item-${isChecked}`);
+
+          // Renders <p> tags for the Date and Priority level from the "Add Task" form (to be used as parents for the text info below)
+          const taskDate = document.createElement("p");
+          const taskPriority = document.createElement("p");
+
+          taskDate.classList.add("task-date");
+          taskPriority.classList.add("task-priority");
+          
+          // Text info DOM that takes user input from the "Add Task" form and creates text nodes to be attached to the <p> tags above
+          const taskNameInfo = document.createTextNode(`${task.taskTitle}`);
+          const taskDateInfo = document.createTextNode(`${task.dueDate}`);
+          const taskPriorityInfo = document.createTextNode(`${task.priority}`);
+
+          // Attaches text info via user input to the <p> tags that were created
+          taskName.appendChild(taskNameInfo);
+          taskDate.appendChild(taskDateInfo);
+          taskPriority.appendChild(taskPriorityInfo);
+
+          // Places the Name, Date, Priority level and Description as children under the Task Details wrapper/container
+          taskDetails.appendChild(taskName);
+          taskDetails.appendChild(taskDate);
+          taskDetails.appendChild(taskPriority);
+
+          // Places the wrapper containing the text details of the task under the Task wrapper/container
+          taskWrapper.appendChild(taskDetails);
+
+          // Render necessary elements from Description box to be added as text under the Task Details wrapper (if filled out by the user)
+          if (task.description) {
+            const taskDescription = document.createElement("p");
+            taskDescription.classList.add("task-description");
+
+            const taskDescriptionInfo = document.createTextNode(`${task.description}`);
+
+            // Places the Description under the Task Details wrapper/container
+            taskDescription.appendChild(taskDescriptionInfo);
+            taskDetails.appendChild(taskDescription);
+          }
+
+          // Render "Update" icon button to be added to "Task Name" header
+          const updateTaskBtn = document.createElement("button");
+          updateTaskBtn.classList.add("update-task");
+
+          const updateTaskIcon = new Image();
+          updateTaskIcon.src = Update;
+          updateTaskIcon.classList.add("image-button");
+
+          // Render "Delete" icon button to be added to "Task Name" header
+          const deleteTaskBtn = document.createElement("button");
+          deleteTaskBtn.classList.add("delete-task");
+
+          const deleteTaskIcon = new Image();
+          deleteTaskIcon.src = Delete;
+          deleteTaskIcon.classList.add("image-button");
+
+          // Attaches button icon images to the buttons themselves
+          updateTaskBtn.appendChild(updateTaskIcon);
+          deleteTaskBtn.appendChild(deleteTaskIcon);
+          
+          // Places the "Update" and "Delete" buttons under the Task wrapper/container
+          taskWrapper.appendChild(updateTaskBtn);
+          taskWrapper.appendChild(deleteTaskBtn);
+
+          // Places the task itself (via it's name) as a child under the Project Name header
+          projectNameHeader.parentNode.appendChild(taskWrapper); 
+        } else {
+          console.error('Task not found in the tasks array');
+        }
+      })
     }
   }
 }

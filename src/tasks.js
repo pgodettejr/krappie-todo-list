@@ -27,7 +27,8 @@ function removeTask(taskId) {
   const taskFilter = readTask(taskId);
   if (taskFilter) {
     for (const project of appState.myProjects) {
-      project.tasks.splice(taskFilter, 1);
+      // Confirm that splice goes by index #. It may not work with this for...of loop (it works with for...in since that also checks index #)
+      project.tasks.splice(taskFilter, 1); 
     }
   }
 
