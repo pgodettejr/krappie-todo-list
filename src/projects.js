@@ -1,25 +1,14 @@
-// TODO: Try to switch everything that fetches a project via its title to fetching it via its ID
-
 import { saveToStorage, getFromStorage } from "./localStorage.js";
-// import * as krappieUI from "./krappieUI.js";
-// import { createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from "./tasks.js";
+
+// OPTION: Try to switch everything that fetches a project via its title to fetching it via its ID
 
 // Creates "project" objects to be added to the "myProjects" array
 function createProject (projectTitle) {
   const tasks = []; // Initializes tasks as an empty array
-  let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
+  let checked = false; // Checkbox whose default is not checked. Does NOT add the "checkbox" itself to the task
 
-  // ID number for each project assigned at "random?" used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
+  // ID number for each project assigned at "random?" used to find the task that the user clicked on to modify or delete
   let id = Date.now().toString(); 
-
-  // Logic to allow projects with duplicate names to be added, but with a 1 next to the name. May need to go under addProject in appState instead, since project isn't read here.
-  // let projects = appStatus.myProjects;
-
-  // if (projects.find((project) => project.projectTitle === projectTitle)) {
-  //   const project = appState.myProjects(projectTitle + "1");
-  // } else {
-  //   const project = appState.myProjects(projectTitle);
-  // }
 
   return { projectTitle, tasks, checked, id }
 }
@@ -31,7 +20,7 @@ const appState = {
   // Stores the "project" object to the myProjects array, then runs the project rendering function to display it on the UI
   // OPTION: Add "Priority Level" drop-down menu and "Description" text box. Need to be rendered as well in UI file.
   storeProject: function () {
-    let projectTitle = document.getElementById("project-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
+    let projectTitle = document.getElementById("project-title").value.trim();
 
     if (projectTitle) {
       const newProject = createProject(projectTitle); 
@@ -39,7 +28,6 @@ const appState = {
       this.myProjects.push(newProject);
     }
 
-    // May move this to the Add Project button logic in 'index.js' module
     saveToStorage(this.myProjects);
   },
 
@@ -60,7 +48,6 @@ const appState = {
   },
 
   // Deletes a project
-  // TODO: While testing localStorage, deletes the wrong project in the array (correct one deletes in the UI)? Could be this or localStorage.
   deleteProject: function (currentTitle) {
     const projectIndex = this.myProjects.findIndex(project => project.projectTitle === currentTitle);
 

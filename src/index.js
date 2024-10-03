@@ -1,51 +1,30 @@
-// TODO: Hitting the "Enter" key on the keyboard doesn't submit & close any form it seems. Either fix here in all the button logic or in the HTML itself?
-// OPTION: Could add 'document.addEventListener('DOMContentLoaded', () => { move EVERYTHING in here except imports });' to ensure they are attached correctly after DOM becomes available
-
 import * as krappieUI from './krappieUI.js';
-import { createProject, appState } from './projects.js';
-import { tasks, createTask, removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
-import { saveToStorage, getFromStorage } from "./localStorage.js";
+import { appState } from './projects.js';
+import { removeTask, updateTask, toggleTaskChecked, storeTask } from './tasks.js';
+import { getFromStorage } from "./localStorage.js";
 import './styles.css';
 import reverbFart from './sounds/quick-fart-with-reverb.mp3';
 import Plus from './img/plus.png';
 
-// OPTION: May need to add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
+// TODO: Hitting the "Enter" key on the keyboard doesn't submit & close any form it seems. Either fix here in all the button logic or in the HTML itself?
+
+// OPTION: Could add 'document.addEventListener('DOMContentLoaded', () => { move EVERYTHING in here except imports });' to ensure they are attached correctly after DOM becomes available
+
+// OPTION: Add the for loop 'for (let i = 0; i < 1_000_000_000; i++);' to delay DOM parsing, forcing this to launch later
 // OPTION: Could also add a condition 'if (document.readyState === "loading") { code below goes here } else { console.info("DOM already") }
 document.addEventListener('DOMContentLoaded', () => {
   const saveState = getFromStorage();
 
   if (!saveState) {
     appState.myProjects.push(appState.defaultProject);
-    krappieUI.renderDefault();
-    // HOTFIX: Ghetto way of removing all projects with titles of 'undefined' with their corresponding sidebar buttons
-    // const duplicateButtons = projectMenu.querySelectorAll('button[data-project-title="undefined"]');
-
-    // duplicateButtons.forEach((button) => {
-    //   button.remove();
-    // });
-
-    // mainArea.innerHTML = ''; 
-
-
-    // Calls the function that renders all projects and tasks from the user's previous session (after removing 'undefined' duplicates)
-    // krappieUI.renderPrevSession();
+    krappieUI.renderDefault(); 
   } else {
     krappieUI.renderPrevSession();
-    // console.log('No previous session from localStorage found');
   }
-
-// OPTION: Alternative to 'for...of' loop that may actually be correct. Not sure if it works with 'getFromStorage' though (works with array).Depends on whether or not localStorage.setItem saves the project/task as an array?
-
-// appState.forEach(project => {
-//   project.forEach(task => {
-//     krappieUI.renderPrevSession();
-//   }) 
-// })
 });
 
 // Main area DOM
 const mainArea = document.querySelector("main");
-// const projectHeading = document.querySelector(".project-name");
 
 // Forms DOM
 const taskForm = document.getElementById("task-form");
@@ -57,14 +36,6 @@ const projectUpdateForm = document.getElementById("project-update-form");
 const projectMenu = document.querySelector(".menu-2");
 const sidebarTaskBtn = document.getElementById("add-task-2");
 const sidebarProjectBtn = document.getElementById("add-project");
-// const projectButton = document.querySelector(".project-btn");
-
-// Update and Delete buttons DOM for Projects. 
-// Button group variables will be permanent if all projects end up being shown on main area of the UI
-// const updateProjectButtons = document.querySelectorAll(".update-project");
-const deleteProjectButtons = document.querySelectorAll(".delete-project");
-// const updateProjectBtn = document.querySelector(".update-project");
-// const deleteProjectBtn = document.querySelector(".delete-project");
 
 // Icon for Add Task button in the header
 const headerTask = document.getElementById("add-task");
@@ -75,7 +46,7 @@ taskIcon.classList.add("image-button");
 
 headerTask.appendChild(taskIcon);
 
-// Function for playing fart sound when user interacts with app logo. Click is enabled, but how can we also enable other interactions for accessibility like 'keydown' etc?
+// Secret easter egg. Click is enabled, but how can we also enable other interactions for accessibility like 'keydown', etc.?
 function poopSound() {
   const poopLogo = document.querySelector(".app-logo");
 
@@ -128,7 +99,7 @@ function searchFilter (e) {
     }
   });
 
-  // Attempt to get the search bar to pull up tasks as well. Throws a 'Task not found in the tasks array' error.
+  // Attempt to get the search bar to search by tasks as well. Throws a 'Task not found in the tasks array' error.
 
   // List of tasks
   // let taskList = document.querySelectorAll(".task-wrapper");
@@ -200,7 +171,6 @@ mainArea.addEventListener('click', (e) => {
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
-// TODO: Implement 'onchange' handler using the updatedDetails properties combined with saveToStorage (see example below)
 // TODO: Need to figure out "Add to Project" logic - how are we going to get the code to remove the task from one project and add it to another if the user so chooses?
 krappieUI.editTask.addEventListener('click', (e) => {
   let taskEdit = document.getElementById("task-update-form").checkValidity();
@@ -224,13 +194,6 @@ krappieUI.editTask.addEventListener('click', (e) => {
 
     // Run the updateTask function
     updateTask(taskId, updatedDetails);
-
-    // Example for updating localStorage on any task being updated in the form
-    // updatedDetails.taskTitle.onchange = saveToStorage();
-    // updatedDetails.dueDate.onchange = saveToStorage();
-    // updatedDetails.project.onchange = saveToStorage();
-    // updatedDetails.priority.onchange = saveToStorage();
-    // updatedDetails.description.onchange = saveToStorage();
 
     // Function call that renders the update in the UI
     const taskDetails = document.querySelectorAll(".task-details");
@@ -274,15 +237,11 @@ mainArea.addEventListener('click', (e) => {
       _taskDetails.style.textDecoration = "none";
       checkbox.textContent = " ";
       checkbox.style.cssText = "none";
-    }
-
-    // Commented out this line as it could complicate other functionality that relies on targeting "task-details"
-    // _taskDetails.classList.toggle("task-details-done");  
+    } 
   }
 });
 
 // "Delete Task" button functionality that removes the task both from the nested tasks array inside the myProjects array and the UI
-// TODO: Test out 'localStorage.removeItem()' below
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-task")) {
     const taskItem = e.target.closest(".task-wrapper");
@@ -293,9 +252,6 @@ mainArea.addEventListener('click', (e) => {
     
     // Removes the task from the UI
     taskItem.remove();
-
-    // Removes the task from localStorage? 'taskId' may be the wrong parameter (could also be 'projects' or something else)
-    // localStorage.removeItem(taskId);
   }
 });
 
@@ -310,7 +266,6 @@ krappieUI.confirmProject.addEventListener('click', (e) => {
   if (projectComplete) {
     e.preventDefault();
     appState.storeProject();
-    console.log(appState.myProjects); // Test and make sure project is added to the array after updating localStorage
     krappieUI.renderProject();
     projectForm.reset();
     krappieUI.projectDialog.close();
@@ -341,13 +296,12 @@ mainArea.addEventListener('click', (e) => {
 });
 
 // "Update" button functionality that checks that all required sections were updated by the user, then submits the changes to the main area and closes the Update form
-// TODO: Implement 'onchange' handler using either the projectEdit or newProjectName variable combined with saveToStorage (see example below)
 krappieUI.editProject.addEventListener('click', (e) => {
   let projectEdit = document.getElementById("project-update-form").checkValidity();
   if (projectEdit) {
     e.preventDefault();
 
-    let newProjectName = document.getElementById("project-update-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
+    let newProjectName = document.getElementById("project-update-title").value.trim();
     const projectButtons = document.querySelectorAll(".project-btn");
     const projectHeadings = document.querySelectorAll(".project-name");
 
@@ -368,20 +322,15 @@ krappieUI.editProject.addEventListener('click', (e) => {
       }
     });
 
-    // Example for updating localStorage on any project being updated in the form
-    // newProjectName.onchange = saveToStorage();
-
     projectUpdateForm.reset();
     krappieUI.projectUpdateDialog.close();
   }
 });
 
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
-// TODO: if remove button functionality for existing projects goes here, don't forget to add the myProjects.splice(-1, 1) method to it;
-// TODO: Test out 'localStorage.removeItem()' below
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
-    // e.preventDefault() here potentially to stop form submission to the backend of the browser?
+    // OPTION: e.preventDefault() on this line here potentially to stop form submission to the backend of the browser?
     const targetProject = e.target.closest(".project-wrapper");
     currentProjectName = targetProject.querySelector(".project-name").textContent;
 
@@ -398,9 +347,6 @@ mainArea.addEventListener('click', (e) => {
       });
       
       mainArea.removeChild(targetProject);
-
-    // Removes the project from localStorage? 'targetProject' may be the wrong parameter (could also be 'projects' or something else)
-    // localStorage.removeItem(targetProject);
     }
   }
 });

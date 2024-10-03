@@ -1,10 +1,9 @@
-// TODO: Don't forget to create a container element in the DOM for everything to generate under, then return that container element at the bottom of this file
-
 import { appState } from './projects.js';
-import { tasks, createTask, readTask } from './tasks.js';
 import { getFromStorage } from "./localStorage.js";
 import Update from './img/update.png';
 import Delete from './img/trash-bin.png';
+
+// OPTION: Container element in the DOM for everything to generate under, then return that container element at the bottom of this file
 
 // DOM elements related to adding and updating projects and tasks to the app
 const projectDialog = document.getElementById("project-dialog");
@@ -45,7 +44,7 @@ function renderDefault() {
     projectName.innerText = project.projectTitle;
 
     // Render "Update" icon button to be added to "Project Name" header
-    // TODO: May not allow the Project title itself to be updated by commenting this section out (do this later on after we finish using the default Project for testing)
+    // OPTION: May not allow the Project title itself to be updated by commenting this section out (do this later on after we finish using the default Project for testing)
     const updateBtn = document.createElement("button");
     updateBtn.classList.add("update-project");
 
@@ -150,7 +149,7 @@ function renderPrevSession() {
 
           // Generate "Task" wrapper/container to be added to the main area (under the target Project)
           const taskWrapper = document.createElement("div");
-          taskWrapper.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
+          taskWrapper.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task from the array
           taskWrapper.classList.add("task-wrapper");
 
           // Renders the checkbox elements
@@ -262,9 +261,9 @@ function renderPrevSession() {
 function renderProject() {
   // My version provides immediate feedback ("faster"), is straightforward and avoids any synchronization issues between the form & array, but is less consistent especially if something goes wrong with the array & risks duplication if there is a delay on the array side making the UI less consistent
 
-  let formTitle = document.getElementById("project-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
+  let formTitle = document.getElementById("project-title").value.trim();
 
-  // OPTION: Alternative to rendering the correct project via the array instead of the form value. No conditional (if) required. More robust/consistent & provides a single source of truth, but "slower" & more complex. May need this after all in order to work with localStorage.
+  // OPTION: Alternative to rendering the correct project via the array instead of the form value. No conditional (if) required. More robust/consistent & provides a single source of truth, but "slower" & more complex
 
   // const lastProject = appState.myProjects[projects.length - 1];
 
@@ -378,7 +377,7 @@ function populateProjects() {
 
 // Function for dynamically adding the task to the target project in the <main> area
 function renderTask() {
-  let formTaskTitle = document.getElementById("task-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
+  let formTaskTitle = document.getElementById("task-title").value.trim();
   let formDueDate = document.getElementById("due-date").value;
   let formProject = document.getElementById("add-to-project").value;
   let formPriority = document.getElementById("priority").value;
@@ -408,7 +407,7 @@ function renderTask() {
 
         // Generate "Task" wrapper/container to be added to the main area (under the target Project)
         const taskWrapper = document.createElement("div");
-        taskWrapper.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task that is pulled from the array
+        taskWrapper.setAttribute("data-key", task.id); // Sets a data-attribute equal to the ID of the rendered task from the array
         taskWrapper.classList.add("task-wrapper");
 
         // Renders the checkbox elements

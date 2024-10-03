@@ -1,12 +1,11 @@
-import { createProject, appState } from './projects.js';
-import { saveToStorage, getFromStorage } from "./localStorage.js";
-// import * as krappieUI from './krappieUI.js'
+import { appState } from './projects.js';
+import { saveToStorage } from "./localStorage.js";
 
 // Creates "Task" objects & reports the "Task" added to the project inside the "myProjects" array (does NOT add it to the UI or array; there is a separate function for this)
 function createTask (taskTitle, dueDate, priority, description) {
-  let checked = false; // Checkbox whose default is not checked. Does NOT currently add the "checkbox" itself to the task (see HTML file for details). May need to be a method.
+  let checked = false; // Checkbox whose default is not checked. Does NOT add the "checkbox" itself to the task
 
-  // ID number for each project assigned at "random(?)" used to find the task that the user clicked on to modify or delete. Symbol("UID") could work as well?
+  // ID number for each project assigned at "random(?)" used to find the task that the user clicked on to modify or delete
   let id = Date.now().toString(); 
 
   return { taskTitle, dueDate, priority, description, checked, id };
@@ -30,23 +29,10 @@ function removeTask(taskId) {
       if (taskFilterIndex != -1) {
         project.tasks.splice(taskFilterIndex, 1); 
       }
-
-      // project.tasks.forEach(task => {
-      //   if (task.id === taskFilter.id) { // May have to change 'task(Filter).taskId' to just 'task(Filter).id'
-
-      //     // Uncaught TypeError: task.splice is not a function (when taskFilter.taskId or no ID # at all are the conditions above)
-      //     // This is because the task is an object NOT an array (splice needs to target the tasks array or the myProjects array)
-
-      //     // Error code: STATUS_BREAKPOINT (when trying 'project.tasks.splice(taskFilter, 1)')
-      //     // task.splice(taskFilter, 1); 
-      //   }
-      // })
     }
   }
 
   saveToStorage(appState.myProjects); 
-
-  console.log(appState.myProjects);
 }
 
 // Updates information on an existing task
@@ -73,13 +59,13 @@ function toggleTaskChecked(taskId) {
 
 // Stores the "task" object to the target project (object) inside the 'myProjects' array, then runs the task rendering function to display it on the UI
 function storeTask() {
-  let taskTitle = document.getElementById("task-title").value.trim(); // Remove '.trim()' later on if it causes errors (added to address any whitespace)
+  let taskTitle = document.getElementById("task-title").value.trim();
   let dueDate = document.getElementById("due-date").value;
   let addToProject = document.getElementById("add-to-project").value;
   let priority = document.getElementById("priority").value;
   let description = document.getElementById("description").value;
 
-  if (taskTitle && dueDate && addToProject && priority) { // Do we need !isNaN(dueDate) instead?
+  if (taskTitle && dueDate && addToProject && priority) {
     const newTask = createTask(taskTitle, dueDate, priority, description);
     const targetProject = appState.readProject(addToProject);
 
