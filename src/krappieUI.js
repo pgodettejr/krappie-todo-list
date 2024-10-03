@@ -213,6 +213,17 @@ function renderPrevSession() {
             taskDetails.appendChild(taskDescription);
           }
 
+          // Renders styling representing completed tasks from previous sessions
+          if (task.checked === true) {
+            taskDetails.style.textDecoration = "line-through";
+            taskCheckboxLabel.textContent = '✓';
+            taskCheckboxLabel.style.cssText = "color: white; background: green; font-size: 20px;";
+          } else {
+            taskDetails.style.textDecoration = "none";
+            taskCheckboxLabel.textContent = " ";
+            taskCheckboxLabel.style.cssText = "none";
+          }
+
           // Render "Update" icon button to be added to "Task Name" header
           const updateTaskBtn = document.createElement("button");
           updateTaskBtn.classList.add("update-task");
