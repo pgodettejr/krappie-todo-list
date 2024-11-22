@@ -20,9 +20,6 @@ const editTask = document.getElementById("updateTask");
 
 // Renders the default project named "Today" for daily projects & tasks on page load
 function renderDefault() {
-
-  // TODO: Test the 'for...of' loop change as 'for...in' was reading each project title as just its index # after adding localStorage
-  // OPTION: don't run this function at all & still use 'for...of' ('push' method in index module would have different parameter)
   for (const project of appState.myProjects) {
     // DOM for "My Projects" section of the sidebar as well as the main area
     const projectSidebar = document.querySelector(".menu-2");
@@ -353,7 +350,7 @@ function renderProject() {
 }
 
 // Function for rendering all Project options to the "Add to Project" drop-down menu in the Task form
-// TODO: When I add the update elements straight up, there is no drop down in any form for "Add to Project"
+// TODO: When I add the update elements straight up, there is no drop down in any form for "Add to Project" (linked to "editTask" form button even listener in index.js)
 function populateProjects() {
   const projectSelect = document.getElementById("add-to-project");
   // const updateSelect = document.getElementById("update-add-to-project");

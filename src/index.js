@@ -330,7 +330,8 @@ krappieUI.editProject.addEventListener('click', (e) => {
 // "Delete Project" button functionality that removes the project both from the myProjects array and the UI
 mainArea.addEventListener('click', (e) => {
   if (e.target && e.target.closest(".delete-project")) {
-    // OPTION: e.preventDefault() on this line here potentially to stop form submission to the backend of the browser?
+    e.preventDefault()
+    
     const targetProject = e.target.closest(".project-wrapper");
     currentProjectName = targetProject.querySelector(".project-name").textContent;
 

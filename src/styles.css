@@ -1,16 +1,31 @@
+:root {
+  --light-mode-bg: rgb(240, 240, 240);
+  --light-mode-text: rgb(18, 18, 18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark-mode-bg: rgb(18, 18, 18);
+    --dark-mode-text: rgb(240, 240, 240);
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html { color-scheme: dark }
+/* html { color-scheme: dark } */
 
 body {
   --scrollbar-width: 0px;
   min-height: 100vh;
   font-family: "Futura", Arial, Helvetica, system-ui, sans-serif;
   overflow-x: hidden;
+
+  background-color: var(--light-mode-bg);
+  color: var(--light-mode-text);
 }
 
 .content {
@@ -149,7 +164,7 @@ body {
   }
 
   & button:hover,
-    button:focus {
+    button:focus-visible {
     background-color: rgb(141, 165, 120);
     border: 1px solid rgb(141, 165, 120);
   }
